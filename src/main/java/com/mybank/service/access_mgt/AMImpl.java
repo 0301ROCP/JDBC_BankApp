@@ -14,7 +14,7 @@ public class AMImpl implements AccessManager{
 	}
 
 	@Override
-	public int createNewUser(boolean isCustomer, boolean isEmployee) {
+	public int createNewUser(boolean isCustomer, boolean isEmployee) { //TOASK should this all go in the constructor?
 		
 		Scanner sc = new Scanner(System.in);
 		DirectoryImpl directory = new DirectoryImpl();
