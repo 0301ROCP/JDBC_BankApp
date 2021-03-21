@@ -1,6 +1,7 @@
 package com.mybank.models;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public abstract class Account {
@@ -22,6 +23,13 @@ public abstract class Account {
 	
 	Account(){
 		
+		super();
+		
+		this.accountID = -1;		
+		this.dateCreated = new Date(System.currentTimeMillis());
+		this.approved = false;
+		this.open = false;
+		
 		//Ask if joint
 		//make stack of other users
 		//set dateCreated to now
@@ -42,6 +50,7 @@ public abstract class Account {
 		this.approvedBy = approvedBy;
 		this.open = open;
 	}
+
 
 	
 	

@@ -18,30 +18,51 @@ public class AcctMgrImpl implements AccountManager{
 				
 		Scanner sc = new Scanner(System.in);
 		AccountDBImpl accountDB = new AccountDBImpl();
+		
 		Account a = null;
-		
-		System.out.println("Would you like to make this a joint account? (Y/N)"); //TODO try/catch
-		String isJoint = sc.next();
-		
-		System.out.println("Enter the starting balance you'd like to deposit in this account");
-		String balanceDollars = sc.next();
 		
 		switch(type) { //TODO catch if wrong type
 		case "checking":
-			a = new CheckingAccount(-1,currentUser,isJoint,jointOwners,currentDate,balanceDollars*100,false,null,false); //TODO: should this all live as methods under Account classes? Also how/when to handle the joint account logging in, and the stack of multiple account types, and pass in who the current user is 
+			a = new CheckingAccount(); //TODO: pass in current user
 			break;
 		case "savings":
 			a = new SavingsAccount();
 			break;
 		}
+				
+		
+		System.out.println("Would you like to make this a joint account? (Y/N)"); //TODO try/catch
+		String isJoint = sc.next();
+		
+		switch(isJoint) {
+		case "Y":
+			a.setJointAccount(true);
+			break;
+		case "N":
+			a.setJointAccount(false);
+			break;
+		} //TODO what if neither Y nor N?
+		//TODO if joint, go thru a process to add the other people
+		
+		
+		System.out.println("Enter the starting balance you'd like to deposit in this account");
+		String balanceDollarsStr = sc.next(); //TODO verify format (positive dollars, up to 2 decimals)
+		double balanceDollars = Double.parseDouble(balanceDollarsStr);
+		int balanceCents = (int) balanceDollars * 100;		
+		
+		a.setBalanceCents(balanceCents);
+		
+		
+
+		//user
+		//jointowners
 
 		
-		boolean success = directory.insertUser(u); //TODO what do if it fails?
+		boolean success = accountDB.insertAccount(a); //TODO what do if it fails?
 		
-		User thisUser = directory.selectUserByUsername(userName);
-		int upi = thisUser.getUpi();
-				
-		return upi; //TODO fix this logic
+		//Account thisAccount = accountDB.selectAccountBy??(??); //TODO get the account back somehow
+		//int accountID = thisAccount.getAccountID();				
+		//return accountID; //TODO fix this logic
 		
 		
 		
