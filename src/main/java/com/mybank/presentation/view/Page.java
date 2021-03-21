@@ -16,13 +16,15 @@ public abstract class Page {
 	String name;
 	String header;
 	Menu menu;
+	String instructions;
 	
 	Scanner sc = new Scanner(System.in);
 	
 	
 	//CONSTRUCTOR:
 	public Page() { 
-		this.menu = new Menu("Type the right letter then hit enter!");
+		this.instructions = "Type the right letter then hit enter!";
+		this.menu = new Menu(instructions);
 		
 	}
 
