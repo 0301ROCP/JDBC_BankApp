@@ -15,7 +15,7 @@ create TABLE accounts(
 	primary_owner int references users (upi),
 	joint_account boolean default false,
 	date_created date,
-	balance money default 0,
+	balance_in_cents int default 0,
 	approved boolean default false,
 	approved_by int references users (upi),
 	is_open boolean default false
