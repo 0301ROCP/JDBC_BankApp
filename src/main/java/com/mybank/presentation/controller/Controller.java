@@ -3,9 +3,7 @@ package com.mybank.presentation.controller;
 
 import java.util.HashMap;
 import java.util.Stack;
-
 import com.mybank.presentation.view.*;
-
 
 
 public class Controller {
@@ -13,7 +11,8 @@ public class Controller {
 	HashMap<String, Page> siteMap;	
 	Stack<Page> history;
 	
-	//CONSTRUCTOR
+	//-------CONSTRUCTOR--------
+	
 	public Controller() {
 		
 		Page welcomePage = new Welcome();
@@ -39,6 +38,9 @@ public class Controller {
 		
 	}
 
+	
+	//--------METHODS-------
+	
 	public void start() {		
 		runApp(siteMap.get("Welcome"));		
 	}
@@ -47,10 +49,14 @@ public class Controller {
 		
 		String nextPage = thisPage.run();
 		
+		//nextPage will point to either a page or an action
+		//if a page, go to the page
+		//if an action, call the action from the service layer
+		
 		if(nextPage.equals("Quit")){
 			System.out.println("Application Terminated");
 		}
-		else if(nextPage.equals("Back")){ //TODO make Back work better
+		else if(nextPage.equals("Back")){ //TODO skip login pages on backs
 			Page prevPage = history.pop();
 			String prevName = prevPage.getName();
 			runApp(siteMap.get(prevName));
