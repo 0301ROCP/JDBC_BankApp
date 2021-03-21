@@ -1,7 +1,7 @@
 package com.mybank.models;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 public abstract class Account {
 	
@@ -10,7 +10,7 @@ public abstract class Account {
 	private boolean jointAccount;
 	private ArrayList<User> jointOwners;	
 	private Date dateCreated;	
-	private double balance;
+	private int balanceCents;
 	private boolean approved;
 	private User approvedBy;
 	private boolean open;
@@ -18,7 +18,7 @@ public abstract class Account {
 	//TODO add a log
 	
 	
-	//-----------CONSTRUCTOR----------
+	//-----------CONSTRUCTORS----------
 	
 	Account(){
 		
@@ -28,7 +28,85 @@ public abstract class Account {
 		//Enter starting money
 		
 	}
+
+	public Account(int accountID, User primaryOwner, boolean jointAccount, ArrayList<User> jointOwners,
+			Date dateCreated, int balanceCents, boolean approved, User approvedBy, boolean open) {
+		super();
+		this.accountID = accountID;
+		this.primaryOwner = primaryOwner;
+		this.jointAccount = jointAccount;
+		this.jointOwners = jointOwners;
+		this.dateCreated = dateCreated;
+		this.balanceCents = balanceCents;
+		this.approved = approved;
+		this.approvedBy = approvedBy;
+		this.open = open;
+	}
+
 	
 	
+	//-----------GETTERS & SETTERS----------
+
+
+	public int getAccountID() {
+		return accountID;
+	}
+	
+	public User getPrimaryOwner() {
+		return primaryOwner;
+	}
+
+	public void setPrimaryOwner(User primaryOwner) {
+		this.primaryOwner = primaryOwner;
+	}
+
+	public boolean isJointAccount() {
+		return jointAccount;
+	}
+
+	public void setJointAccount(boolean jointAccount) {
+		this.jointAccount = jointAccount;
+	}
+
+	public ArrayList<User> getJointOwners() {
+		return jointOwners;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public int getBalanceCents() {
+		return balanceCents;
+	}
+
+	public void setBalanceCents(int balanceCents) {
+		this.balanceCents = balanceCents;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public User getApprovedBy() {
+		return approvedBy;
+	}
+
+	public void setApprovedBy(User approvedBy) {
+		this.approvedBy = approvedBy;
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
+	}
+
 
 }
