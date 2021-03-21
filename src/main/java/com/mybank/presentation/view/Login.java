@@ -25,6 +25,9 @@ public class Login extends Page{
 		String userName = sc.next();
 		System.out.println("Please enter your password");
 		String password = sc.next();
+		
+		//TODO verify
+		//
 
 		clear();
 		return "CustomerDB";

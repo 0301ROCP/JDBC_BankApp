@@ -3,6 +3,8 @@ package com.mybank.presentation.controller;
 
 import java.util.HashMap;
 import java.util.Stack;
+
+import com.mybank.models.User;
 import com.mybank.presentation.view.*;
 
 
@@ -10,6 +12,7 @@ public class Controller {
 	
 	HashMap<String, Page> siteMap;	
 	Stack<Page> history;
+	private User currentUser;
 	
 	//-------CONSTRUCTOR--------
 	
@@ -39,6 +42,16 @@ public class Controller {
 	}
 
 	
+	//--------GETTERS & SETTERS------
+	
+	public User getCurrentUser() {
+		return currentUser;
+	}
+	
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+	}
+	
 	//--------METHODS-------
 	
 	public void start() {		
@@ -47,7 +60,7 @@ public class Controller {
 	
 	public void runApp(Page thisPage) {
 		
-		String nextPage = thisPage.run();
+		String nextPage = thisPage.run(); //print this page and tell me what page to go to next
 		
 		//nextPage will point to either a page or an action
 		//if a page, go to the page
