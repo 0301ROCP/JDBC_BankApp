@@ -24,3 +24,4 @@ create TABLE accounts(
 --TODO add check balance constraint, figure out foreign keys
 
 drop table accounts;
+
