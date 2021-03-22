@@ -14,7 +14,7 @@ public class AMImpl implements AccessManager{
 	}
 
 	@Override
-	public int createNewUser(boolean isCustomer, boolean isEmployee) { //TOASK should this all go in the constructor?
+	public User createNewUser(boolean isCustomer, boolean isEmployee) { //TOASK should this all go in the constructor?
 		
 		Scanner sc = new Scanner(System.in);
 		DirectoryImpl directory = new DirectoryImpl();
@@ -39,9 +39,8 @@ public class AMImpl implements AccessManager{
 		boolean success = directory.insertUser(u); //TODO what do if it fails?
 		
 		User thisUser = directory.selectUserByUsername(userName);
-		int upi = thisUser.getUpi();
 				
-		return upi; //TODO fix this logic
+		return thisUser; //TODO fix this logic
 
 	}
 
