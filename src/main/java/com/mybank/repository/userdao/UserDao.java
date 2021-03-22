@@ -1,10 +1,10 @@
-package com.mybank.repository.directory;
+package com.mybank.repository.userdao;
 
 import java.util.List;
 
 import com.mybank.models.User;
 
-public interface DirectoryDao {
+public interface UserDao {
 
 	//CREATE
 	boolean insertUser(User u);

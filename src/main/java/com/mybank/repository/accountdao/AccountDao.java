@@ -1,11 +1,11 @@
-package com.mybank.repository.accountDB;
+package com.mybank.repository.accountdao;
 
 import java.util.List;
 
 import com.mybank.models.Account;
 import com.mybank.models.User;
 
-public interface AccountDBDao {
+public interface AccountDao {
 
 	//CREATE
 	boolean insertAccount(Account a);

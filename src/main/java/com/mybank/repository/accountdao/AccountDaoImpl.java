@@ -1,4 +1,4 @@
-package com.mybank.repository.accountDB;
+package com.mybank.repository.accountdao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import com.mybank.models.Account;
 import com.mybank.models.User;
 import com.mybank.util.ConnectionFactory;
 
-public class AccountDBDaoImpl implements AccountDBDao{
+public class AccountDaoImpl implements AccountDao{
 
 	//-----------------CREATE METHODS------------
 	

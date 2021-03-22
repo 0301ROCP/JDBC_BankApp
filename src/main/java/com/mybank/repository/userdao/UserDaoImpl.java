@@ -1,22 +1,22 @@
-package com.mybank.repository.directory;
+package com.mybank.repository.userdao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mybank.models.User;
 import com.mybank.util.ConnectionFactory;
 
-public class DirectoryDaoImpl implements DirectoryDao {
+public class UserDaoImpl implements UserDao {
 
 //	private List<User> allUsers; //TESTING
 	
 	//----------------CONSTRUCTORS-----------
 	
-	public DirectoryDaoImpl() {
+	public UserDaoImpl() {
 		
 	}
 	
@@ -28,7 +28,7 @@ public class DirectoryDaoImpl implements DirectoryDao {
 	//----------------CREATE----------------
 	
 	@Override
-	public boolean insertUser(User u) {
+	public boolean insertUser(User u) { //WORKING
 		boolean success = false;
 		
 		String sqlStatement = "INSERT into users (username, first_name, last_name, is_customer, is_employee, user_password) values "
@@ -59,7 +59,7 @@ public class DirectoryDaoImpl implements DirectoryDao {
 	//----------------READ----------------
 	
 	@Override
-	public User selectUserByID(int id) {
+	public User selectUserByID(int id) { //WORKING
 		User thisUser = null;
 		String sqlStatement = "SELECT * FROM users WHERE upi = ?";
 		
@@ -91,7 +91,7 @@ public class DirectoryDaoImpl implements DirectoryDao {
 	}
 	
 	@Override
-	public User selectUserByUsername(String username) {
+	public User selectUserByUsername(String username) { //WORKING
 		
 		User thisUser = null;
 		String sqlStatement = "SELECT * FROM users WHERE username = ?";
@@ -124,15 +124,15 @@ public class DirectoryDaoImpl implements DirectoryDao {
 	}
 
 	@Override
-	public List<User> selectUserByName(String firstName, String lastName) {
+	public List<User> selectUserByName(String firstName, String lastName) { //WORKING
 		
-		List<User> theseUsers = null;
+		List<User> theseUsers = new ArrayList<User>();
 		
-		String sqlString = "SELECT * FROM users WHERE first_name = '?' AND last_name = '?'";
+		String sql = "SELECT * FROM users WHERE first_name = ? AND last_name = ?";
 		
 		try(Connection conn = ConnectionFactory.getConnection()){
 			
-			PreparedStatement ps = conn.prepareStatement(sqlString);
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, firstName);
 			ps.setString(2, lastName);
 			
@@ -161,9 +161,9 @@ public class DirectoryDaoImpl implements DirectoryDao {
 	
 
 	@Override
-	public List<User> selectAllUsers() {
+	public List<User> selectAllUsers() { //WORKING
 		
-		List<User> allUsers = null;
+		List<User> allUsers = new ArrayList<User>();
 		
 		String sqlString = "SELECT * FROM users";
 		
@@ -197,9 +197,25 @@ public class DirectoryDaoImpl implements DirectoryDao {
 	//----------------UPDATE----------------
 
 	@Override
-	public boolean updateUserPassword(User u, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateUserPassword(User u, String password) { //WORKING
+		
+		boolean success = false;
+		String sql = "UPDATE users SET user_password = ? WHERE upi = ?";
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, password);
+			ps.setInt(2, u.getUpi());
+			
+			ps.execute();
+			success = true;
+			
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 
 	@Override
@@ -209,9 +225,24 @@ public class DirectoryDaoImpl implements DirectoryDao {
 	}
 
 	@Override
-	public boolean updateUserCustStatus(User u, boolean custStatus) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateUserCustStatus(User u, boolean custStatus) { //WORKING
+		boolean success = false;
+		String sql = "UPDATE users SET is_customer = ? WHERE upi = ?";
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setBoolean(1, custStatus);
+			ps.setInt(2, u.getUpi());
+			
+			ps.execute();
+			success = true;
+			
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 	
 	

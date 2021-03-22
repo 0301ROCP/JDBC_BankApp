@@ -3,32 +3,33 @@ package com.mybank.service.access_mgt;
 import java.util.Scanner;
 
 import com.mybank.models.User;
-import com.mybank.repository.directory.DirectoryDao;
-import com.mybank.repository.directory.DirectoryDaoImpl;
+import com.mybank.repository.userdao.UserDao;
+import com.mybank.repository.userdao.UserDaoImpl;
 
 public class AccessMgrImpl implements AccessManager{
 
-	private DirectoryDao directory;
+	private UserDao userDao; //TOASK why do I need this?
 	
 	//----------CONSTRUCTOR----------
 	
-	public AccessMgrImpl(DirectoryDao directory) { //TOASK why do I need this?
-		this.directory = directory;
+	public AccessMgrImpl(UserDao userDao) { //TOASK why do I need this? Do I need this?		
+		super();
+		this.userDao = userDao;
 	}
-	
+
 	
 	//-------------METHODS----------
 	@Override
-	public boolean verifyLogin(int upi, String password) {
+	public boolean verifyLogin(int upi, String password) { //STUB
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public User createNewUser(boolean isCustomer, boolean isEmployee) { //TOASK should this all go in the constructor?
+	public User createNewUser(boolean isCustomer, boolean isEmployee) { //WORKING
 		
 		Scanner sc = new Scanner(System.in);
-		DirectoryDaoImpl directory = new DirectoryDaoImpl();
+		//UserDaoImpl directory = new UserDaoImpl(); //TODO TOASK shouldn't make a new directory every time, right?
 		
 		System.out.println("Enter your first name:");
 		String firstName = sc.next();
@@ -47,11 +48,11 @@ public class AccessMgrImpl implements AccessManager{
 		
 		User u = new User(-1, userName, firstName, lastName, isCustomer, isEmployee, password);
 		
-		boolean success = directory.insertUser(u); //TODO what do if it fails?
+		boolean success = userDao.insertUser(u); //TODO what do if it fails?
 		
-		User thisUser = directory.selectUserByUsername(userName);
+		User thisUser = userDao.selectUserByUsername(userName);
 				
-		return thisUser; //TODO fix this logic
+		return thisUser; 
 
 	}
 
