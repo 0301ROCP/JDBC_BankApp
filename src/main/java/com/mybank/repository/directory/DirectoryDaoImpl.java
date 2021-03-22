@@ -12,6 +12,19 @@ import com.mybank.util.ConnectionFactory;
 
 public class DirectoryDaoImpl implements DirectoryDao {
 
+//	private List<User> allUsers; //TESTING
+	
+	//----------------CONSTRUCTORS-----------
+	
+	public DirectoryDaoImpl() {
+		
+	}
+	
+//	public DirectoryDaoImpl(List<User> dummyUsers) { //TOASK is this how we should do this?
+//		this.allUsers = dummyUsers;
+//	}
+	
+	
 	//----------------CREATE----------------
 	
 	@Override
@@ -47,7 +60,34 @@ public class DirectoryDaoImpl implements DirectoryDao {
 	
 	@Override
 	public User selectUserByID(int id) {
-		return null;
+		User thisUser = null;
+		String sqlStatement = "SELECT * FROM users WHERE upi = ?";
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement pStatement = conn.prepareStatement(sqlStatement);
+			pStatement.setInt(1, id);
+			
+			ResultSet result = pStatement.executeQuery();
+			
+			while(result.next()) {
+				thisUser = new User(
+						result.getInt("upi"),
+						result.getString("username"),
+						result.getString("first_name"),
+						result.getString("last_name"),
+						result.getBoolean("is_customer"),
+						result.getBoolean("is_employee"),
+						result.getString("user_password"));
+			}
+		}
+		catch(SQLException e) {
+			//TODO fix catch block
+			System.out.println("repository.DirectoryImpl.java Something went wrong selecting this user!");
+			e.printStackTrace();
+		}
+		
+		return thisUser;
 	}
 	
 	@Override
@@ -84,15 +124,73 @@ public class DirectoryDaoImpl implements DirectoryDao {
 	}
 
 	@Override
-	public User selectUserByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> selectUserByName(String firstName, String lastName) {
+		
+		List<User> theseUsers = null;
+		
+		String sqlString = "SELECT * FROM users WHERE first_name = '?' AND last_name = '?'";
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(sqlString);
+			ps.setString(1, firstName);
+			ps.setString(2, lastName);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				theseUsers.add(new User(
+						rs.getInt("upi"),
+						rs.getString("username"),
+						rs.getString("first_name"),
+						rs.getString("last_name"),
+						rs.getBoolean("is_customer"),
+						rs.getBoolean("is_employee"),
+						rs.getString("user_password")));
+			}
+			
+		} 
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return theseUsers;
+		
 	}
+	
 
 	@Override
 	public List<User> selectAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<User> allUsers = null;
+		
+		String sqlString = "SELECT * FROM users";
+		
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(sqlString);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				allUsers.add(new User(
+						rs.getInt("upi"),
+						rs.getString("username"),
+						rs.getString("first_name"),
+						rs.getString("last_name"),
+						rs.getBoolean("is_customer"),
+						rs.getBoolean("is_employee"),
+						rs.getString("user_password")));
+			}
+			
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return allUsers;
 	}
 	
 	

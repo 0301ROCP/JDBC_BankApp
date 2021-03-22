@@ -12,7 +12,7 @@ public interface DirectoryDao {
 	//READ
 	public User selectUserByID(int ID);
 	public User selectUserByUsername(String username);
-	public User selectUserByName(String name);
+	public List<User> selectUserByName(String firstName, String lastName);
 	public List<User> selectAllUsers();	
 	
 	//UPDATE
