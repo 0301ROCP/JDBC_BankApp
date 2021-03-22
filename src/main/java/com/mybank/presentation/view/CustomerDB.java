@@ -1,5 +1,7 @@
 package com.mybank.presentation.view;
 
+import com.mybank.presentation.models.Button;
+
 public class CustomerDB extends Page{
 	
 	public CustomerDB() {
@@ -8,8 +10,9 @@ public class CustomerDB extends Page{
 		this.name = "CustomerDB";
 		this.header = "Welcome back!"; //add person's name
 		
-		this.menu.addButton("O", "Log Out", "Logout");
-		this.menu.addUtils();
+//		this.menu.addButton("O", "Log Out", "Logout", Button.makeActionQueue(
+//				???));
+		//this.menu.addUtils();
 	
 	}
 }

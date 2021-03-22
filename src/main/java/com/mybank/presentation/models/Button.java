@@ -1,20 +1,29 @@
 package com.mybank.presentation.models;
 
-import com.mybank.presentation.view.Page;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+import com.mybank.presentation.controller.Action;
 
 public class Button {
 	
 	private String keyStroke;
 	private String name;
-	private String target;
+	private String target; //TODO can probably delete this
+	private Queue<Action> actionQueue;
 
-
+	//-----------CONSTRUCTOR-----------
 	
-	public Button(String keyStroke, String name, String target){
+	public Button(String keyStroke, String name, String target, Queue<Action> actionQueue){
 		this.keyStroke = keyStroke;
 		this.name = name;
 		this.target = target;
+		this.actionQueue = actionQueue;
 	}
+	
+	
+	//-----------GETTERS------------
 		
 	public String getKey() {
 		return keyStroke;
@@ -28,8 +37,26 @@ public class Button {
 		return target;
 	}
 	
+	public Queue<Action> getActionQueue() {
+		return actionQueue;
+	}
+	
+	public void setActionQueue() {
+		
+	}
+	
 
-
+	//-----------METHODS------------
+	
+	public static Queue<Action> makeActionQueue(Action...a) { //TODO where should this live?
+		Queue<Action> thisQueue = new LinkedList<Action>();
+		
+		for(Action action: a) {
+			thisQueue.add(action);
+		}
+		
+		return thisQueue;
+	}
 	
 	public void printDashes(String l) {
 		StringBuilder line = new StringBuilder(" ");
@@ -39,8 +66,7 @@ public class Button {
 			line.append(l);
 		}
 		
-		System.out.print(line);
-		
+		System.out.print(line);		
 	}
 	
 	public void printMiddle() {
@@ -49,12 +75,5 @@ public class Button {
 		
 		System.out.print(line2);
 	}
-	
-	
-	
-
-//	public ?? getTarget(){
-//		return target;
-//	}
 	
 }

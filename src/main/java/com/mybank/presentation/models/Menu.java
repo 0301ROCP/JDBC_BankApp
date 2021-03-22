@@ -2,7 +2,9 @@ package com.mybank.presentation.models;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Queue;
 
+import com.mybank.presentation.controller.Action;
 import com.mybank.presentation.view.Page;
 
 public class Menu {
@@ -10,6 +12,7 @@ public class Menu {
 	private LinkedHashMap <String, Button> buttons;
 	private String instructions;
 	
+	//----------CONSTRUCTOR------------
 	
 	public Menu(String instructions) {
 		this.buttons = new LinkedHashMap<String,Button>();
@@ -18,6 +21,7 @@ public class Menu {
 	}
 
 
+	//----------METHODS-----------
 	
 	public void print() {
 		
@@ -46,20 +50,20 @@ public class Menu {
 		
 	}
 	
-	public void addButton(String keyStroke, String name, String target) {
+	public void addButton(String keyStroke, String name, String target, Queue<Action> actions) {
 
-		Button thisButton = new Button(keyStroke, name, target);
+		Button thisButton = new Button(keyStroke, name, target, actions);
 		buttons.put(keyStroke,thisButton);
 	}
 	
-	public void addUtils() {
-		Button quitButton = new Button("Q","Quit","Quit");
-		Button backButton = new Button("B","Back","Back");
-		
-		buttons.put(quitButton.getKey(), quitButton);
-		buttons.put(backButton.getKey(), backButton);
-		
-	}
+//	public void addUtils() {
+//		Button quitButton = new Button("Q","Quit","Quit");
+//		Button backButton = new Button("B","Back","Back");
+//		
+//		buttons.put(quitButton.getKey(), quitButton);
+//		buttons.put(backButton.getKey(), backButton);
+//		
+//	}
 	
 	public LinkedHashMap getButtons() {
 		return buttons;

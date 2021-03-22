@@ -2,8 +2,10 @@ package com.mybank.presentation.view;
 
 
 import java.util.LinkedHashMap;
+import java.util.Queue;
 import java.util.Scanner;
 
+import com.mybank.presentation.controller.Action;
 import com.mybank.presentation.models.Button;
 import com.mybank.presentation.models.Menu;
 
@@ -17,8 +19,9 @@ public abstract class Page {
 	String header;
 	Menu menu;
 	String instructions;
+	Queue<Action> actionQueue;	
 	
-	Scanner sc = new Scanner(System.in);
+	protected Scanner sc = new Scanner(System.in);
 	
 	
 	//CONSTRUCTOR:
@@ -29,12 +32,13 @@ public abstract class Page {
 	}
 
 	
-	//GETTERS AND SETTERS:
+	//--------GETTERS AND SETTERS---------
 	public String getName() {
 		return this.name;
 	}
 	
-	//METHODS:
+	
+	//--------METHODS---------
 	public void print() {
 		System.out.println(header);
 		menu.print();		
@@ -43,6 +47,22 @@ public abstract class Page {
 	public String getInput() {
 		String input = sc.nextLine();
 		return input;
+	}
+	
+	public String getEnteredKey() {
+		String key = getInput(); //TODO ADD TRY CATCH INPUT
+		//System.out.println("You selected: "+selection.getName()+".  "); //TODO make this work. Also is name the right field here? Will it always match what the button says?
+		return key;		
+	}
+	
+	public Queue<Action> getActionsFromButton(String enteredKey) {
+		LinkedHashMap<String,Button> theseButtons = menu.getButtons(); //returns all the buttons in this menu
+		Button selectedButton = theseButtons.get(enteredKey); //get button based on user-entered key
+		Queue<Action> resultingActions = selectedButton.getActionQueue(); //get the action that corresponds to clicking this button
+		
+		//String pageTarget = selectedButton.getTarget(); //get target page of selected button
+		
+		return resultingActions;	
 	}
 	
 	public static void clear() {
@@ -61,19 +81,20 @@ public abstract class Page {
 	}
 	
 	
-	public String run() { 
-		print(); //print this page
+	
+	
+	
+	public Queue<Action> run() { //TODO make this more specific than object
+		print(); //print this page //TODO make print more robust? Have it give feedback on what the page needs in terms of actions
 		
-		String result = getInput(); //TODO ADD TRY CATCH
+		Queue<Action> actionSubqueue = getActionsFromButton(getEnteredKey()); //get a user-entered key, then return the action of the corresponding button
 		
-		LinkedHashMap<String,Button> theseButtons = menu.getButtons();
-		Button selection = theseButtons.get(result);
+//		while(!actionSubqueue.isEmpty()) {
+//			actionQueue.add(actionSubqueue.poll());
+//		}
 		
-		System.out.println("You selected: "+selection.getName()+".  ");
 		clear(); //clear the console
-		return selection.getTarget();
+		return actionSubqueue; //return the target of the button
 	}
-
-
 
 }
