@@ -80,5 +80,16 @@ public class User {
 	}
 
 
+	//-----------TOSTRING----------
+	
+	@Override
+	public String toString() {
+		return "User [upi=" + upi + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", isCustomer=" + isCustomer + ", isEmployee=" + isEmployee + ", password=" + password + "]";
+	}
+
+
+	
+
 
 }
