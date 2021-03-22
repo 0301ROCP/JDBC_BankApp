@@ -3,10 +3,21 @@ package com.mybank.service.access_mgt;
 import java.util.Scanner;
 
 import com.mybank.models.User;
+import com.mybank.repository.directory.DirectoryDao;
 import com.mybank.repository.directory.DirectoryDaoImpl;
 
 public class AccessMgrImpl implements AccessManager{
 
+	private DirectoryDao directory;
+	
+	//----------CONSTRUCTOR----------
+	
+	public AccessMgrImpl(DirectoryDao directory) { //TOASK why do I need this?
+		this.directory = directory;
+	}
+	
+	
+	//-------------METHODS----------
 	@Override
 	public boolean verifyLogin(int upi, String password) {
 		// TODO Auto-generated method stub
