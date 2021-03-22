@@ -1,4 +1,4 @@
-package com.mybank.repository.accounts;
+package com.mybank.repository.accountDB;
 
 import java.util.List;
 

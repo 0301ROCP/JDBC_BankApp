@@ -1,4 +1,4 @@
-package com.mybank.repository;
+package com.mybank.repository.directory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.List;
 import com.mybank.models.User;
 import com.mybank.util.ConnectionFactory;
 
-public class DirectoryImpl implements DirectoryDao {
+public class DirectoryDaoImpl implements DirectoryDao {
 
 	//----------------CREATE----------------
 	

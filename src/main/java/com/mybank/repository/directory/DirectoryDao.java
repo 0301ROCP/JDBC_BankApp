@@ -1,4 +1,4 @@
-package com.mybank.repository;
+package com.mybank.repository.directory;
 
 import java.util.List;
 

@@ -8,8 +8,8 @@ import com.mybank.models.Account;
 import com.mybank.models.CheckingAccount;
 import com.mybank.models.SavingsAccount;
 import com.mybank.models.User;
-import com.mybank.repository.DirectoryImpl;
-import com.mybank.repository.accounts.AccountDBImpl;
+import com.mybank.repository.accountDB.AccountDBDaoImpl;
+import com.mybank.repository.directory.DirectoryDaoImpl;
 
 public class AcctMgrImpl implements AccountManager{
 
@@ -17,7 +17,7 @@ public class AcctMgrImpl implements AccountManager{
 	public Account openAccount(String type) {
 				
 		Scanner sc = new Scanner(System.in);
-		AccountDBImpl accountDB = new AccountDBImpl();
+		AccountDBDaoImpl accountDB = new AccountDBDaoImpl();
 		
 		Account a = null;
 		

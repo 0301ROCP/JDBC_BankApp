@@ -21,6 +21,12 @@ public class Menu {
 	}
 
 
+	//----------GETTERS-----------
+	
+	public LinkedHashMap getButtons() {
+		return buttons;
+	}
+	
 	//----------METHODS-----------
 	
 	public void print() {
@@ -65,9 +71,7 @@ public class Menu {
 //		
 //	}
 	
-	public LinkedHashMap getButtons() {
-		return buttons;
-	}
+	
 	
 
 

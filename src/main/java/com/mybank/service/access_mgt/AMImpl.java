@@ -3,7 +3,7 @@ package com.mybank.service.access_mgt;
 import java.util.Scanner;
 
 import com.mybank.models.User;
-import com.mybank.repository.DirectoryImpl;
+import com.mybank.repository.directory.DirectoryDaoImpl;
 
 public class AMImpl implements AccessManager{
 
@@ -17,7 +17,7 @@ public class AMImpl implements AccessManager{
 	public User createNewUser(boolean isCustomer, boolean isEmployee) { //TOASK should this all go in the constructor?
 		
 		Scanner sc = new Scanner(System.in);
-		DirectoryImpl directory = new DirectoryImpl();
+		DirectoryDaoImpl directory = new DirectoryDaoImpl();
 		
 		System.out.println("Enter your first name:");
 		String firstName = sc.next();
