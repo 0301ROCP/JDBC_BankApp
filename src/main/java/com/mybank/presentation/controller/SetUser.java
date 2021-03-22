@@ -8,6 +8,9 @@ public class SetUser extends Action {
 	
 	
 	//-----------CONSTRUCTOR-----------
+	public SetUser() {
+		super(ActionCategory.SETUSER);
+	}
 	
 	public SetUser(User user) {
 		super(ActionCategory.SETUSER);

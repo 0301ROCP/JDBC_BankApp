@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 import com.mybank.presentation.models.Button;
-import com.mybank.presentation.models.Menu;
 
 public class Action {
 	
@@ -25,6 +24,15 @@ public class Action {
 	
 	public ActionCategory getCategory() {
 		return this.category;
+	}
+
+
+	
+	
+	//-----------TOSTRING---------
+	@Override
+	public String toString() {
+		return "Action [category=" + category + "]";
 	}
 	
 	

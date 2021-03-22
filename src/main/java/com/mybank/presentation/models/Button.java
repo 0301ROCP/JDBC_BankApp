@@ -10,15 +10,13 @@ public class Button {
 	
 	private String keyStroke;
 	private String name;
-	private String target; //TODO can probably delete this
 	private Queue<Action> actionQueue;
 
 	//-----------CONSTRUCTOR-----------
 	
-	public Button(String keyStroke, String name, String target, Queue<Action> actionQueue){
+	public Button(String keyStroke, String name, Queue<Action> actionQueue){
 		this.keyStroke = keyStroke;
 		this.name = name;
-		this.target = target;
 		this.actionQueue = actionQueue;
 	}
 	
@@ -31,10 +29,6 @@ public class Button {
 	
 	public String getName() {
 		return name;
-	}
-	
-	public String getTarget() {
-		return target;
 	}
 	
 	public Queue<Action> getActionQueue() {
@@ -58,7 +52,7 @@ public class Button {
 		return thisQueue;
 	}
 	
-	public void printDashes(String l) {
+	public void printDashes(String l) { //WORKING
 		StringBuilder line = new StringBuilder(" ");
 		int buttonLength = name.length()+4;
 		
@@ -69,7 +63,7 @@ public class Button {
 		System.out.print(line);		
 	}
 	
-	public void printMiddle() {
+	public void printMiddle() { //WORKING
 		StringBuilder line2 = new StringBuilder();		
 		line2.append("| " + name + " (" + keyStroke + ") |");
 		
