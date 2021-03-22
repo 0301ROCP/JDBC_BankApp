@@ -11,7 +11,7 @@ import com.mybank.presentation.controller.Navigate;
 import com.mybank.presentation.controller.SetUser;
 import com.mybank.presentation.models.Button;
 import com.mybank.presentation.models.Menu;
-import com.mybank.service.access_mgt.AMImpl;
+import com.mybank.service.access_mgt.AccessMgrImpl;
 import com.mybank.service.account_mgt.AcctMgrImpl;
 
 
@@ -46,7 +46,7 @@ public class Signup extends Page{
 		print(); //print this page
 		
 		//AcctMgrImpl accountMgr = new AcctMgrImpl();
-		AMImpl accessMgr = new AMImpl();
+		AccessMgrImpl accessMgr = new AccessMgrImpl();
 		
 		//Ask what kind(s) of accounts they want
 		//Buttons: checking, savings, both, back, quit

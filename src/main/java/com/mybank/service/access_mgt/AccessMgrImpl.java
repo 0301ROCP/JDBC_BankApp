@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.mybank.models.User;
 import com.mybank.repository.directory.DirectoryDaoImpl;
 
-public class AMImpl implements AccessManager{
+public class AccessMgrImpl implements AccessManager{
 
 	@Override
 	public boolean verifyLogin(int upi, String password) {

@@ -9,7 +9,7 @@ import com.mybank.presentation.controller.Action;
 import com.mybank.presentation.controller.Navigate;
 import com.mybank.presentation.controller.SetUser;
 import com.mybank.presentation.models.Menu;
-import com.mybank.service.access_mgt.AMImpl;
+import com.mybank.service.access_mgt.AccessMgrImpl;
 
 public class Login extends Page{
 	
@@ -39,7 +39,7 @@ public class Login extends Page{
 	@Override
 	public Queue<Action> run() {
 		Scanner sc = new Scanner(System.in);
-		AMImpl accessMgr = new AMImpl();
+		AccessMgrImpl accessMgr = new AccessMgrImpl();
 
 		print();
 		
