@@ -14,12 +14,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mybank.models.User;
-import com.mybank.repository.directory.DirectoryDao;
-import com.mybank.repository.directory.DirectoryDaoImpl;
+import com.mybank.repository.userdao.UserDao;
+import com.mybank.repository.userdao.UserDaoImpl;
 
-public class DirectoryDaoTests {
+public class UserDaoTests {
 	
-	static DirectoryDao directory;
+	static UserDao directory;
 	static List<User> users = new ArrayList<User>();
 	
 	
@@ -38,7 +38,7 @@ public class DirectoryDaoTests {
 		users.add(employee1);
 		users.add(employee2);
 		
-		directory = new DirectoryDaoImpl();
+		directory = new UserDaoImpl();
 		
 	}
 	
@@ -53,7 +53,7 @@ public class DirectoryDaoTests {
 	
 	@Before
 	public void resetDirectory() {
-		directory = new DirectoryDaoImpl();
+		directory = new UserDaoImpl();
 	}
 	
 	@Test

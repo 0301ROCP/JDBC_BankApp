@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import com.mybank.models.User;
-import com.mybank.repository.directory.DirectoryDao;
+import com.mybank.repository.userdao.UserDao;
 import com.mybank.service.access_mgt.AccessManager;
 import com.mybank.service.access_mgt.AccessMgrImpl;
 
@@ -19,13 +19,13 @@ public class AccessManagerTests {
 	
 	
 	@Mock
-	static DirectoryDao directory;
+	static UserDao directory;
 	
 	
 	@BeforeClass
 	public static void setup() {
 		
-		directory = Mockito.mock(DirectoryDao.class);
+		directory = Mockito.mock(UserDao.class);
 		accessMgr = new AccessMgrImpl(directory);
 		
 		
