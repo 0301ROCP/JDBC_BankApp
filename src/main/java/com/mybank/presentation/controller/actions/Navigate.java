@@ -19,5 +19,14 @@ public class Navigate extends Action{
 	public String getTarget() {
 		return target;
 	}
+
+
 	
+	
+	
+	//-----------TOSTRING-------------
+	@Override
+	public String toString() {
+		return "Navigate [target=" + target + "]";
+	}
 }

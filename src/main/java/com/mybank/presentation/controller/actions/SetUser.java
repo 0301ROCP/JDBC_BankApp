@@ -33,4 +33,13 @@ public class SetUser extends Action {
 
 	
 
+	
+	//--------------TOSTRING---------------
+	
+	@Override
+	public String toString() {
+		return "SetUser [user=" + user + "]";
+	}
+	
+
 }

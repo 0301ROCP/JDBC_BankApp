@@ -67,6 +67,7 @@ public class Question {
 		
 		if(validator != null) {
 			validator.setUserAnswer(userAnswer);
+			validator.setCurrentList(formList);
 			valid = validator.run();
 		}
 		else {

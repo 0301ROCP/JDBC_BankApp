@@ -84,19 +84,20 @@ public class FormBlock extends InteractionBlock{
 		
 		User resultUser = new User(); //we only need this if returning a setuser action
 		
+
 		switch (table){ //TODO hardcoded!
 		case "users":
 			AccessMgrImpl accessMgr = new AccessMgrImpl(new UserDaoImpl());
 			
 			resultUser = accessMgr.enterForm(formAnswers,crudAction);
 		}
+		
 		//TODO other cases
 		
 		
 		if(returnUser) {
 			actionQueue.add(new SetUser(resultUser));
 		}
-		//add action: setuser
 		
 		
 		

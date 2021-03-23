@@ -57,7 +57,32 @@ public class AccessMgrImpl implements AccessManager{
 
 	}
 
-
+	public boolean verifyMatch(String value1, String column1, String value2, String column2) {
+		
+		boolean match = false;
+		
+		User user1 = new User();
+			
+		int size = userDao.selectUsersByAttribute(value1, column1).size();
+		
+		if(size == 1) {
+			user1 = userDao.selectUsersByAttribute(value1, column1).get(0);	
+			String result = userDao.selectStringValueByAttributeByID(user1.getUpi(),column2);
+			
+			if(result.equals(value2)) {
+				match = true;
+			}
+			
+		}
+		else {
+			System.out.println("AccessMgrImpl: This doesn't work"); //TODO
+		}
+		
+		
+			
+		return match;
+		
+	}
 	
 	@Override
 	public boolean verifyExists(String value, String column) {
@@ -125,7 +150,11 @@ public class AccessMgrImpl implements AccessManager{
 			toReturn = userDao.selectUserByUsername(formAnswers.get("username"));
 			break;
 
+		
+		case "read":
+			toReturn = userDao.selectUserByUsername(formAnswers.get("username"));
 		}
+		
 		
 		return toReturn;
 			

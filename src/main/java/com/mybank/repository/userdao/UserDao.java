@@ -15,6 +15,7 @@ public interface UserDao {
 	public List<User> selectUserByName(String firstName, String lastName);
 	public List<User> selectAllUsers();	
 	public List<User> selectUsersByAttribute(String attribute, String column);
+	public String selectStringValueByAttributeByID(int id, String column);
 	
 	//UPDATE
 	boolean updateUserPassword(User u, String password);

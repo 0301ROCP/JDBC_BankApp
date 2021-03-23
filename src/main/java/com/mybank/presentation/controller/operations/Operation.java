@@ -5,11 +5,12 @@ import java.util.HashMap;
 
 public abstract class Operation {
 	
-	public enum OperationCategory {VERIFY_EXISTS,CONFIRM,ADD_TO_LIST};
-	public OperationCategory category;
+	public enum OperationCategory {VERIFY_EXISTS,CONFIRM,ADD_TO_LIST, VERIFY_MATCH};
 	
+	public OperationCategory category;
 	String userAnswer;
 	HashMap<String,String> toPersist;
+	HashMap<String,String> currentList;
 	
 	
 	//--------CONSTRUCTOR-----------
@@ -34,10 +35,14 @@ public abstract class Operation {
 		return toPersist;
 	}
 
+	public void setCurrentList(HashMap<String,String> currentList) {
+		this.currentList = currentList;
+	}
 
 	//---------METHODS----------
 	
 	public boolean run(){
+		System.out.println("Default method! You shouldn't be here");
 		return false;
 	}
 }

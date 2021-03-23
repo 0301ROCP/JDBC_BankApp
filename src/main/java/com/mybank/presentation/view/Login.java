@@ -8,6 +8,9 @@ import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.Navigate;
 import com.mybank.presentation.controller.actions.SetUser;
+import com.mybank.presentation.controller.operations.AddToList;
+import com.mybank.presentation.controller.operations.VerifyExists;
+import com.mybank.presentation.controller.operations.VerifyMatch;
 import com.mybank.presentation.models.FormBlock;
 import com.mybank.presentation.models.Question;
 import com.mybank.service.access_mgt.AccessMgrImpl;
@@ -22,6 +25,22 @@ public class Login extends Page{
 		this.name = "Login";
 		this.header = "Login Page";
 		
+		this.interactionBlock = new FormBlock("users","read",true);
+		
+		((FormBlock) this.interactionBlock).addQuestion(new Question(
+				"Please enter your username:",
+				"That username is not in our system. Please enter your username:",
+				new VerifyExists("users","username",false), 
+				new AddToList("username") //add password to form info
+				));
+		
+		((FormBlock) this.interactionBlock).addQuestion(new Question(
+				"Please enter your password:",
+				"That password is incorrect. Pleaes enter your password:",
+				new VerifyMatch("users","user_password","username"),  //TODO
+				new AddToList("user_password") //add password to form info
+				));
+		
 		//this.interactionBlock = new FormBlock();
 		
 //		((FormBlock) this.interactionBlock).addQuestion(new Question("Enter your username:"));
@@ -34,6 +53,20 @@ public class Login extends Page{
 	}
 
 	//---------METHODS-----------
+	
+	@Override
+	public Queue<Action> run(){
+		print();		
+			
+		Queue<Action> actionQueue = interactionBlock.run();
+		
+		//actionQueue.add(new Navigate("CustomerDB"));
+		
+		clear();
+		
+		return actionQueue;
+		
+	}
 //	@Override
 //	public void print() { //TODO make default print smarter: if no buttons, print this instead
 //		System.out.println(header);

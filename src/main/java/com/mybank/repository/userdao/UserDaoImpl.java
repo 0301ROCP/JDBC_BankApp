@@ -227,6 +227,34 @@ public class UserDaoImpl implements UserDao {
 		return userList;
 	}
 	
+	public String selectStringValueByAttributeByID(int id, String column) {
+		
+		String returnString = "";
+		
+		String sqlStatement = "SELECT "+column+" FROM users WHERE upi = ?";
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement pStatement = conn.prepareStatement(sqlStatement);
+			pStatement.setInt(1, id);
+			
+			ResultSet result = pStatement.executeQuery();
+			
+			while(result.next()) {
+				
+				returnString = result.getString(1);
+			}
+			
+			
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return returnString;
+	}
+	
 	//----------------UPDATE----------------
 
 	@Override

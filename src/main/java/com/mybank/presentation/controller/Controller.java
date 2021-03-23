@@ -94,20 +94,14 @@ public class Controller {
 				Page nextPage = siteMap.get(target);
 				runApp(nextPage); //run the new page
 				break;
-//			
-////			case FORM:
-////				System.out.println("Fill out a form!"); //TEMP
-////				break;
-//			
+		
 			case SETUSER:
-
 				User newUser = ((SetUser) thisAction).getUser();
 				currentUser = newUser;
 				System.out.println("current user: "+currentUser);
 				break;
 			}
 			
-			//execute this action
 		}
 		
 		System.out.println("-------Leaving run of page " + thisPage.getName()+"---------");
