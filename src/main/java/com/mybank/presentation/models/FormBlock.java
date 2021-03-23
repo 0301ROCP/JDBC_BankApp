@@ -5,18 +5,29 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
+import com.mybank.presentation.controller.actions.SetUser;
+import com.mybank.repository.userdao.UserDaoImpl;
+import com.mybank.service.access_mgt.AccessMgrImpl;
 
 public class FormBlock extends InteractionBlock{
 	
 	private ArrayList <Question> questions;
+	private String table;
+	private String crudAction;
+	boolean returnUser;
 	
 	//-----------CONSTRUCTOR---------
 	
-	public FormBlock() {
+	public FormBlock(String table, String crudAction, boolean returnUser) {
 		this.blockType = BlockType.FORM;
 		this.instructions = "Please enter the following information:";
+		this.actionQueue = new LinkedList<Action>();
 		this.questions = new ArrayList<Question>();
+		this.table = table;
+		this.crudAction = crudAction;
+		this.returnUser = returnUser;
 	}
 	
 	//-----------GETTERS--------------
@@ -31,16 +42,19 @@ public class FormBlock extends InteractionBlock{
 		questions.add(question);
 	}
 	
+	public void addAction(Action action) {
+		actionQueue.add(action);
+	}
+	
 	
 	@Override
 	public Queue<Action> run() {
-		Queue<Action> actionQueue = new LinkedList<Action>();
 		
-		HashMap<String,String> formAnswers = new HashMap<String,String>();
+		HashMap<String, String> formAnswers = new HashMap<String,String>(); //answers to this form
 		
-		for(Question q: questions) { //TODO not done!
+		for(Question q: questions) { //for each question on the form
 			
-			q.setFormList(formAnswers);
+			q.setFormList(formAnswers); //feed in the current answers in case this question needs to reference them to validate a response
 			
 			String userAnswer = null;
 			boolean valid = false;
@@ -49,24 +63,41 @@ public class FormBlock extends InteractionBlock{
 			
 			//TODO set max attempts, and action to take once reached
 			while(!valid) {
-				userAnswer = sc.nextLine();
+				userAnswer = sc.nextLine(); //get the user's answer
 				
-				if(q.validate(userAnswer)) {
+				if(q.validate(userAnswer)) { //validate the answer
 					valid = true;
 				}
 				
 				else {
-					System.out.println(q.getInvalidMessage());
+					System.out.println(q.getInvalidMessage()); 
 				}	
 			}
 					
 			q.handleData(userAnswer); 
 			
-			formAnswers = q.getFormList();
+			formAnswers = q.getFormList(); //update the form answers
 						
 		}
 		
-		System.out.println("Form list: "+formAnswers);
+		//create a new user
+		
+		User resultUser = new User(); //we only need this if returning a setuser action
+		
+		switch (table){ //TODO hardcoded!
+		case "users":
+			AccessMgrImpl accessMgr = new AccessMgrImpl(new UserDaoImpl());
+			
+			resultUser = accessMgr.enterForm(formAnswers,crudAction);
+		}
+		//TODO other cases
+		
+		
+		if(returnUser) {
+			actionQueue.add(new SetUser(resultUser));
+		}
+		//add action: setuser
+		
 		
 		
 		return actionQueue;

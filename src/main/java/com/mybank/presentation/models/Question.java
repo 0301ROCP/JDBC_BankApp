@@ -43,8 +43,8 @@ public class Question {
 		return formList;
 	}
 	
-	void setFormList(HashMap<String,String>formList) {
-		this.formList = formList;
+	void setFormList(HashMap<String, String> formAnswers) {
+		this.formList = formAnswers;
 	}
 	
 	
@@ -65,8 +65,13 @@ public class Question {
 		
 		boolean valid = false;
 		
-		validator.setUserAnswer(userAnswer);
-		valid = validator.run();
+		if(validator != null) {
+			validator.setUserAnswer(userAnswer);
+			valid = validator.run();
+		}
+		else {
+			valid = true;
+		}
 		
 		
 		return valid;

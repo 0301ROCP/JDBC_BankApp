@@ -8,9 +8,9 @@ public class SetUser extends Action {
 	
 	
 	//-----------CONSTRUCTOR-----------
-	public SetUser() {
-		super(ActionCategory.SETUSER);
-	}
+//	public SetUser() {
+//		super(ActionCategory.SETUSER);
+//	}
 	
 	public SetUser(User user) {
 		super(ActionCategory.SETUSER);
@@ -19,13 +19,15 @@ public class SetUser extends Action {
 
 	
 	
-	//------------GETTERS-------------
+	//------------GETTERS & SETTERS-------------
 
 	public User getUser() {
 		return user;
 	}
 
-
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 
 

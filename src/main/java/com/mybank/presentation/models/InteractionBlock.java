@@ -10,6 +10,7 @@ public abstract class InteractionBlock {
 	protected enum BlockType {MENU, FORM, NULL};
 	protected BlockType blockType;
 	protected String instructions;
+	protected Queue<Action> actionQueue;
 	Scanner sc = new Scanner(System.in);
 	
 	

@@ -22,7 +22,7 @@ public class Login extends Page{
 		this.name = "Login";
 		this.header = "Login Page";
 		
-		this.interactionBlock = new FormBlock();
+		//this.interactionBlock = new FormBlock();
 		
 //		((FormBlock) this.interactionBlock).addQuestion(new Question("Enter your username:"));
 //		((FormBlock) this.interactionBlock).addQuestion(new Question("Enter your password:"));
