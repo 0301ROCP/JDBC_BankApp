@@ -27,7 +27,7 @@ public class AccessMgrImpl implements AccessManager{
 	}
 
 	@Override
-	public User createNewUser(boolean isCustomer, boolean isEmployee) { //WORKING
+	public User createNewUser(boolean isCustomer, boolean isEmployee) { //OBSOLETE
 		
 		Scanner sc = new Scanner(System.in);
 		//UserDaoImpl directory = new UserDaoImpl(); //TODO TOASK shouldn't make a new directory every time, right?

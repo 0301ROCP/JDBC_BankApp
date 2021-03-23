@@ -5,6 +5,7 @@ package com.mybank.presentation.view;
 import java.util.Queue;
 import java.util.Scanner;
 
+import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.models.InteractionBlock;
 
@@ -88,10 +89,10 @@ public abstract class Page {
 	
 	
 	
-	public Queue<Action> run() { //WORKING
+	public Queue<Action> run(User currentUser) { //WORKING
 		print(); //print this page's header and action block
 				
-		Queue<Action> actionQueue = interactionBlock.run();
+		Queue<Action> actionQueue = interactionBlock.run(currentUser);
 
 		clear(); //clear the console
 		

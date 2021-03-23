@@ -9,6 +9,7 @@ public interface AccountDao {
 
 	//CREATE
 	boolean insertAccount(Account a);
+	boolean insertApprovedAccount(Account a); //not sure if/when you'd need this but here it is
 	
 	//READ
 	public Account selectAccountByID(int ID);

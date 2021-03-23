@@ -8,8 +8,10 @@ import java.util.Queue;
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.SetUser;
+import com.mybank.repository.accountdao.AccountDaoImpl;
 import com.mybank.repository.userdao.UserDaoImpl;
 import com.mybank.service.access_mgt.AccessMgrImpl;
+import com.mybank.service.account_mgt.AcctMgrImpl;
 
 public class FormBlock extends InteractionBlock{
 	
@@ -48,7 +50,7 @@ public class FormBlock extends InteractionBlock{
 	
 	
 	@Override
-	public Queue<Action> run() {
+	public Queue<Action> run(User currentUser) {
 		
 		HashMap<String, String> formAnswers = new HashMap<String,String>(); //answers to this form
 		
@@ -59,21 +61,32 @@ public class FormBlock extends InteractionBlock{
 			String userAnswer = null;
 			boolean valid = false;
 			
-			System.out.println(q.getQuestionText()); //print out the question			
-			
-			//TODO set max attempts, and action to take once reached
-			while(!valid) {
-				userAnswer = sc.nextLine(); //get the user's answer
+			if(!q.isSystemQuestion()) {
+				System.out.println(q.getQuestionText()); //print out the question			
 				
-				if(q.validate(userAnswer)) { //validate the answer
-					valid = true;
-				}
-				
-				else {
-					System.out.println(q.getInvalidMessage()); 
-				}	
-			}
+				//TODO set max attempts, and action to take once reached
+				while(!valid) {
+					userAnswer = sc.nextLine(); //get the user's answer
 					
+					if(q.validate(userAnswer)) { //validate the answer
+						valid = true;
+					}
+					
+					else {
+						System.out.println(q.getInvalidMessage()); 
+					}	
+				}			
+			}
+			
+			else {
+				userAnswer = q.getSystemValue();
+				
+				if(userAnswer.equals("#getuser_upi")) {
+					userAnswer = String.valueOf(currentUser.getUpi());
+				}
+				valid = true;
+			}
+			
 			q.handleData(userAnswer); 
 			
 			formAnswers = q.getFormList(); //update the form answers
@@ -90,8 +103,13 @@ public class FormBlock extends InteractionBlock{
 			AccessMgrImpl accessMgr = new AccessMgrImpl(new UserDaoImpl());
 			
 			resultUser = accessMgr.enterForm(formAnswers,crudAction);
+			break;
+
+		case "accounts":
+			AcctMgrImpl accountMgr = new AcctMgrImpl(new AccountDaoImpl());
+			accountMgr.enterForm(formAnswers, crudAction);
+			break;
 		}
-		
 		//TODO other cases
 		
 		

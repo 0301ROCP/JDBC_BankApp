@@ -36,7 +36,7 @@ public class Login extends Page{
 		
 		((FormBlock) this.interactionBlock).addQuestion(new Question(
 				"Please enter your password:",
-				"That password is incorrect. Pleaes enter your password:",
+				"That password is incorrect. Please enter your password:",
 				new VerifyMatch("users","user_password","username"),  //TODO
 				new AddToList("user_password") //add password to form info
 				));
@@ -55,10 +55,10 @@ public class Login extends Page{
 	//---------METHODS-----------
 	
 	@Override
-	public Queue<Action> run(){
+	public Queue<Action> run(User currentUser){
 		print();		
 			
-		Queue<Action> actionQueue = interactionBlock.run();
+		Queue<Action> actionQueue = interactionBlock.run(currentUser);
 		
 		//actionQueue.add(new Navigate("CustomerDB"));
 		

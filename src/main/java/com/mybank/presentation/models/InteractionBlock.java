@@ -3,6 +3,7 @@ package com.mybank.presentation.models;
 import java.util.Queue;
 import java.util.Scanner;
 
+import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 
 public abstract class InteractionBlock {
@@ -27,7 +28,7 @@ public abstract class InteractionBlock {
 	
 	//----------ABSTRACT METHODS-----
 	
-	public abstract Queue<Action> run();
+	public abstract Queue<Action> run(User currentUser);
 	
 	
 	//------------METHODS-------------

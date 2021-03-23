@@ -64,10 +64,10 @@ public class Signup extends Page{
 	//-------METHODS-----------
 	
 	@Override
-	public Queue<Action> run(){
+	public Queue<Action> run(User currentUser){
 		print();		
 			
-		Queue<Action> actionQueue = interactionBlock.run();
+		Queue<Action> actionQueue = interactionBlock.run(currentUser);
 		
 		actionQueue.add(new Navigate("SelectAccounts"));
 		

@@ -9,9 +9,11 @@ import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.Navigate;
 import com.mybank.presentation.controller.actions.SetUser;
+import com.mybank.presentation.view.CreateAccount;
 import com.mybank.presentation.view.CustomerDB;
 import com.mybank.presentation.view.Login;
 import com.mybank.presentation.view.Page;
+import com.mybank.presentation.view.SelectAccounts;
 import com.mybank.presentation.view.Signup;
 import com.mybank.presentation.view.Welcome;
 
@@ -21,7 +23,6 @@ public class Controller {
 	HashMap<String, Page> siteMap;	
 	Stack<Page> history;
 	private User currentUser;
-	private Queue<Action> mainActionQueue;
 	
 	//TODO add hover-over explanations of methods?
 	
@@ -36,6 +37,9 @@ public class Controller {
 		Page signupPage = new Signup();
 //		Page guestPage = new Guest();
 //		Page blankPage = new Blank();
+		Page createSavingsPage = new CreateAccount("CreateSavings","Set Up Your Savings Account");
+		Page createCheckingPage = new CreateAccount("CreateChecking","Set Up Your Checking Account");
+		Page selectAccountsPage = new SelectAccounts();
 				
 		this.siteMap = new HashMap<String, Page>();
 		siteMap.put("Welcome",welcomePage);
@@ -46,6 +50,9 @@ public class Controller {
 		siteMap.put("Signup", signupPage);
 //		siteMap.put("Guest", guestPage);
 //		siteMap.put("Blank", blankPage);
+		siteMap.put("CreateSavings", createSavingsPage);
+		siteMap.put("CreateChecking", createCheckingPage);
+		siteMap.put("SelectAccounts", selectAccountsPage);
 		
 		this.history = new Stack<Page>();
 		
@@ -75,7 +82,7 @@ public class Controller {
 		
 		System.out.println("------Running page "+ thisPage.getName()+"-----------"); //TEMP
 		
-		Queue<Action> actionQueue = thisPage.run(); //print this page and give me a queue of actions to do next
+		Queue<Action> actionQueue = thisPage.run(currentUser); //print this page and give me a queue of actions to do next
 		
 		System.out.println("Retrieved "+ actionQueue.size() + " action(s)"); //TEMP
 				

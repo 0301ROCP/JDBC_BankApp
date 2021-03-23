@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 
 public class MenuBlock extends InteractionBlock{
@@ -70,7 +71,7 @@ public class MenuBlock extends InteractionBlock{
 	}
 
 	@Override
-	public Queue<Action> run() {
+	public Queue<Action> run(User currentUser) {
 		
 		Queue<Action> actionQueue = new LinkedList<Action>();
 		

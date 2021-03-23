@@ -18,8 +18,8 @@ public class AccountDaoImpl implements AccountDao{
 		
 		boolean success = false; //TODO check if table exists first, if not create it
 		
-		String sqlStatement = "INSERT into accounts (primary_owner, joint_account, date_created, balance_in_cents, approved, approved_by, is_open) values "
-				+ "(?,?,?,?,?,?,?)";
+		String sqlStatement = "INSERT into accounts (primary_owner, joint_account, date_created, balance_in_cents, is_open) values "
+				+ "(?,?,?,?,?)";
 		
 		try (Connection conn = ConnectionFactory.getConnection()){ //Try with resources block 
 			
@@ -28,9 +28,7 @@ public class AccountDaoImpl implements AccountDao{
 			pStatement.setBoolean(2, a.isJointAccount());
 			pStatement.setDate(3, a.getDateCreated());
 			pStatement.setInt(4, a.getBalanceCents());
-			pStatement.setBoolean(5, a.isApproved());
-			pStatement.setInt(6, a.getApprovedBy().getUpi());
-			pStatement.setBoolean(7, a.isOpen());
+			pStatement.setBoolean(5, a.isOpen());
 			
 			pStatement.execute();
 			success = true;			
@@ -41,6 +39,12 @@ public class AccountDaoImpl implements AccountDao{
 		}
 		
 		return success;
+	}
+	
+	@Override
+	public boolean insertApprovedAccount(Account a) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	
@@ -93,6 +97,9 @@ public class AccountDaoImpl implements AccountDao{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+
 
 	
 	

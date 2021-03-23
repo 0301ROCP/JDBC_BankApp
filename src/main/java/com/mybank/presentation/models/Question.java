@@ -12,6 +12,8 @@ public class Question {
 	Operation validator;
 	Operation dataHandler;
 	HashMap<String,String> formList;
+	boolean systemQuestion;
+	String systemValue;
 	
 	//--------CONSTRUCTOR------
 	public Question(String questionText, String invalidMessage, Operation validator, Operation dataHandler) {
@@ -19,6 +21,13 @@ public class Question {
 		this.invalidMessage = invalidMessage;
 		this.validator = validator;
 		this.dataHandler = dataHandler;
+		this.systemQuestion = false;
+	}
+	
+	public Question(Operation dataHandler, boolean systemQuestion, String systemValue) {
+		this.dataHandler = dataHandler;
+		this.systemQuestion = systemQuestion;
+		this.systemValue = systemValue;
 	}
 	
 	
@@ -47,6 +56,13 @@ public class Question {
 		this.formList = formAnswers;
 	}
 	
+	boolean isSystemQuestion() {
+		return this.systemQuestion;
+	}
+	
+	String getSystemValue() {
+		return systemValue;
+	}
 	
 	//---------TOSTRING---------
 	

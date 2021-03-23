@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public abstract class Account {
+public class Account {
 	
 	private int accountID;
 	private User primaryOwner;
