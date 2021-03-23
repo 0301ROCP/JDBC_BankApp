@@ -23,7 +23,7 @@ public class Action {
 	//--------GETTERS---------
 	
 	public ActionCategory getCategory() {
-		return this.category;
+		return category;
 	}
 
 

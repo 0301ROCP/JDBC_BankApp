@@ -1,23 +1,15 @@
 package com.mybank.presentation.view;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
 
-import com.mybank.models.User;
-import com.mybank.presentation.controller.Action;
-import com.mybank.presentation.controller.Navigate;
-import com.mybank.presentation.controller.SetUser;
-import com.mybank.presentation.models.Button;
+import com.mybank.presentation.controller.AddToList;
+import com.mybank.presentation.controller.Confirm;
+import com.mybank.presentation.controller.VerifyExists;
 import com.mybank.presentation.models.FormBlock;
 import com.mybank.presentation.models.Question;
-import com.mybank.service.access_mgt.AccessMgrImpl;
-import com.mybank.service.account_mgt.AcctMgrImpl;
 
 
 public class Signup extends Page{
-	
+		
 	//-------CONSTRUCTOR---------
 	public Signup() {
 		super();
@@ -26,13 +18,21 @@ public class Signup extends Page{
 		this.header = "Signup Form";
 		
 		this.interactionBlock = new FormBlock();
+				
+		((FormBlock) this.interactionBlock).addQuestion(new Question(
+				"Please create a username:",
+				"That username is already taken. Please create a different username:",
+				new VerifyExists("users","username",true),
+				new AddToList("username") //TODO
+				));		
 		
-		((FormBlock) this.interactionBlock).addQuestion(new Question("Please select a username"));
-		((FormBlock) this.interactionBlock).addQuestion(new Question("Please select a password"));
-		((FormBlock) this.interactionBlock).addQuestion(new Question("Please confirm your password"));
 		
-		
-		//this.menu.addUtils();	
+		((FormBlock) this.interactionBlock).addQuestion(new Question(
+				"Please create a password:",
+				"Your passwords do not match. Please enter your password again:",
+				new Confirm("Please confirm your password:"),
+				new AddToList("password")
+				));
 	}
 	
 	

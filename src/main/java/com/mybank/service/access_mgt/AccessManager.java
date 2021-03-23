@@ -7,5 +7,7 @@ public interface AccessManager {
 	public boolean verifyLogin(int upi, String password);
 	
 	public User createNewUser(boolean isCustomer, boolean isEmployee); //return new user's UPI
+
+	public boolean verifyExists(String value, String column);
 	
 }

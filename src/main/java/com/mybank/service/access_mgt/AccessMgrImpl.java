@@ -56,4 +56,20 @@ public class AccessMgrImpl implements AccessManager{
 
 	}
 
+
+	
+	@Override
+	public boolean verifyExists(String value, String column) {
+		boolean exists = false;
+		
+		int size = userDao.selectUsersByAttribute(value, column).size();
+		
+		
+		if(size>0) {
+			exists = true;
+		}
+		
+		return exists;
+	}
+
 }

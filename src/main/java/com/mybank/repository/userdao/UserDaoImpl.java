@@ -159,7 +159,6 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 	
-
 	@Override
 	public List<User> selectAllUsers() { //WORKING
 		
@@ -193,6 +192,40 @@ public class UserDaoImpl implements UserDao {
 		return allUsers;
 	}
 	
+	public List<User> selectUsersByAttribute(String value, String column) {
+		
+		List<User> userList = new ArrayList<User>();
+		
+		String sqlStatement = "SELECT * FROM users WHERE "+column+" = ?";
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+						
+			PreparedStatement pStatement = conn.prepareStatement(sqlStatement);
+			pStatement.setString(1, value);
+			
+			ResultSet result = pStatement.executeQuery();
+			
+			while(result.next()) {
+				userList.add(new User(
+						result.getInt("upi"),
+						result.getString("username"),
+						result.getString("first_name"),
+						result.getString("last_name"),
+						result.getBoolean("is_customer"),
+						result.getBoolean("is_employee"),
+						result.getString("user_password")
+						));
+			}
+			
+			
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return userList;
+	}
 	
 	//----------------UPDATE----------------
 

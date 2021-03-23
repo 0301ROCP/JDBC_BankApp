@@ -24,8 +24,8 @@ public class Login extends Page{
 		
 		this.interactionBlock = new FormBlock();
 		
-		((FormBlock) this.interactionBlock).addQuestion(new Question("Enter your username:"));
-		((FormBlock) this.interactionBlock).addQuestion(new Question("Enter your password:"));
+//		((FormBlock) this.interactionBlock).addQuestion(new Question("Enter your username:"));
+//		((FormBlock) this.interactionBlock).addQuestion(new Question("Enter your password:"));
 		
 		//this menu has no buttons!
 		

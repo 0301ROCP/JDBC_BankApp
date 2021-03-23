@@ -66,7 +66,7 @@ public abstract class Page {
 	public static void pause() { //WORKING
 		long startTime = System.currentTimeMillis();
 		System.out.println("redirecting...");
-        while(startTime >= System.currentTimeMillis() - 2000); // do nothing
+        while(startTime >= System.currentTimeMillis() - 500); // do nothing
        
 	}
 	
