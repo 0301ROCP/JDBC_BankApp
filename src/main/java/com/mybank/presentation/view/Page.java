@@ -5,13 +5,18 @@ package com.mybank.presentation.view;
 import java.util.Queue;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.models.User;
+import com.mybank.presentation.controller.Controller;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.models.InteractionBlock;
 
 
 
-public abstract class Page {
+public class Page {
+	
+	final static Logger Log = Logger.getLogger(Page.class);
 	
 	String name;
 	String header;
@@ -38,24 +43,21 @@ public abstract class Page {
 	}
 	
 	
+	//----------TOSTRING--------
+	
+	
+	@Override
+	public String toString() {
+		return "Page [name=" + name + "]";
+	}
+
+
 	//--------METHODS---------
 	public void print() { //WORKING
 		System.out.println(header);
-//		menu.print();		
 		interactionBlock.print();
 	}
-	
-//	public String getInput() { //WORKING
-//		String input = sc.nextLine();
-//		return input;
-//	}
-	
-//	public String getEnteredKey() { //WORKING
-//		String key = getInput(); //TODO ADD TRY CATCH INPUT
-//		//System.out.println("You selected: "+selection.getName()+".  "); //TODO make this work. Also is name the right field here? Will it always match what the button says?
-//		return key;		
-//	}
-	
+		
 	public static void clear() { //WORKING
 		pause();
 		
@@ -80,16 +82,13 @@ public abstract class Page {
 //		
 //		return resultingActions;	
 //	}
-	
-//	public Queue<Action> getActionsFromForm(){
-//		Queue<Action> resultingActions 
-//		
-//		return resultingActions;
-//	}
+
 	
 	
 	
 	public Queue<Action> run(User currentUser) { //WORKING
+		Log.debug("Default Page run()");
+		
 		print(); //print this page's header and action block
 				
 		Queue<Action> actionQueue = interactionBlock.run(currentUser);

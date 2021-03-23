@@ -3,9 +3,14 @@ package com.mybank.presentation.models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
+import com.mybank.presentation.controller.Controller;
 import com.mybank.presentation.controller.operations.Operation;
 
 public class Question {
+	
+	final static Logger Log = Logger.getLogger(Question.class);
 	
 	String questionText;
 	String invalidMessage;
@@ -65,8 +70,6 @@ public class Question {
 	}
 	
 	//---------TOSTRING---------
-	
-
 
 	@Override
 	public String toString() {
@@ -81,6 +84,8 @@ public class Question {
 		
 		boolean valid = false;
 		
+		Log.debug("Validator: " + validator);
+		
 		if(validator != null) {
 			validator.setUserAnswer(userAnswer);
 			validator.setCurrentList(formList);
@@ -89,7 +94,6 @@ public class Question {
 		else {
 			valid = true;
 		}
-		
 		
 		return valid;
 	}

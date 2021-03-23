@@ -20,7 +20,6 @@ public class Welcome extends Page {
 		
 		((MenuBlock) this.interactionBlock).addButton("L", "Log In", Button.makeActionQueue(
 				new Navigate("Login"),
-//				new SetUser(), //TODO made a noargs for this, delete it if not used
 				new Navigate("CustomerDB")
 				));
 		
@@ -32,13 +31,12 @@ public class Welcome extends Page {
 				new Navigate("Guest")
 				));
 		
-//		((MenuBlock) this.actionBlock).addButton("E", "Employee Portal", Button.makeActionQueue(
-//				new Navigate("Employee")
-//				));
+		((MenuBlock) this.interactionBlock).addButton("E", "Employee Portal", Button.makeActionQueue(
+				new Navigate("Login"),
+				new Navigate("Employee")
+				));
 
-		//this.menu.addUtils();
-		
-		
+
 	}
 	
 	

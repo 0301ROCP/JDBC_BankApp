@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Queue;
 import java.util.Stack;
 
+import org.apache.log4j.Logger;
+
+import com.mybank.MainDriver;
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.Navigate;
@@ -20,6 +23,8 @@ import com.mybank.presentation.view.Welcome;
 
 public class Controller {
 	
+	final static Logger Log = Logger.getLogger(Controller.class);
+	
 	HashMap<String, Page> siteMap;	
 	Stack<Page> history;
 	private User currentUser;
@@ -27,35 +32,43 @@ public class Controller {
 	//TODO add hover-over explanations of methods?
 	
 	//-------CONSTRUCTOR--------
-		public Controller() {
+	public Controller() {
 		
-		Page welcomePage = new Welcome();
-		Page loginPage = new Login();
-		Page customerDB = new CustomerDB();
-//		Page employeeDB = new EmployeeDB();
-//		Page logoutPage = new Logout();
-		Page signupPage = new Signup();
-//		Page guestPage = new Guest();
-//		Page blankPage = new Blank();
-		Page createSavingsPage = new CreateAccount("CreateSavings","Set Up Your Savings Account");
-		Page createCheckingPage = new CreateAccount("CreateChecking","Set Up Your Checking Account");
-		Page selectAccountsPage = new SelectAccounts();
-				
+			
 		this.siteMap = new HashMap<String, Page>();
-		siteMap.put("Welcome",welcomePage);
-		siteMap.put("Login",loginPage);
-		siteMap.put("CustomerDB", customerDB);
-////		siteMap.put("EmployeeDB", employeeDB);
-////		siteMap.put("Logout", logoutPage);
-		siteMap.put("Signup", signupPage);
-//		siteMap.put("Guest", guestPage);
-//		siteMap.put("Blank", blankPage);
-		siteMap.put("CreateSavings", createSavingsPage);
-		siteMap.put("CreateChecking", createCheckingPage);
-		siteMap.put("SelectAccounts", selectAccountsPage);
-		
 		this.history = new Stack<Page>();
 		
+		
+		try {
+			Page welcomePage = new Welcome();
+			Page loginPage = new Login();
+			Page customerDB = new CustomerDB();
+	//		Page employeeDB = new EmployeeDB();
+	//		Page logoutPage = new Logout();
+			Page signupPage = new Signup();
+	//		Page guestPage = new Guest();
+	//		Page blankPage = new Blank();
+			Page createSavingsPage = new CreateAccount("CreateSavings","Set Up Your Savings Account");
+			Page createCheckingPage = new CreateAccount("CreateChecking","Set Up Your Checking Account");
+			Page selectAccountsPage = new SelectAccounts();
+			
+			siteMap.put("Welcome",welcomePage);
+			siteMap.put("Login",loginPage);
+			siteMap.put("CustomerDB", customerDB);
+////			siteMap.put("EmployeeDB", employeeDB);
+////			siteMap.put("Logout", logoutPage);
+			siteMap.put("Signup", signupPage);
+//			siteMap.put("Guest", guestPage);
+//			siteMap.put("Blank", blankPage);
+			siteMap.put("CreateSavings", createSavingsPage);
+			siteMap.put("CreateChecking", createCheckingPage);
+			siteMap.put("SelectAccounts", selectAccountsPage);
+		}
+		catch(Exception e) {
+			Log.error("One or more pages could not be set up correctly");
+			//TODO throw "something went wrong"
+		}
+			
 	}
 
 	
@@ -72,46 +85,65 @@ public class Controller {
 	//--------METHODS-------
 	
 	public void start() {	
-		System.out.println("---------Running start------------");
+		Log.debug("---------Running start------------");
 		runApp(siteMap.get("Welcome"));		
-		System.out.println("----------Leaving start----------");
+		Log.debug("----------Leaving start----------");
 	}
 	
 	
 	public void runApp(Page thisPage) {
 		
-		System.out.println("------Running page "+ thisPage.getName()+"-----------"); //TEMP
+		Log.debug("------Running page "+ thisPage.getName()+"-----------");
 		
-		Queue<Action> actionQueue = thisPage.run(currentUser); //print this page and give me a queue of actions to do next
 		
-		System.out.println("Retrieved "+ actionQueue.size() + " action(s)"); //TEMP
+		//print this page and give me a queue of actions to do next
+		Queue<Action> actionQueue = thisPage.run(currentUser); 
+		
+		Log.debug("Retrieved "+ actionQueue.size() + " action(s)"); //TEMP
 				
-		while(!actionQueue.isEmpty()) { //while there are still actions in the stack
+		
+		//iterate through the stack of actions
+		while(!actionQueue.isEmpty()) {
 			
 			Action thisAction = actionQueue.poll(); //get the next action
-			System.out.println("This action is: "+ thisAction);
 			
-			
+			Log.debug("This action is: "+ thisAction);
+						
 			switch(thisAction.getCategory()) {
-//			
+			
 			case NAVIGATE:
-//				//TODO if this isn't the last thing in the stack and the new page has new instructions, what do??
+				
 				String target = ((Navigate) thisAction).getTarget(); //get the target String of the page we're navigating to
 				history.push(thisPage); //add the current page to the history stack
-				Page nextPage = siteMap.get(target);
-				runApp(nextPage); //run the new page
+				Log.debug("Add " + thisPage + " to history stack");
+				
+				Page nextPage = new Page();
+				
+				try {
+					nextPage = siteMap.get(target);
+					runApp(nextPage); //run the new page
+				}
+				catch(Exception e) {
+					Log.fatal("Button points to page that does not exist");
+					//TODO something went wrong
+				}
 				break;
 		
 			case SETUSER:
 				User newUser = ((SetUser) thisAction).getUser();
 				currentUser = newUser;
-				System.out.println("current user: "+currentUser);
+				Log.debug("Set current user to: "+currentUser);
 				break;
+				
+			default:
+				Log.fatal("Switch case: Action " + thisAction.getCategory() + " does not exist");
+				//TODO throw Something Went Wrong
+				
 			}
 			
 		}
 		
-		System.out.println("-------Leaving run of page " + thisPage.getName()+"---------");
+		Log.debug("-------Leaving run of page " + thisPage.getName()+"---------");
 		
 //		if(nextPage.equals("Quit")){
 //			System.out.println("Application Terminated");

@@ -4,6 +4,8 @@ package com.mybank.presentation.view;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.Navigate;
@@ -11,10 +13,13 @@ import com.mybank.presentation.controller.operations.AddToList;
 import com.mybank.presentation.controller.operations.Confirm;
 import com.mybank.presentation.controller.operations.VerifyExists;
 import com.mybank.presentation.models.FormBlock;
+import com.mybank.presentation.models.MenuBlock;
 import com.mybank.presentation.models.Question;
 
 
 public class Signup extends Page{
+	
+	final static Logger Log = Logger.getLogger(Signup.class);
 	
 	User newUser;
 		
@@ -65,6 +70,9 @@ public class Signup extends Page{
 	
 	@Override
 	public Queue<Action> run(User currentUser){
+		
+		Log.debug("Signup Page run()");
+		
 		print();		
 			
 		Queue<Action> actionQueue = interactionBlock.run(currentUser);

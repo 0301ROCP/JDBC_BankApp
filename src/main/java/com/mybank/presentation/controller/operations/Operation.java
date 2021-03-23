@@ -39,10 +39,21 @@ public abstract class Operation {
 		this.currentList = currentList;
 	}
 
+	
+	//------------TOSTRING------------
+	
+	@Override
+	public String toString() {
+		return "Operation [category=" + category + ", userAnswer=" + userAnswer + "]";
+	}
+	
 	//---------METHODS----------
 	
 	public boolean run(){
 		System.out.println("Default method! You shouldn't be here");
 		return false;
 	}
+
+
+
 }

@@ -12,7 +12,7 @@ public abstract class InteractionBlock {
 	protected BlockType blockType;
 	protected String instructions;
 	protected Queue<Action> actionQueue;
-	Scanner sc = new Scanner(System.in);
+	final protected Scanner sc = new Scanner(System.in);
 	
 	
 	//------------GETTERS-------------

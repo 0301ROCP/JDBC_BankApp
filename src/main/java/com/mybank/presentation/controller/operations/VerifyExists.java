@@ -1,10 +1,15 @@
 package com.mybank.presentation.controller.operations;
 
+import org.apache.log4j.Logger;
+
+import com.mybank.presentation.models.Question;
 import com.mybank.repository.userdao.UserDao;
 import com.mybank.repository.userdao.UserDaoImpl;
 import com.mybank.service.access_mgt.AccessMgrImpl;
 
 public class VerifyExists extends Operation{
+	
+	final static Logger Log = Logger.getLogger(VerifyExists.class);
 	
 	String table;
 	String column;
@@ -29,17 +34,22 @@ public class VerifyExists extends Operation{
 	@Override
 	public boolean run() {
 		
+		Log.debug("VerifyExists run()");
+		
 		boolean result = false;
 		
 		if(table.equals("users")) { //TODO hardcoded
 			result = accessManager.verifyExists(userAnswer, column);
+			Log.debug("AccessManager says: " + result);
 		}
 		else {
-			System.out.println("ERROR in VerifyExists extends Operation");
+			Log.fatal("Ran VerifyExists on a table other than user: table " + table);
+			//TODO something went wrong
 		}
 		
 		if(reverse) {
-			return !result;
+			Log.debug("Reverse; return " + !result);
+			return !result;			
 		}
 		else {
 			return result;

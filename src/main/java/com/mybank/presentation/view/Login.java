@@ -4,6 +4,8 @@ package com.mybank.presentation.view;
 import java.util.Queue;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.Navigate;
@@ -12,10 +14,13 @@ import com.mybank.presentation.controller.operations.AddToList;
 import com.mybank.presentation.controller.operations.VerifyExists;
 import com.mybank.presentation.controller.operations.VerifyMatch;
 import com.mybank.presentation.models.FormBlock;
+import com.mybank.presentation.models.MenuBlock;
 import com.mybank.presentation.models.Question;
 import com.mybank.service.access_mgt.AccessMgrImpl;
 
 public class Login extends Page{
+	
+	final static Logger Log = Logger.getLogger(Login.class);
 	
 	//--------CONSTRUCTOR----------
 	
@@ -54,19 +59,22 @@ public class Login extends Page{
 
 	//---------METHODS-----------
 	
-	@Override
-	public Queue<Action> run(User currentUser){
-		print();		
-			
-		Queue<Action> actionQueue = interactionBlock.run(currentUser);
-		
-		//actionQueue.add(new Navigate("CustomerDB"));
-		
-		clear();
-		
-		return actionQueue;
-		
-	}
+//	@Override
+//	public Queue<Action> run(User currentUser){
+//		
+//		Log.debug("Login Page run()");
+//		
+//		print();		
+//			
+//		Queue<Action> actionQueue = interactionBlock.run(currentUser);
+//		
+//		//actionQueue.add(new Navigate("CustomerDB"));
+//		
+//		clear();
+//		
+//		return actionQueue;
+//		
+//	}
 //	@Override
 //	public void print() { //TODO make default print smarter: if no buttons, print this instead
 //		System.out.println(header);

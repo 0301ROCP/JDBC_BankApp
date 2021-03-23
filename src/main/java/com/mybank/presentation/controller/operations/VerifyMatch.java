@@ -1,9 +1,14 @@
 package com.mybank.presentation.controller.operations;
 
+import org.apache.log4j.Logger;
+
+import com.mybank.presentation.models.Question;
 import com.mybank.repository.userdao.UserDaoImpl;
 import com.mybank.service.access_mgt.AccessMgrImpl;
 
 public class VerifyMatch extends Operation{
+	
+	final static Logger Log = Logger.getLogger(VerifyMatch.class);
 	
 	String table;
 	String column;
@@ -22,19 +27,21 @@ public class VerifyMatch extends Operation{
 	@Override
 	public boolean run() {
 		
+		Log.debug("VerifyMatch run()");
+		
 		boolean result = false;
 		
 		if(table.equals("users")) { //TODO hardcoded
 			result = accessManager.verifyMatch(currentList.get(compareToColumn),compareToColumn,userAnswer,column);
+			Log.debug("AccessManager says: " + result);
 		}
 		else {
-			System.out.println("ERROR in VerifyExists extends Operation");
+			Log.fatal("Ran VerifyMatch on a table other than user: table " + table);
+			//TODO something went wrong
 		}
 		
 		return result;
 		
 	}
 	
-	
-
 }

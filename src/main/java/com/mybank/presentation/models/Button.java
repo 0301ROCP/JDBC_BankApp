@@ -14,6 +14,10 @@ public class Button {
 
 	//-----------CONSTRUCTOR-----------
 	
+	public Button() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Button(String keyStroke, String name, Queue<Action> actionQueue){
 		this.keyStroke = keyStroke;
 		this.name = name;
@@ -22,7 +26,8 @@ public class Button {
 	
 	
 	//-----------GETTERS------------
-		
+
+
 	public String getKey() {
 		return keyStroke;
 	}
@@ -40,6 +45,13 @@ public class Button {
 	}
 	
 
+	//----------TOSTRING----------
+	
+	@Override
+	public String toString() {
+		return "Button [keyStroke=" + keyStroke + ", name=" + name + "]";
+	}
+	
 	//-----------METHODS------------
 	
 	public static Queue<Action> makeActionQueue(Action...a) { //TODO where should this live?
@@ -52,6 +64,7 @@ public class Button {
 		return thisQueue;
 	}
 	
+
 	public void printDashes(String l) { //WORKING
 		StringBuilder line = new StringBuilder(" ");
 		int buttonLength = name.length()+4;
