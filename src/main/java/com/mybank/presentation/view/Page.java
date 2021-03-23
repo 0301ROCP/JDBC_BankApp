@@ -5,7 +5,7 @@ package com.mybank.presentation.view;
 import java.util.Queue;
 import java.util.Scanner;
 
-import com.mybank.presentation.controller.Action;
+import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.models.InteractionBlock;
 
 

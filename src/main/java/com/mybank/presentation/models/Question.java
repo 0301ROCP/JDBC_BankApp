@@ -3,7 +3,7 @@ package com.mybank.presentation.models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.mybank.presentation.controller.Operation;
+import com.mybank.presentation.controller.operations.Operation;
 
 public class Question {
 	

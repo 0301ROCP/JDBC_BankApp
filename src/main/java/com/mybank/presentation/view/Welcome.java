@@ -1,7 +1,7 @@
 package com.mybank.presentation.view;
 
-import com.mybank.presentation.controller.Navigate;
-import com.mybank.presentation.controller.SetUser;
+import com.mybank.presentation.controller.actions.Navigate;
+import com.mybank.presentation.controller.actions.SetUser;
 import com.mybank.presentation.models.Button;
 import com.mybank.presentation.models.MenuBlock;
 

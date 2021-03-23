@@ -1,4 +1,4 @@
-package com.mybank.presentation.controller;
+package com.mybank.presentation.controller.actions;
 
 import java.util.LinkedHashMap;
 import java.util.Scanner;

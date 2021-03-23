@@ -3,7 +3,7 @@ package com.mybank.presentation.models;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.mybank.presentation.controller.Action;
+import com.mybank.presentation.controller.actions.Action;
 
 public class NullBlock extends InteractionBlock {
 

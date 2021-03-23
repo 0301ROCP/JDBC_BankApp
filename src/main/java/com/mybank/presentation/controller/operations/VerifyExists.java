@@ -1,4 +1,4 @@
-package com.mybank.presentation.controller;
+package com.mybank.presentation.controller.operations;
 
 import com.mybank.repository.userdao.UserDao;
 import com.mybank.repository.userdao.UserDaoImpl;

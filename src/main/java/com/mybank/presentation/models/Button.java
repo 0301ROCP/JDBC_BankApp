@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-import com.mybank.presentation.controller.Action;
+import com.mybank.presentation.controller.actions.Action;
 
 public class Button {
 	

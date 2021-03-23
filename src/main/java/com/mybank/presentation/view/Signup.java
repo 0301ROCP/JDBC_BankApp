@@ -1,9 +1,9 @@
 package com.mybank.presentation.view;
 
 
-import com.mybank.presentation.controller.AddToList;
-import com.mybank.presentation.controller.Confirm;
-import com.mybank.presentation.controller.VerifyExists;
+import com.mybank.presentation.controller.operations.AddToList;
+import com.mybank.presentation.controller.operations.Confirm;
+import com.mybank.presentation.controller.operations.VerifyExists;
 import com.mybank.presentation.models.FormBlock;
 import com.mybank.presentation.models.Question;
 

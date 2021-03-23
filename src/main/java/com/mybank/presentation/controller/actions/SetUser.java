@@ -1,4 +1,4 @@
-package com.mybank.presentation.controller;
+package com.mybank.presentation.controller.actions;
 
 import com.mybank.models.User;
 

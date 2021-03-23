@@ -1,4 +1,4 @@
-package com.mybank.presentation.controller;
+package com.mybank.presentation.controller.actions;
 
 public class Navigate extends Action{
 

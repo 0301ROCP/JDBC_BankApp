@@ -5,9 +5,9 @@ import java.util.Queue;
 import java.util.Scanner;
 
 import com.mybank.models.User;
-import com.mybank.presentation.controller.Action;
-import com.mybank.presentation.controller.Navigate;
-import com.mybank.presentation.controller.SetUser;
+import com.mybank.presentation.controller.actions.Action;
+import com.mybank.presentation.controller.actions.Navigate;
+import com.mybank.presentation.controller.actions.SetUser;
 import com.mybank.presentation.models.FormBlock;
 import com.mybank.presentation.models.Question;
 import com.mybank.service.access_mgt.AccessMgrImpl;

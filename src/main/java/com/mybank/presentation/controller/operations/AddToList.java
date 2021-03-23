@@ -1,6 +1,8 @@
-package com.mybank.presentation.controller;
+package com.mybank.presentation.controller.operations;
 
 import java.util.ArrayList;
+
+import com.mybank.presentation.controller.operations.Operation.OperationCategory;
 
 public class AddToList extends Operation{
 	

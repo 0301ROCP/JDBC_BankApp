@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.mybank.presentation.controller.Action;
+import com.mybank.presentation.controller.actions.Action;
 
 public class FormBlock extends InteractionBlock{
 	

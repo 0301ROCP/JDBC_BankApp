@@ -1,4 +1,4 @@
-package com.mybank.presentation.controller;
+package com.mybank.presentation.controller.operations;
 
 import java.util.Scanner;
 
