@@ -10,6 +10,9 @@ create TABLE users(
 
 drop table users;
 
+select * from users;
+
+
 create TABLE accounts(
 	account_id serial primary key,
 	primary_owner int references users (upi),
@@ -25,3 +28,4 @@ create TABLE accounts(
 
 drop table accounts;
 
+select * from accounts;
