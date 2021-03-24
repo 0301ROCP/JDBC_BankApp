@@ -20,7 +20,7 @@ public class AcctMgrImpl implements AccountManager{
 	
 	final static Logger Log = Logger.getLogger(AccountManager.class);
 	
-	private AccountDao accountDao;
+	private static AccountDao accountDao = new AccountDaoImpl();
 
 	
 	//------------CONSTRUCTOR-------------
@@ -69,7 +69,7 @@ public class AcctMgrImpl implements AccountManager{
 		}
 		
 		if(formAnswers.get("balance_in_dollars") != null) {
-			balance_in_cents = Integer.parseInt(formAnswers.get("balance_in_dollars")) * 100;
+			balance_in_cents = (int) Double.parseDouble(formAnswers.get("balance_in_dollars")) * 100;
 		}
 		
 		if(formAnswers.get("approved_by") != null) {
@@ -115,8 +115,6 @@ public class AcctMgrImpl implements AccountManager{
 		//Log.setLevel(Level.DEBUG);
 		
 		ArrayList<Account> toReturn = new ArrayList<Account>();
-		
-		AccountDaoImpl accountDao = new AccountDaoImpl();
 		
 		toReturn = accountDao.selectAccountsByUpi(currentUser.getUpi());
 		Log.debug("toReturn = " + toReturn);

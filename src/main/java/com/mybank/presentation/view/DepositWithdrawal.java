@@ -33,7 +33,7 @@ public class DepositWithdrawal extends Page{
 	@Override
 	public Queue<Action> run(User currentUser){
 		
-		//Log.setLevel(Level.DEBUG);
+		Log.setLevel(Level.DEBUG);
 		
 		System.out.println(header);
 		
@@ -46,9 +46,29 @@ public class DepositWithdrawal extends Page{
 		Account chosenAccount = new Account();
 		
 		for(Account account: thisUsersAccounts) { //print accounts and create selection menu
-			double balance = account.getBalanceCents()/100; //TODO pad 0's
-			boolean approved = account.getStatus().equals("approved") && account.isOpen(); //account must be approved and open
+			Log.debug(account);
 			
+			double balance = 0;
+			boolean approved = false;
+			
+			try {
+				balance = account.getBalanceCents()/100; //TODO pad 0's
+			}
+			catch(Exception e) {
+				Log.error("Something wrong with this account!! It has no balance."); //TODO
+			}
+			
+			String accountStatus = account.getStatus();
+			if(accountStatus == null) { //TODO this isn't great; should set status to pending when account is first applied for, but that's hard to fix with the formBlock
+				accountDao.updateApprovalStatus(account.getAccountID(),"pending");
+			}
+			
+			try {
+				approved = account.getStatus().equals("approved") && account.isOpen(); //account must be approved and open
+			}
+			catch(Exception e) {
+				Log.error("Something wrong with approval status on this account"); //TODO
+			}
 			
 			if(approved) {
 				

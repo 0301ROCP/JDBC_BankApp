@@ -21,7 +21,6 @@ create TABLE accounts(
 	joint_account boolean default false,
 	date_created date,
 	balance_in_cents int default 0,
-	approved boolean default false,
 	approved_by int references users (upi),
 	is_open boolean default false,
 	status varchar(30)
@@ -33,5 +32,5 @@ drop table accounts;
 
 select * from accounts;
 
-alter table accounts add column status varchar(30);
+alter table accounts alter status set not null;
 

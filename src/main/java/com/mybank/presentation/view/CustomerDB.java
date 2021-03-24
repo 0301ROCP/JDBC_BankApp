@@ -56,7 +56,7 @@ public class CustomerDB extends Page{
 	
 	public void print(User currentUser) { 
 		
-		Log.setLevel(Level.DEBUG);
+		//Log.setLevel(Level.DEBUG);
 		
 		//Header:
 		System.out.println("Welcome Back " + currentUser.getFirstName() + "!");

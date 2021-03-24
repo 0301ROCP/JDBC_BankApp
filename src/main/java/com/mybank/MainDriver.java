@@ -23,25 +23,32 @@ public class MainDriver {
 		
 		//----Run a particular page:
 		
-		Controller controller = new Controller();
+//		Controller controller = new Controller();
+//		
+//		User testUser = new User();
+//		testUser.setUpi(7);
+//		
+//		controller.setCurrentUser(testUser);
+//		
+//		Page employeeDB = new EmployeeDB(); //<--Enter page to run here
+//		
+//		controller.runApp(employeeDB); 
+//		
 		
-		User testUser = new User();
-		testUser.setUpi(7);
 		
-		controller.setCurrentUser(testUser);
-		
-		Page employeeDB = new EmployeeDB(); //<--Enter page to run here
-		
-		controller.runApp(employeeDB); 
+		//---Test operations:
+//		ValidateMoney validator = new ValidateMoney();
+//		validator.setUserAnswer("111.222");
+//		System.out.println(validator.run());
 		
 		
 		//--------REAL CODE-----------
 		
 		
 		
-//		Controller appController = new Controller();
-////		
-//		appController.start();
+		Controller appController = new Controller();
+//		
+		appController.start();
 		
 		
 

@@ -123,6 +123,9 @@ public class Controller {
 		Log.debug("Current user: "+currentUser);
 		Log.debug("This page: "+thisPage);
 		
+		history.push(thisPage); //add the current page to the history stack
+		Log.debug("Add " + thisPage + " to history stack");
+		
 		Queue<Action> actionQueue = thisPage.run(currentUser); 
 		
 		Log.debug("Retrieved "+ actionQueue.size() + " action(s)"); //TEMP
@@ -140,19 +143,18 @@ public class Controller {
 			case NAVIGATE:
 				
 				String target = ((Navigate) thisAction).getTarget(); //get the target String of the page we're navigating to
-				history.push(thisPage); //add the current page to the history stack
-				Log.debug("Add " + thisPage + " to history stack");
+				
 				
 				Page nextPage = new Page();
 				
 				try {
 					nextPage = siteMap.get(target);
-					runApp(nextPage); //run the new page
 				}
 				catch(Exception e) {
-					Log.fatal("Button points to target " + target + " which does not exist");
+					Log.fatal("Button points to target " + target + " which does not exist in siteMap");
 					//TODO something went wrong
 				}
+				runApp(nextPage); //run the new page
 				break;
 		
 			case SETUSER:
@@ -163,6 +165,7 @@ public class Controller {
 				
 			default:
 				Log.fatal("Switch case: Action " + thisAction.getCategory() + " does not exist");
+				break;
 				//TODO throw Something Went Wrong
 				
 			}

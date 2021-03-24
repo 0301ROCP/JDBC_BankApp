@@ -6,16 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.Account;
 import com.mybank.models.User;
+import com.mybank.repository.userdao.UserDao;
+import com.mybank.repository.userdao.UserDaoImpl;
 import com.mybank.util.ConnectionFactory;
 
 public class AccountDaoImpl implements AccountDao{
 	
 	final static Logger Log = Logger.getLogger(AccountDao.class);
+	private static UserDaoImpl userDao = new UserDaoImpl();
 
 
 	//-----------------CREATE METHODS------------
@@ -132,13 +134,13 @@ public class AccountDaoImpl implements AccountDao{
 				Account newAccount = new Account(
 						rs.getInt("account_id"),
 						rs.getString("account_type"),
-						null, //this is the primary User
+						userDao.selectUserByID(upi), //primary User
 						rs.getString("nickname"),
 						rs.getBoolean("joint_account"),
 						null, //list of joint owners
 						rs.getDate("date_created"),
 						rs.getInt("balance_in_cents"),
-						null, //this is the approvedby User
+						userDao.selectUserByID(rs.getInt("approved_by")), //approved by User
 						rs.getBoolean("is_open"),
 						rs.getString("status")
 						);
@@ -237,16 +239,14 @@ public class AccountDaoImpl implements AccountDao{
 	}
 
 	@Override
-	public boolean changePrimaryOwner(Account a, User u) {
+	public boolean changePrimaryOwner(int accountId, User u) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	
-	
-	//-----------------UPDATE METHODS---------------
 	@Override
-	public boolean updateJointOwners(Account a, User u) {
+	public boolean updateJointOwners(int accountId, User u) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -334,7 +334,7 @@ public class AccountDaoImpl implements AccountDao{
 	//----------------DELETE METHODS--------------
 
 	@Override
-	public boolean closeAccount(Account a) {
+	public boolean closeAccount(int accountId) {
 		// TODO Auto-generated method stub
 		return false;
 	}

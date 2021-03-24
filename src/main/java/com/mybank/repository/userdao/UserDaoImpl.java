@@ -276,7 +276,7 @@ public class UserDaoImpl implements UserDao {
 	//----------------UPDATE----------------
 
 	@Override
-	public boolean updateUserPassword(User u, String password) { //WORKING
+	public boolean updateUserPassword(int upi, String password) { //WORKING
 		
 		boolean success = false;
 		String sql = "UPDATE users SET user_password = ? WHERE upi = ?";
@@ -285,7 +285,7 @@ public class UserDaoImpl implements UserDao {
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, password);
-			ps.setInt(2, u.getUpi());
+			ps.setInt(2, upi);
 			
 			ps.execute();
 			success = true;
@@ -301,13 +301,13 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean updateUserEmpStatus(User u, boolean employeeStatus) {
+	public boolean updateUserEmpStatus(int upi, boolean employeeStatus) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean updateUserCustStatus(User u, boolean custStatus) { //WORKING
+	public boolean updateUserCustStatus(int upi, boolean custStatus) { //WORKING
 		boolean success = false;
 		String sql = "UPDATE users SET is_customer = ? WHERE upi = ?";
 		
@@ -315,7 +315,7 @@ public class UserDaoImpl implements UserDao {
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setBoolean(1, custStatus);
-			ps.setInt(2, u.getUpi());
+			ps.setInt(2, upi);
 			
 			ps.execute();
 			success = true;
@@ -334,7 +334,7 @@ public class UserDaoImpl implements UserDao {
 	//----------------DELETE----------------
 
 	@Override
-	public boolean deleteUser(User u) {
+	public boolean deleteUser(int upi) {
 		// TODO Auto-generated method stub
 		return false;
 	}

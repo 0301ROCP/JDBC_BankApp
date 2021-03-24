@@ -90,6 +90,8 @@ public class User {
 		this.password = password;
 	}
 
+	
+
 
 	//-----------TOSTRING----------
 	
@@ -98,7 +100,6 @@ public class User {
 		return "User [upi=" + upi + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", isCustomer=" + isCustomer + ", isEmployee=" + isEmployee + ", password=" + password + "]";
 	}
-
 
 	
 

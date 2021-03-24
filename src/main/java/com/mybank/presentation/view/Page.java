@@ -24,12 +24,12 @@ public class Page {
 	String name;
 	String header;
 	InteractionBlock interactionBlock;
-//	Menu menu;
-//	String instructions;
 	
 	protected static Scanner sc = new Scanner(System.in);
-	protected static AcctMgrImpl accountManager = new AcctMgrImpl(new AccountDaoImpl());
-	protected static AccessMgrImpl accessManager = new AccessMgrImpl(new UserDaoImpl());
+	protected static UserDaoImpl userDao = new UserDaoImpl();
+	protected static AccountDaoImpl accountDao = new AccountDaoImpl();
+	protected static AcctMgrImpl accountManager = new AcctMgrImpl(accountDao);
+	protected static AccessMgrImpl accessManager = new AccessMgrImpl(userDao);
 	
 	
 	//CONSTRUCTOR:

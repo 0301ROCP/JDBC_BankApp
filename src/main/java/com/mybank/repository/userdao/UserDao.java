@@ -22,11 +22,11 @@ public interface UserDao {
 	public String selectStringValueByAttributeByID(int id, String column);
 	
 	//UPDATE
-	boolean updateUserPassword(User u, String password);
-	boolean updateUserEmpStatus(User u, boolean employeeStatus);
-	boolean updateUserCustStatus(User u, boolean custStatus);
+	boolean updateUserPassword(int upi, String password);
+	boolean updateUserEmpStatus(int upi, boolean employeeStatus);
+	boolean updateUserCustStatus(int upi, boolean custStatus);
 	
 	//DELETE
-	boolean deleteUser(User u);
+	boolean deleteUser(int upi);
 	
 }

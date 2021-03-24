@@ -123,20 +123,18 @@ public class Account {
 	public String getStatus() {
 		return status;
 	}
-	//-------------TOSTRING-----------
 	
+	//-------------TOSTRING-----------
+
 	@Override
 	public String toString() {
 		return "Account [accountID=" + accountID + ", accountType=" + accountType + ", primaryOwner=" + primaryOwner
-				+ ", nickname=" + nickname + ", jointAccount=" + jointAccount + ", jointOwners=" + jointOwners
-				+ ", dateCreated=" + dateCreated + ", balanceCents=" + balanceCents
-				+ ", approvedBy=" + approvedBy + ", open=" + open + "]";
+				+ ", nickname=" + nickname + ", jointAccount=" + jointAccount + ", dateCreated=" + dateCreated
+				+ ", balanceCents=" + balanceCents + ", approvedBy=" + approvedBy + ", open=" + open + ", status="
+				+ status + "]";
 	}
-
 	
-
-
-
+	
 
 
 	
