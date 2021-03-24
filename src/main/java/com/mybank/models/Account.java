@@ -7,7 +7,9 @@ import java.util.ArrayList;
 public class Account {
 	
 	private int accountID;
+	private String accountType;
 	private User primaryOwner;
+	private String nickname;
 	private boolean jointAccount;
 	private ArrayList<User> jointOwners;	
 	private Date dateCreated;	
@@ -37,11 +39,13 @@ public class Account {
 		
 	}
 
-	public Account(int accountID, User primaryOwner, boolean jointAccount, ArrayList<User> jointOwners,
-			Date dateCreated, int balanceCents, boolean approved, User approvedBy, boolean open) {
-		super();
+	public Account(int accountID, String accountType, User primaryOwner, String nickname, boolean jointAccount, ArrayList<User> jointOwners,
+			java.sql.Date dateCreated, int balanceCents, boolean approved, User approvedBy, boolean open) {
+		
 		this.accountID = accountID;
+		this.accountType = accountType;
 		this.primaryOwner = primaryOwner;
+		this.nickname = nickname;
 		this.jointAccount = jointAccount;
 		this.jointOwners = jointOwners;
 		this.dateCreated = dateCreated;
@@ -59,6 +63,10 @@ public class Account {
 
 	public int getAccountID() {
 		return accountID;
+	}
+	
+	public String getAccountType() {
+		return accountType;
 	}
 	
 	public User getPrimaryOwner() {
@@ -118,4 +126,19 @@ public class Account {
 	}
 
 
+	
+	//-------------TOSTRING-----------
+	@Override
+	public String toString() {
+		return "Account [accountID=" + accountID + ", accountType=" + accountType + ", primaryOwner=" + primaryOwner
+				+ ", nickname=" + nickname + ", jointAccount=" + jointAccount + ", jointOwners=" + jointOwners
+				+ ", dateCreated=" + dateCreated + ", balanceCents=" + balanceCents + ", approved=" + approved
+				+ ", approvedBy=" + approvedBy + ", open=" + open + "]";
+	}
+
+
+
+	
+	
+	
 }

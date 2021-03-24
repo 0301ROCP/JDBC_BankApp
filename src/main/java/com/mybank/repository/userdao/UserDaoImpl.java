@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.models.User;
 import com.mybank.util.ConnectionFactory;
 
 public class UserDaoImpl implements UserDao {
+	
+	final static Logger Log = Logger.getLogger(UserDao.class);
+
 
 //	private List<User> allUsers; //TESTING
 	
@@ -48,8 +53,11 @@ public class UserDaoImpl implements UserDao {
 			success = true;			
 			
 		}catch(SQLException e) {
-			System.out.println("repository.DirectoryImpl.java: Something went wrong with this user creation!");
-			e.printStackTrace();
+			Log.error("SQL Exception: failed to insert user");
+			e.printStackTrace(); //TODO take this out eventually
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to insert user");
 		}
 		
 		return success;
@@ -80,11 +88,12 @@ public class UserDaoImpl implements UserDao {
 						result.getBoolean("is_employee"),
 						result.getString("user_password"));
 			}
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to select user");
+			e.printStackTrace(); //TODO take this out eventually
 		}
-		catch(SQLException e) {
-			//TODO fix catch block
-			System.out.println("repository.DirectoryImpl.java Something went wrong selecting this user!");
-			e.printStackTrace();
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to select user");
 		}
 		
 		return thisUser;
@@ -113,11 +122,12 @@ public class UserDaoImpl implements UserDao {
 						result.getBoolean("is_employee"),
 						result.getString("user_password"));
 			}
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to select user");
+			e.printStackTrace(); //TODO take this out eventually
 		}
-		catch(SQLException e) {
-			//TODO fix catch block
-			System.out.println("repository.DirectoryImpl.java Something went wrong selecting this user!");
-			e.printStackTrace();
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to select user");
 		}
 		
 		return thisUser;
@@ -149,10 +159,12 @@ public class UserDaoImpl implements UserDao {
 						rs.getString("user_password")));
 			}
 			
-		} 
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to select user");
+			e.printStackTrace(); //TODO take this out eventually
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to select user");
 		}
 		
 		return theseUsers;
@@ -183,10 +195,12 @@ public class UserDaoImpl implements UserDao {
 						rs.getString("user_password")));
 			}
 			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to select user");
+			e.printStackTrace(); //TODO take this out eventually
 		}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to select user");
 		}
 		
 		return allUsers;
@@ -218,10 +232,12 @@ public class UserDaoImpl implements UserDao {
 			}
 			
 			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to select user");
+			e.printStackTrace(); //TODO take this out eventually
 		}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to select user");
 		}
 		
 		return userList;
@@ -246,10 +262,12 @@ public class UserDaoImpl implements UserDao {
 			}
 			
 			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to select user");
+			e.printStackTrace(); //TODO take this out eventually
 		}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to select user");
 		}
 		
 		return returnString;
@@ -272,9 +290,12 @@ public class UserDaoImpl implements UserDao {
 			ps.execute();
 			success = true;
 			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to update user");
+			e.printStackTrace(); //TODO take this out eventually
 		}
-		catch(SQLException e) {
-			e.printStackTrace();
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to update user");
 		}
 		return success;
 	}
@@ -299,9 +320,12 @@ public class UserDaoImpl implements UserDao {
 			ps.execute();
 			success = true;
 			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to update user");
+			e.printStackTrace(); //TODO take this out eventually
 		}
-		catch(SQLException e) {
-			e.printStackTrace();
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to update user");
 		}
 		return success;
 	}

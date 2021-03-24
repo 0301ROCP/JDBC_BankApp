@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.models.Account;
 import com.mybank.models.User;
 import com.mybank.repository.accountdao.AccountDao;
 import com.mybank.repository.accountdao.AccountDaoImpl;
 import com.mybank.repository.userdao.UserDao;
 import com.mybank.repository.userdao.UserDaoImpl;
+import com.mybank.service.access_mgt.AccessManager;
 
 public class AcctMgrImpl implements AccountManager{
+	
+	final static Logger Log = Logger.getLogger(AccountManager.class);
 	
 	private AccountDao accountDao;
 
@@ -27,22 +32,28 @@ public class AcctMgrImpl implements AccountManager{
 	
 	//-------------METHODS----------------
 	
-	public void enterForm(HashMap<String, String> formAnswers, String crudAction) {
+	public void enterForm(HashMap<String, String> formAnswers, String crudAction) {	
 		
 		UserDao userDao = new UserDaoImpl();
 		
 		int account_id = -1;
+		String account_type = null;
 		User primary_owner = null;
+		String nickname = formAnswers.get("nickname");
 		boolean joint_account = false; //TODO skipped
 		ArrayList<User> joint_owners = null; //TODO skipped
 		java.sql.Date date_created = null;
-		int balance_cents = 0;
+		int balance_in_cents = 0;
 		boolean approved = false;
 		User approved_by = null;
 		boolean open = false;
 		
 		if(formAnswers.get("account_id") != null) {
 			account_id = Integer.parseInt(formAnswers.get("account_id"));
+		}
+		
+		if(formAnswers.get("account_type") != null){
+			account_type = formAnswers.get("account_type"); //TODO can it parse from enum to string?
 		}
 		
 		if(formAnswers.get("primary_owner") != null) {
@@ -54,8 +65,8 @@ public class AcctMgrImpl implements AccountManager{
 			date_created = java.sql.Date.valueOf(formAnswers.get("date_created"));
 		}
 		
-		if(formAnswers.get("balance_cents") != null) {
-			balance_cents = Integer.parseInt(formAnswers.get("balance_cents"));
+		if(formAnswers.get("balance_in_dollars") != null) {
+			balance_in_cents = Integer.parseInt(formAnswers.get("balance_in_dollars")) * 100;
 		}
 		
 		if(formAnswers.get("approved") != null) {
@@ -71,15 +82,21 @@ public class AcctMgrImpl implements AccountManager{
 			open = Boolean.parseBoolean(formAnswers.get("open")); //TODO risky try catch, what if it's not a boolean?
 		}
 		
-		Account thisAccount = new Account(account_id, primary_owner, joint_account, joint_owners, date_created, balance_cents, approved, approved_by, open);
+		Account thisAccount = new Account(account_id, account_type, primary_owner, nickname, joint_account, joint_owners, date_created, balance_in_cents, approved, approved_by, open);
 						
-		
+
 		switch(crudAction) {
+		
 		case "create":
 			accountDao.insertAccount(thisAccount);
+			Log.debug("Insert account " + thisAccount);
 	
 			break;
-		}
+		
+		default:
+			Log.fatal("Called EnterForm on CRUD action that does not exist");
+				
+		}		
 		
 	}
 	

@@ -3,11 +3,16 @@ package com.mybank.service.access_mgt;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.models.User;
+import com.mybank.presentation.models.MenuBlock;
 import com.mybank.repository.userdao.UserDao;
 import com.mybank.repository.userdao.UserDaoImpl;
 
 public class AccessMgrImpl implements AccessManager{
+	
+	final static Logger Log = Logger.getLogger(AccessManager.class);
 
 	private UserDao userDao; //TOASK why do I need this?
 	
@@ -102,57 +107,56 @@ public class AccessMgrImpl implements AccessManager{
 	@Override
 	public User enterForm(HashMap<String, String> formAnswers, String crudAction) {
 		
-		int upi;
-		String username;
-		boolean is_customer;
-		boolean is_employee;
+		int upi = -1;
+		String username = username = formAnswers.get("username");
+		String first_name = formAnswers.get("first_name");
+		String last_name = formAnswers.get("last_name");
+		boolean is_customer = false;
+		boolean is_employee = false;
+		String user_password = formAnswers.get("user_password");
 
 		
 		if(formAnswers.get("upi") != null) {
 			upi = Integer.parseInt(formAnswers.get("upi"));
 		}
-		else {
-			upi = -1;
-		}
 		
 		if(formAnswers.get("is_customer") != null) {
 			is_customer = Boolean.parseBoolean(formAnswers.get("is_customer"));
-		}
-		else {
-			is_customer = false;
 		}
 		
 		if(formAnswers.get("is_employee") != null) {
 			is_employee = Boolean.parseBoolean(formAnswers.get("is_employee"));
 		}
-		else {
-			is_employee = false;
-		}
+
 
 
 		
-		User thisUser = new User( //TODO test if this casts correctly when value is null
-				upi,
-				formAnswers.get("username"),
-				formAnswers.get("first_name"),
-				formAnswers.get("last_name"),
-				is_customer,
-				is_employee,
-				formAnswers.get("user_password")
-				);
+		User thisUser = new User(upi,username,first_name,last_name,is_customer,is_employee,user_password);
 		
 		User toReturn = new User();
 		
 		switch(crudAction) { //TODO rest of cases
 		
 		case "create":
+			
+			Log.debug("Create user: " + thisUser);
+			
 			userDao.insertUser(thisUser);
 			toReturn = userDao.selectUserByUsername(formAnswers.get("username"));
+			
+			Log.debug("Created user: " + toReturn);
+			
 			break;
-
 		
 		case "read":
+			
 			toReturn = userDao.selectUserByUsername(formAnswers.get("username"));
+			Log.debug("Fetch user by username: " + toReturn);
+			
+			break;
+			
+		default:
+			Log.fatal("Called EnterForm on CRUD action that does not exist");
 		}
 		
 		

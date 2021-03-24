@@ -15,7 +15,9 @@ select * from users;
 
 create TABLE accounts(
 	account_id serial primary key,
+	account_type varchar(30),
 	primary_owner int references users (upi),
+	nickname varchar(30),
 	joint_account boolean default false,
 	date_created date,
 	balance_in_cents int default 0,

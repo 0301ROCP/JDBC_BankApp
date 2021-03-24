@@ -2,9 +2,13 @@ package com.mybank.repository.userdao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.models.User;
+import com.mybank.repository.accountdao.AccountDao;
 
 public interface UserDao {
+	
 
 	//CREATE
 	boolean insertUser(User u);
