@@ -125,7 +125,9 @@ public class Account {
 		this.open = open;
 	}
 
-
+	public String getNickname() {
+		return nickname;
+	}
 	
 	//-------------TOSTRING-----------
 	@Override
@@ -135,6 +137,8 @@ public class Account {
 				+ ", dateCreated=" + dateCreated + ", balanceCents=" + balanceCents + ", approved=" + approved
 				+ ", approvedBy=" + approvedBy + ", open=" + open + "]";
 	}
+
+
 
 
 

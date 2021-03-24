@@ -2,14 +2,15 @@ package com.mybank.repository.accountdao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.Account;
 import com.mybank.models.User;
-import com.mybank.service.account_mgt.AccountManager;
 import com.mybank.util.ConnectionFactory;
 
 public class AccountDaoImpl implements AccountDao{
@@ -61,17 +62,64 @@ public class AccountDaoImpl implements AccountDao{
 	//-----------------READ METHODS---------------
 
 	@Override
-	public Account selectAccountByID(int ID) {
+	public Account selectAccountByAccountID(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Account> selectAllAccounts() {
+	public ArrayList<Account> selectAllAccounts() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
+	public ArrayList<Account> selectAccountsByUpi(int upi){
+		
+		Log.setLevel(Level.DEBUG);
+		
+		ArrayList<Account> toReturn = new ArrayList<Account>();
+		
+		String sqlString = "SELECT * FROM accounts WHERE primary_owner = ?";	
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(sqlString);
+			
+			ps.setInt(1, upi);
+			
+			Log.debug("Prepared Statement: " + ps);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Account newAccount = new Account(
+						rs.getInt("account_id"),
+						rs.getString("account_type"),
+						null, //this is the primary User
+						rs.getString("nickname"),
+						rs.getBoolean("joint_account"),
+						null, //list of joint owners
+						rs.getDate("date_created"),
+						rs.getInt("balance_in_cents"),
+						rs.getBoolean("approved"),
+						null, //this is the approvedby User
+						rs.getBoolean("is_open")
+						);
+				Log.debug("Account: "+newAccount);
+				toReturn.add(newAccount);
+			}
+			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to select accounts");
+			e.printStackTrace(); //TODO take this out eventually
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to select accounts");
+		}
+		
+		return toReturn;
+		
+	}
 	
 	//-----------------UPDATE METHODS-----------------
 

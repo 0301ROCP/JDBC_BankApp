@@ -2,8 +2,10 @@ package com.mybank.service.account_mgt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.Account;
@@ -162,6 +164,22 @@ public class AcctMgrImpl implements AccountManager{
 	public boolean closeAccount() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+
+	
+	public ArrayList<Account> getThisUsersAccounts(User currentUser) {
+		
+		Log.setLevel(Level.DEBUG);
+		
+		ArrayList<Account> toReturn = new ArrayList<Account>();
+		
+		AccountDaoImpl accountDao = new AccountDaoImpl();
+		
+		toReturn = accountDao.selectAccountsByUpi(currentUser.getUpi());
+		Log.debug("toReturn = " + toReturn);
+		
+		return toReturn;
 	}
 	
 	

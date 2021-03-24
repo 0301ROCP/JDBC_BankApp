@@ -1,5 +1,6 @@
 package com.mybank.repository.accountdao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mybank.models.Account;
@@ -12,8 +13,9 @@ public interface AccountDao {
 	boolean insertApprovedAccount(Account a); //not sure if/when you'd need this but here it is
 	
 	//READ
-	public Account selectAccountByID(int ID);
-	public List<Account> selectAllAccounts();	
+	public Account selectAccountByAccountID(int id);
+	public ArrayList<Account> selectAllAccounts();	
+	public ArrayList<Account> selectAccountsByUpi(int upi);
 	
 	//UPDATE
 	boolean updateAccountBalance(Account a, int amount);
