@@ -24,17 +24,27 @@ public class Confirm extends Operation{
 		
 		boolean match = false;
 		
-		Scanner sc = new Scanner(System.in);
-		System.out.println(prompt);
+		if(!userAnswer.equals("")) {
 		
-		String result = sc.next();
-		Log.debug("User entered: " + result);
-		
-		if(result.equals(userAnswer)) {
-			match = true;
+			Scanner sc = new Scanner(System.in);
+			System.out.println(prompt);
+			
+			String result = sc.next();
+			Log.debug("User entered: " + result);
+			
+			if(result.equals(userAnswer)) {
+				match = true;
+			}
+			
+			return match;	
 		}
 		
-		return match;		
+		else {
+			System.out.println("This field cannot be left blank.");
+			Log.debug("Return false; field left blank");
+			return false;
+		}
+				
 	}
 
 }

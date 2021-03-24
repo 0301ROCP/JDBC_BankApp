@@ -2,18 +2,17 @@ package com.mybank.presentation.view;
 
 import com.mybank.presentation.models.NullBlock;
 
-public class Guest extends Page{
-	
-	
+public class Deposit extends Page{
+
 	//-----------CONSTRUCTOR-------------
 	
-	public Guest() {
+	public Deposit() {
 		super();
 		
-		this.name = "Withdraw";
-		this.header = "Withdrawal Form";
+		this.name = "Deposit";
+		this.header = "Deposit Form";
 		
 		this.interactionBlock = new NullBlock();
 	}
-
+	
 }

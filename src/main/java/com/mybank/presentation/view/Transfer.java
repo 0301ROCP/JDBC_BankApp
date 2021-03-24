@@ -2,17 +2,17 @@ package com.mybank.presentation.view;
 
 import com.mybank.presentation.models.NullBlock;
 
-public class Logout extends Page {
-	
+public class Transfer extends Page{
+
 //-----------CONSTRUCTOR-------------
 
-	public Logout() {
+	public Transfer() {
 		super();
 		
-		this.name = "Logout";
-		this.header = "Are You Sure You Want To Log Out?";
+		this.name = "Transfer";
+		this.header = "Transfer Form";
 		
 		this.interactionBlock = new NullBlock();
 	}
-
+	
 }

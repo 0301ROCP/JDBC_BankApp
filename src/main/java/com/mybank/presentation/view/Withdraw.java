@@ -2,12 +2,12 @@ package com.mybank.presentation.view;
 
 import com.mybank.presentation.models.NullBlock;
 
-public class Guest extends Page{
+public class Withdraw extends Page{
 	
 	
 	//-----------CONSTRUCTOR-------------
 	
-	public Guest() {
+	public Withdraw() {
 		super();
 		
 		this.name = "Withdraw";

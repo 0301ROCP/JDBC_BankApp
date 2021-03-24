@@ -38,21 +38,30 @@ public class VerifyExists extends Operation{
 		
 		boolean result = false;
 		
-		if(table.equals("users")) { //TODO hardcoded
-			result = accessManager.verifyExists(userAnswer, column);
-			Log.debug("AccessManager says: " + result);
-		}
-		else {
-			Log.fatal("Ran VerifyExists on a table other than user: table " + table);
-			//TODO something went wrong
+		if(!userAnswer.equals("")) { //as long as they entered something
+		
+			if(table.equals("users")) { //TODO hardcoded
+				result = accessManager.verifyExists(userAnswer, column);
+				Log.debug("AccessManager says: " + result);
+			}
+			else {
+				Log.fatal("Ran VerifyExists on a table other than user: table " + table);
+				//TODO something went wrong
+			}
+			
+			if(reverse) {
+				Log.debug("Reverse; return " + !result);
+				return !result;			
+			}
+			else {
+				return result;
+			}
 		}
 		
-		if(reverse) {
-			Log.debug("Reverse; return " + !result);
-			return !result;			
-		}
 		else {
-			return result;
+			System.out.println("This field cannot be left blank.");
+			Log.debug("Return false; field left blank");
+			return false;
 		}
 		
 	}

@@ -7,18 +7,23 @@ import java.util.Stack;
 
 import org.apache.log4j.Logger;
 
-import com.mybank.MainDriver;
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.Navigate;
 import com.mybank.presentation.controller.actions.SetUser;
 import com.mybank.presentation.view.CreateAccount;
 import com.mybank.presentation.view.CustomerDB;
+import com.mybank.presentation.view.Deposit;
+import com.mybank.presentation.view.EmployeeDB;
+import com.mybank.presentation.view.Guest;
 import com.mybank.presentation.view.Login;
+import com.mybank.presentation.view.Logout;
 import com.mybank.presentation.view.Page;
 import com.mybank.presentation.view.SelectAccounts;
 import com.mybank.presentation.view.Signup;
+import com.mybank.presentation.view.Transfer;
 import com.mybank.presentation.view.Welcome;
+import com.mybank.presentation.view.Withdraw;
 
 
 public class Controller {
@@ -43,26 +48,35 @@ public class Controller {
 			Page welcomePage = new Welcome();
 			Page loginPage = new Login();
 			Page customerDB = new CustomerDB();
-	//		Page employeeDB = new EmployeeDB();
-	//		Page logoutPage = new Logout();
+			Page employeeDB = new EmployeeDB();
+			Page logoutPage = new Logout();
 			Page signupPage = new Signup();
-	//		Page guestPage = new Guest();
+			Page guestPage = new Guest();
 	//		Page blankPage = new Blank();
+			
 			Page createSavingsPage = new CreateAccount("CreateSavings","Set Up Your Savings Account");
 			Page createCheckingPage = new CreateAccount("CreateChecking","Set Up Your Checking Account");
 			Page selectAccountsPage = new SelectAccounts();
+			Page withdrawPage = new Withdraw();
+			Page depositPage = new Deposit();
+			Page transferPage = new Transfer();
 			
 			siteMap.put("Welcome",welcomePage);
 			siteMap.put("Login",loginPage);
 			siteMap.put("CustomerDB", customerDB);
-////			siteMap.put("EmployeeDB", employeeDB);
-////			siteMap.put("Logout", logoutPage);
+			siteMap.put("EmployeeDB", employeeDB);
+			siteMap.put("Logout", logoutPage);
 			siteMap.put("Signup", signupPage);
-//			siteMap.put("Guest", guestPage);
+			siteMap.put("Guest", guestPage);
 //			siteMap.put("Blank", blankPage);
+			
 			siteMap.put("CreateSavings", createSavingsPage);
 			siteMap.put("CreateChecking", createCheckingPage);
 			siteMap.put("SelectAccounts", selectAccountsPage);
+			siteMap.put("Withdraw", withdrawPage);
+			siteMap.put("Deposit", depositPage);
+			siteMap.put("Transfer", transferPage);
+			
 		}
 		catch(Exception e) {
 			Log.error("One or more pages could not be set up correctly");
@@ -124,7 +138,7 @@ public class Controller {
 					runApp(nextPage); //run the new page
 				}
 				catch(Exception e) {
-					Log.fatal("Button points to page that does not exist");
+					Log.fatal("Button points to target " + target + "which does not exist");
 					//TODO something went wrong
 				}
 				break;

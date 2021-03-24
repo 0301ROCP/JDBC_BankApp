@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
@@ -57,7 +58,9 @@ public class FormBlock extends InteractionBlock{
 	@Override
 	public Queue<Action> run(User currentUser) {
 		
-		//Log.debug("FormBlock run()");
+		//Log.setLevel(Level.DEBUG);
+		
+		Log.debug("FormBlock run()");
 		
 		HashMap<String, String> formAnswers = new HashMap<String,String>(); //answers to this form
 		
@@ -84,7 +87,6 @@ public class FormBlock extends InteractionBlock{
 						Log.debug("Valid answer");
 						valid = true;
 					}
-					
 					else {
 						Log.warn("Invalid answer: "+q.getInvalidMessage());
 						System.out.println(q.getInvalidMessage()); 
@@ -113,6 +115,8 @@ public class FormBlock extends InteractionBlock{
 						
 		}
 		
+		Log.debug("FormAnswers: " + formAnswers);
+		
 		
 		User resultUser = new User(); //we only need this if returning a setuser action
 		
@@ -130,6 +134,7 @@ public class FormBlock extends InteractionBlock{
 		
 		default:
 			Log.fatal("Switch case: Page thaht called this FormBlock provided invalid table " + table);
+			break;
 		}
 		//TODO other cases
 		
