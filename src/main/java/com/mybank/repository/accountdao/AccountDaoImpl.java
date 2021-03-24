@@ -27,18 +27,30 @@ public class AccountDaoImpl implements AccountDao{
 		
 		boolean success = false; //TODO check if table exists first, if not create it
 		
-		String sqlStatement = "INSERT into accounts (primary_owner, account_type, joint_account, date_created, balance_in_cents, is_open) values "
-				+ "(?,?,?,?,?,?)";
+		String sqlStatement = "INSERT into accounts (account_type, primary_owner, nickname, joint_account, date_created, balance_in_cents, is_open, status) values "
+				+ "(?,?,?,?,?,?,?,?)";
 		
 		try (Connection conn = ConnectionFactory.getConnection()){ //Try with resources block 
 			
+			int primaryOwner = -1;
+			
+			try {
+				primaryOwner = a.getPrimaryOwner().getUpi();
+			}
+			catch(Exception e) {
+				Log.error("primaryOwner or primaryOwner UPI is null for account " + a);
+			}
+			
+			
 			PreparedStatement pStatement = conn.prepareStatement(sqlStatement);
-			pStatement.setInt(1, a.getPrimaryOwner().getUpi());
-			pStatement.setString(2, a.getAccountType());
-			pStatement.setBoolean(3, a.isJointAccount());
-			pStatement.setDate(4, a.getDateCreated());
-			pStatement.setInt(5, a.getBalanceCents());
-			pStatement.setBoolean(6, a.isOpen());
+			pStatement.setString(1, a.getAccountType());
+			pStatement.setInt(2, primaryOwner);	
+			pStatement.setString(3, a.getNickname());
+			pStatement.setBoolean(4, a.isJointAccount());
+			pStatement.setDate(5, a.getDateCreated());
+			pStatement.setInt(6, a.getBalanceCents());
+			pStatement.setBoolean(7, a.isOpen());
+			pStatement.setString(8, a.getStatus());
 			
 			pStatement.execute();
 			success = true;			

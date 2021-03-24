@@ -153,5 +153,15 @@ public class AcctMgrImpl implements AccountManager{
 		}
 		
 	}
+
+
+	
+	@Override
+	public void openAccount(Account account) {
+		accountDao.insertAccount(account);
+		
+	}
 	
 }
+
+

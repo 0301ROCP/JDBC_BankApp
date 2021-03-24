@@ -69,13 +69,13 @@ public class CustomerDB extends Page{
 		Log.debug("User's accounts:" + thisUsersAccounts);
 		
 		for(Account account: thisUsersAccounts) { //print accounts
-			double balance = account.getBalanceCents()/100; //TODO pad 0's
+			double balance = ((double) account.getBalanceCents())/100; //TODO pad 0's
 			String status = account.getStatus();
 			boolean isOpen = account.isOpen();
 			if(isOpen) {
 				System.out.print(account.getAccountType() + " Account '" + account.getNickname() + "' (" + status + ")");
 				System.out.print(": ");
-				System.out.println("Current Balance = " + balance + "  ");
+				System.out.println("Current Balance = " + formatMoney.format(balance) + "  ");
 			}
 		}
 		

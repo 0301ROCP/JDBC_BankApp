@@ -33,7 +33,7 @@ public class Welcome extends Page {
 		
 		((MenuBlock) this.interactionBlock).addButton("E", "Employee Portal", Button.makeActionQueue(
 				new Navigate("Login"),
-				new Navigate("Employee")
+				new Navigate("EmployeeDB")
 				));
 
 

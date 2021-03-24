@@ -1,12 +1,13 @@
 package com.mybank.presentation.view;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import org.apache.log4j.Logger;
 
-import com.mybank.presentation.controller.operations.AddToList;
-import com.mybank.presentation.controller.operations.ValidateMoney;
-import com.mybank.presentation.models.FormBlock;
-import com.mybank.presentation.models.Question;
-import com.mybank.service.account_mgt.AccountManager;
+import com.mybank.models.Account;
+import com.mybank.models.User;
+import com.mybank.presentation.controller.actions.Action;
 
 public class CreateAccount extends Page{
 
@@ -19,62 +20,82 @@ public class CreateAccount extends Page{
 		this.name = name;
 		this.header = header;
 		
-		this.interactionBlock = new FormBlock("accounts","create",false); //create a new FormBlock that corresponds to users table
+		this.interactionBlock = null; 			
+	}
+	
+	
+	//--------METHODS----------
+	
+	@Override
+	public Queue<Action> run(User currentUser){		
+		
+		Queue<Action> actionQueue = new LinkedList<Action>();
+		
+		System.out.println(header);
+		
+		String accountType = null;
+		String nickname = null;
+		User primaryUser = currentUser;
+		int amountCents = 0;		
+		String status = "pending";
+		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+		boolean isOpen = true; //just means it's not been closed by the user
+		
 				
-//			((FormBlock) this.interactionBlock).addQuestion(new Question(
-//					"Will this be a joint account?",
-//					null,
-//					null, 
-//					new AddToList("first_name") //add password to form info
-//					));
+		//----Question #1
+		boolean valid = false;
+		String amountDollars = null;
 		
-		((FormBlock) this.interactionBlock).addQuestion(new Question(
-				new AddToList("primary_owner"),
-				true,
-				"#getuser_upi" //this will become the current user's upi				
-				));
+		while(!valid) {
+			System.out.println("How much would you like to deposit into this account?");
+			amountDollars = sc.nextLine();
+			moneyValidator.setUserAnswer(amountDollars); //TODO simplify this down the road
+			valid = moneyValidator.run();
+			
+			if(!valid) {
+				System.out.println("The amount must be 0 or more, and follow the format 1234.56. Please try again.");
+			}
+		}
 		
-		
-		((FormBlock) this.interactionBlock).addQuestion(new Question(
-				"How much would you like to deposit into this account?",
-				"The amount must be 0 or more, and follow the format 1234.56",
-				new ValidateMoney(),
-				new AddToList("balance_in_dollars") //add password to form info
-				));
+		amountCents = (int) (Double.parseDouble(amountDollars)*100);
 		
 		
-		((FormBlock) this.interactionBlock).addQuestion(new Question(
-				"What would you like to name this account?",
-				null,
-				null, 
-				new AddToList("nickname") //add password to form info
-				));		
+		//----Question #2		
+		valid = false;		
 		
+		while(!valid) {
+			System.out.println("What would you like to name this account?");
+			nickname = sc.nextLine();
+			
+			if(nickname.equals("")) {
+				System.out.println("You must give this account a name (eg, 'My Checking Account').");
+			}
+			else {
+				valid = true;
+			}
+		}
+		
+		
+		//-----Set checking or savings
 		
 		switch(name) {
-		
 		case "CreateSavings":
-			((FormBlock) this.interactionBlock).addQuestion(new Question(
-					new AddToList("account_type"),
-					true,
-					"Savings" 			
-					));
+			accountType = "Savings";
 			break;
-		
 		case "CreateChecking":
-			((FormBlock) this.interactionBlock).addQuestion(new Question(
-					new AddToList("account_type"),
-					true,
-					"Checking" 				
-					));				
+			accountType = "Checking";
 			break;
-		
 		default:
 			Log.fatal("CreateAccount page called for neither savings nor checking: called "+name);
-			break;
-				
+		
 		}
-
+		
+		Account newAccount = new Account(-1, accountType, primaryUser, nickname, false, null, date, amountCents, null, isOpen, status);
+		accountManager.openAccount(newAccount);
+		
+		clear();
+		
+		return actionQueue;
 	}
 	
 }

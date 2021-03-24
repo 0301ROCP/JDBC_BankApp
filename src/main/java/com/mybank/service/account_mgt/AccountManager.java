@@ -14,7 +14,8 @@ public interface AccountManager {
 	public ArrayList<Account> getThisUsersAccounts(User currentUser);
 	public void addToBalance(Account account, int cents);
 	public ArrayList<Account> getPendingAccounts();
-	void setAccountApproval(Account account, String status, User approver);
+	public void setAccountApproval(Account account, String status, User approver);
+	public void openAccount(Account account);
 
 	//see account details
 

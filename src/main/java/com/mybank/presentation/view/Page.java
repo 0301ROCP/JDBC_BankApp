@@ -2,6 +2,7 @@ package com.mybank.presentation.view;
 
 
 
+import java.text.DecimalFormat;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -9,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
+import com.mybank.presentation.controller.operations.ValidateMoney;
 import com.mybank.presentation.models.InteractionBlock;
 import com.mybank.repository.accountdao.AccountDaoImpl;
 import com.mybank.repository.userdao.UserDaoImpl;
@@ -31,6 +33,8 @@ public class Page {
 	protected static AcctMgrImpl accountManager = new AcctMgrImpl(accountDao);
 	protected static AccessMgrImpl accessManager = new AccessMgrImpl(userDao);
 	
+	protected static ValidateMoney moneyValidator = new ValidateMoney();
+	protected static DecimalFormat formatMoney = new DecimalFormat("#.00");
 	
 	//CONSTRUCTOR:
 	public Page() { 
@@ -95,7 +99,7 @@ public class Page {
 		Log.debug("Default Page run()");
 		
 		print(); //print this page's header and action block
-				
+			
 		Queue<Action> actionQueue = interactionBlock.run(currentUser);
 
 		clear(); //clear the console
