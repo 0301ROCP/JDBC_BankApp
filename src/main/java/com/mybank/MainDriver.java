@@ -4,9 +4,8 @@ import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
 import com.mybank.presentation.controller.Controller;
-import com.mybank.repository.userdao.UserDaoImpl;
-import com.mybank.service.access_mgt.AccessMgrImpl;
-import org.apache.log4j.Logger;
+import com.mybank.presentation.view.EmployeeDB;
+import com.mybank.presentation.view.Page;
 
 
 public class MainDriver {
@@ -22,16 +21,27 @@ public class MainDriver {
 //		AccessMgrImpl am = new AccessMgrImpl(uDao);
 		
 		
+		//----Run a particular page:
 		
+		Controller controller = new Controller();
+		
+		User testUser = new User();
+		testUser.setUpi(7);
+		
+		controller.setCurrentUser(testUser);
+		
+		Page employeeDB = new EmployeeDB(); //<--Enter page to run here
+		
+		controller.runApp(employeeDB); 
 		
 		
 		//--------REAL CODE-----------
 		
 		
 		
-		Controller appController = new Controller();
-//		
-		appController.start();
+//		Controller appController = new Controller();
+////		
+//		appController.start();
 		
 		
 

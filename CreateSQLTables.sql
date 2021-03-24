@@ -23,7 +23,8 @@ create TABLE accounts(
 	balance_in_cents int default 0,
 	approved boolean default false,
 	approved_by int references users (upi),
-	is_open boolean default false
+	is_open boolean default false,
+	status varchar(30)
 );
 
 --TODO add check balance constraint, figure out foreign keys
@@ -31,3 +32,6 @@ create TABLE accounts(
 drop table accounts;
 
 select * from accounts;
+
+alter table accounts add column status varchar(30);
+

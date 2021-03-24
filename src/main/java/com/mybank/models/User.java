@@ -38,6 +38,10 @@ public class User {
 		return upi;
 	}
 	
+	public void setUpi(int upi) {
+		this.upi = upi;
+	}
+
 	public String getUserName() {
 		return userName;
 	}

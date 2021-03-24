@@ -12,6 +12,8 @@ import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.Navigate;
 import com.mybank.presentation.controller.actions.SetUser;
+import com.mybank.presentation.view.ApproveIndiv;
+import com.mybank.presentation.view.ApproveMain;
 import com.mybank.presentation.view.CreateAccount;
 import com.mybank.presentation.view.CustomerDB;
 import com.mybank.presentation.view.DepositWithdrawal;
@@ -60,6 +62,10 @@ public class Controller {
 			Page depositWithdrawalPage = new DepositWithdrawal();
 			Page transferPage = new Transfer();
 			
+			Page accountApprove = new ApproveMain();
+			Page approveIndiv = new ApproveIndiv();
+			
+			
 			siteMap.put("Welcome",welcomePage);
 			siteMap.put("Login",loginPage);
 			siteMap.put("CustomerDB", customerDB);
@@ -74,6 +80,9 @@ public class Controller {
 			siteMap.put("SelectAccounts", selectAccountsPage);
 			siteMap.put("DepositWithdrawal", depositWithdrawalPage);
 			siteMap.put("Transfer", transferPage);
+			
+			siteMap.put("ApproveMain", accountApprove);
+			siteMap.put("ApproveIndiv", approveIndiv);
 			
 		}
 		catch(Exception e) {

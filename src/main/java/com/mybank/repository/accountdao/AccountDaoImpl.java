@@ -87,11 +87,10 @@ public class AccountDaoImpl implements AccountDao{
 						null, //list of joint owners
 						rs.getDate("date_created"),
 						rs.getInt("balance_in_cents"),
-						rs.getBoolean("approved"),
 						null, //this is the approvedby User
-						rs.getBoolean("is_open")
+						rs.getBoolean("is_open"),
+						rs.getString("status")
 						);
-				Log.debug("Account: "+toReturn);
 			}
 			
 		}catch(SQLException e) {
@@ -139,9 +138,9 @@ public class AccountDaoImpl implements AccountDao{
 						null, //list of joint owners
 						rs.getDate("date_created"),
 						rs.getInt("balance_in_cents"),
-						rs.getBoolean("approved"),
 						null, //this is the approvedby User
-						rs.getBoolean("is_open")
+						rs.getBoolean("is_open"),
+						rs.getString("status")
 						);
 				Log.debug("Account: "+newAccount);
 				toReturn.add(newAccount);
@@ -157,6 +156,51 @@ public class AccountDaoImpl implements AccountDao{
 		
 		return toReturn;
 		
+	}
+	
+	@Override
+	public ArrayList<Account> selectAccountsByStringfield(String column, String value){
+		ArrayList<Account> toReturn = new ArrayList<Account>();
+		
+		String sqlString = "SELECT * FROM accounts WHERE " + column + "= ?";	
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(sqlString);
+			
+			ps.setString(1, value);
+			
+			Log.debug("Prepared Statement: " + ps);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Account newAccount = new Account(
+						rs.getInt("account_id"),
+						rs.getString("account_type"),
+						null, //this is the primary User
+						rs.getString("nickname"),
+						rs.getBoolean("joint_account"),
+						null, //list of joint owners
+						rs.getDate("date_created"),
+						rs.getInt("balance_in_cents"),
+						null, //this is the approvedby User
+						rs.getBoolean("is_open"),
+						rs.getString("status")
+						);
+				Log.debug("Account: "+newAccount);
+				toReturn.add(newAccount);
+			}
+			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to select accounts");
+			e.printStackTrace(); //TODO take this out eventually
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to select accounts");
+		}
+		
+		return toReturn;
 	}
 	
 	//-----------------UPDATE METHODS-----------------
@@ -198,6 +242,9 @@ public class AccountDaoImpl implements AccountDao{
 		return false;
 	}
 
+	
+	
+	//-----------------UPDATE METHODS---------------
 	@Override
 	public boolean updateJointOwners(Account a, User u) {
 		// TODO Auto-generated method stub
@@ -205,11 +252,84 @@ public class AccountDaoImpl implements AccountDao{
 	}
 
 	@Override
-	public boolean updateApprovalStatus(Account a, boolean status) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateApprovalStatus(int accountID, String status) {
+		
+		boolean success = false;
+
+		String sqlStatement = "UPDATE accounts SET status = ? WHERE account_id = ?";
+		
+		try (Connection conn = ConnectionFactory.getConnection()){ //Try with resources block 
+			
+			PreparedStatement pStatement = conn.prepareStatement(sqlStatement);
+			pStatement.setString(1, status);
+			pStatement.setInt(2, accountID);
+			
+			pStatement.execute();
+			success = true;			
+			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to update account");
+			e.printStackTrace(); //TODO change this!
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to update account");
+		}
+		
+		return success;
 	}
 	
+	@Override
+	public boolean setOpen(int accountID, boolean open) {
+		boolean success = false;
+		
+		String sqlStatement = "UPDATE accounts SET is_open = ? WHERE account_id = ?";
+		
+		try (Connection conn = ConnectionFactory.getConnection()){ //Try with resources block 
+			
+			PreparedStatement pStatement = conn.prepareStatement(sqlStatement);
+			pStatement.setBoolean(1, open);
+			pStatement.setInt(2, accountID);
+			
+			pStatement.execute();
+			success = true;			
+			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to update account");
+			e.printStackTrace(); //TODO change this!
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to update account");
+		}
+		
+		return success;
+	}
+	
+	@Override
+	public boolean setApprover(int accountID, int upi) {
+		boolean success = false;
+		
+		String sqlStatement = "UPDATE accounts SET approved_by = ? WHERE account_id = ?";
+		
+		try (Connection conn = ConnectionFactory.getConnection()){ //Try with resources block 
+			
+			PreparedStatement pStatement = conn.prepareStatement(sqlStatement);
+			pStatement.setInt(1, upi);
+			pStatement.setInt(2, accountID);
+			
+			pStatement.execute();
+			success = true;			
+			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to update account");
+			e.printStackTrace(); //TODO change this!
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to update account");
+		}
+		
+		return success;
+	}
+
 	
 	//----------------DELETE METHODS--------------
 
@@ -218,6 +338,7 @@ public class AccountDaoImpl implements AccountDao{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 
 

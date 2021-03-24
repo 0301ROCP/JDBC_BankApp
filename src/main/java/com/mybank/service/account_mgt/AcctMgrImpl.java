@@ -47,9 +47,9 @@ public class AcctMgrImpl implements AccountManager{
 		ArrayList<User> joint_owners = null; //TODO skipped
 		java.sql.Date date_created = null;
 		int balance_in_cents = 0;
-		boolean approved = false;
 		User approved_by = null;
 		boolean open = false;
+		String status = null;
 		
 		if(formAnswers.get("account_id") != null) {
 			account_id = Integer.parseInt(formAnswers.get("account_id"));
@@ -72,10 +72,6 @@ public class AcctMgrImpl implements AccountManager{
 			balance_in_cents = Integer.parseInt(formAnswers.get("balance_in_dollars")) * 100;
 		}
 		
-		if(formAnswers.get("approved") != null) {
-			approved = Boolean.parseBoolean(formAnswers.get("approved"));
-		}
-		
 		if(formAnswers.get("approved_by") != null) {
 			int approverUpi = Integer.parseInt(formAnswers.get("approved_by")); //TODO risky try catch, what if it's not a upi?
 			approved_by = userDao.selectUserByID(approverUpi);
@@ -85,7 +81,11 @@ public class AcctMgrImpl implements AccountManager{
 			open = Boolean.parseBoolean(formAnswers.get("open")); //TODO risky try catch, what if it's not a boolean?
 		}
 		
-		Account thisAccount = new Account(account_id, account_type, primary_owner, nickname, joint_account, joint_owners, date_created, balance_in_cents, approved, approved_by, open);
+		if(formAnswers.get("status") != null) {
+			status = formAnswers.get("status"); //TODO risky try catch, what if it's not a boolean?
+		}
+		
+		Account thisAccount = new Account(account_id, account_type, primary_owner, nickname, joint_account, joint_owners, date_created, balance_in_cents, approved_by, open, status);
 						
 
 		switch(crudAction) {
@@ -131,6 +131,29 @@ public class AcctMgrImpl implements AccountManager{
 		int newBalance = balanceCents + cents;
 		
 		accountDao.updateAccountBalance(account.getAccountID(), newBalance);
+	}
+	
+	@Override
+	public ArrayList<Account> getPendingAccounts() {
+		
+		ArrayList<Account> pendingAccounts = new ArrayList<Account>();
+		
+		pendingAccounts = accountDao.selectAccountsByStringfield("status", "pending");
+		
+		return pendingAccounts;
+	}
+	
+	@Override
+	public void setAccountApproval(Account account, String status, User approver) {
+		
+		accountDao.updateApprovalStatus(account.getAccountID(),status);
+		
+		accountDao.setApprover(account.getAccountID(),approver.getUpi());
+		
+		if(status.equals("approved")) {
+			accountDao.setOpen(account.getAccountID(),true);
+		}
+		
 	}
 	
 }

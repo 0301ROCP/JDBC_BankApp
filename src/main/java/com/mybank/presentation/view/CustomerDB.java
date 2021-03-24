@@ -64,21 +64,19 @@ public class CustomerDB extends Page{
 		System.out.println("Your Accounts:");
 		
 		//Display accounts:
-		AcctMgrImpl accountManager = new AcctMgrImpl(new AccountDaoImpl());
 		
 		ArrayList<Account> thisUsersAccounts = accountManager.getThisUsersAccounts(currentUser); //ask Account Manager for all of this user's accounts
 		Log.debug("User's accounts:" + thisUsersAccounts);
 		
 		for(Account account: thisUsersAccounts) { //print accounts
 			double balance = account.getBalanceCents()/100; //TODO pad 0's
-			boolean approved = account.isApproved();
-			System.out.print(account.getAccountType() + " Account '" + account.getNickname() + "'");
-			if(!approved) {
-				System.out.print(" (pending approval)");
+			String status = account.getStatus();
+			boolean isOpen = account.isOpen();
+			if(isOpen) {
+				System.out.print(account.getAccountType() + " Account '" + account.getNickname() + "' (" + status + ")");
+				System.out.print(": ");
+				System.out.println("Current Balance = " + balance + "  ");
 			}
-			System.out.print(": ");
-			System.out.print("Current Balance = " + balance + "  ");
-			System.out.println();
 		}
 		
 		System.out.println();

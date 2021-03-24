@@ -7,7 +7,7 @@ import com.mybank.presentation.models.Button;
 
 public class Action {
 	
-	public enum ActionCategory {NAVIGATE,FORM,SETUSER}; //TOASK is this where I should define this?
+	public enum ActionCategory {NAVIGATE,FORM,SETUSER,SELECT}; //TOASK is this where I should define this?
 	//public enum InputType {TARGET_KEY}; //TOASK should these be public?	
 
 	protected ActionCategory category;

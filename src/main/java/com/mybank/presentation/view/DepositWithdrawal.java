@@ -47,7 +47,8 @@ public class DepositWithdrawal extends Page{
 		
 		for(Account account: thisUsersAccounts) { //print accounts and create selection menu
 			double balance = account.getBalanceCents()/100; //TODO pad 0's
-			boolean approved = account.isApproved();
+			boolean approved = account.getStatus().equals("approved") && account.isOpen(); //account must be approved and open
+			
 			
 			if(approved) {
 				

@@ -14,9 +14,9 @@ public class Account {
 	private ArrayList<User> jointOwners;	
 	private Date dateCreated;	
 	private int balanceCents;
-	private boolean approved;
 	private User approvedBy;
 	private boolean open;
+	private String status;
 	
 	//TODO add a log
 	
@@ -27,11 +27,10 @@ public class Account {
 		
 		super();
 		
-		this.accountID = -1;		
-		this.dateCreated = new Date(System.currentTimeMillis());
-		this.approved = false;
-		this.open = false;
-		
+//		this.accountID = -1;		
+//		this.dateCreated = new Date(System.currentTimeMillis());
+//		this.open = false;
+//		
 		//Ask if joint
 		//make stack of other users
 		//set dateCreated to now
@@ -40,7 +39,7 @@ public class Account {
 	}
 
 	public Account(int accountID, String accountType, User primaryOwner, String nickname, boolean jointAccount, ArrayList<User> jointOwners,
-			java.sql.Date dateCreated, int balanceCents, boolean approved, User approvedBy, boolean open) {
+			java.sql.Date dateCreated, int balanceCents, User approvedBy, boolean open, String status) {
 		
 		this.accountID = accountID;
 		this.accountType = accountType;
@@ -50,9 +49,9 @@ public class Account {
 		this.jointOwners = jointOwners;
 		this.dateCreated = dateCreated;
 		this.balanceCents = balanceCents;
-		this.approved = approved;
 		this.approvedBy = approvedBy;
 		this.open = open;
+		this.status = status;
 	}
 
 
@@ -101,14 +100,6 @@ public class Account {
 		this.balanceCents = balanceCents;
 	}
 
-	public boolean isApproved() {
-		return approved;
-	}
-
-	public void setApproved(boolean approved) {
-		this.approved = approved;
-	}
-
 	public User getApprovedBy() {
 		return approvedBy;
 	}
@@ -129,14 +120,20 @@ public class Account {
 		return nickname;
 	}
 	
+	public String getStatus() {
+		return status;
+	}
 	//-------------TOSTRING-----------
+	
 	@Override
 	public String toString() {
 		return "Account [accountID=" + accountID + ", accountType=" + accountType + ", primaryOwner=" + primaryOwner
 				+ ", nickname=" + nickname + ", jointAccount=" + jointAccount + ", jointOwners=" + jointOwners
-				+ ", dateCreated=" + dateCreated + ", balanceCents=" + balanceCents + ", approved=" + approved
+				+ ", dateCreated=" + dateCreated + ", balanceCents=" + balanceCents
 				+ ", approvedBy=" + approvedBy + ", open=" + open + "]";
 	}
+
+	
 
 
 

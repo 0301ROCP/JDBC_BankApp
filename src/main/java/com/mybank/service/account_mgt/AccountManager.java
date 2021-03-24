@@ -13,6 +13,8 @@ public interface AccountManager {
 	public boolean closeAccount();
 	public ArrayList<Account> getThisUsersAccounts(User currentUser);
 	public void addToBalance(Account account, int cents);
+	public ArrayList<Account> getPendingAccounts();
+	void setAccountApproval(Account account, String status, User approver);
 
 	//see account details
 

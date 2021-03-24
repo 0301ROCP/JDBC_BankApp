@@ -16,14 +16,18 @@ public interface AccountDao {
 	public Account selectAccountByAccountID(int id);
 	public ArrayList<Account> selectAllAccounts();	
 	public ArrayList<Account> selectAccountsByUpi(int upi);
+	public ArrayList<Account> selectAccountsByStringfield(String column, String value);
 	
 	//UPDATE
 	boolean updateAccountBalance(int accountId, int amountCents);
 	boolean changePrimaryOwner(Account a, User u);
 	boolean updateJointOwners(Account a, User u);
-	boolean updateApprovalStatus(Account a, boolean status);
+	boolean updateApprovalStatus(int accountID, String status);
+	boolean setOpen(int accountID, boolean open);
+	boolean setApprover(int accountID, int upi);
 	
 	//DELETE
 	boolean closeAccount(Account a); //this is NOT true deletion; accounts are never deleted from the database
+	
 	
 }
