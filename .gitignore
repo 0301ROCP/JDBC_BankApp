@@ -1,3 +1,6 @@
+# Laurel's addition: temporary files with ~$ format
+~$*
+
 # Compiled class file
 *.class
 
