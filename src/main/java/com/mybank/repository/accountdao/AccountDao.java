@@ -18,7 +18,7 @@ public interface AccountDao {
 	public ArrayList<Account> selectAccountsByUpi(int upi);
 	
 	//UPDATE
-	boolean updateAccountBalance(Account a, int amount);
+	boolean updateAccountBalance(int accountId, int amountCents);
 	boolean changePrimaryOwner(Account a, User u);
 	boolean updateJointOwners(Account a, User u);
 	boolean updateApprovalStatus(Account a, boolean status);

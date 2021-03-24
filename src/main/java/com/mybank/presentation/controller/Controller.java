@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Queue;
 import java.util.Stack;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
@@ -13,7 +14,7 @@ import com.mybank.presentation.controller.actions.Navigate;
 import com.mybank.presentation.controller.actions.SetUser;
 import com.mybank.presentation.view.CreateAccount;
 import com.mybank.presentation.view.CustomerDB;
-import com.mybank.presentation.view.Deposit;
+import com.mybank.presentation.view.DepositWithdrawal;
 import com.mybank.presentation.view.EmployeeDB;
 import com.mybank.presentation.view.Guest;
 import com.mybank.presentation.view.Login;
@@ -23,7 +24,6 @@ import com.mybank.presentation.view.SelectAccounts;
 import com.mybank.presentation.view.Signup;
 import com.mybank.presentation.view.Transfer;
 import com.mybank.presentation.view.Welcome;
-import com.mybank.presentation.view.Withdraw;
 
 
 public class Controller {
@@ -57,8 +57,7 @@ public class Controller {
 			Page createSavingsPage = new CreateAccount("CreateSavings","Set Up Your Savings Account");
 			Page createCheckingPage = new CreateAccount("CreateChecking","Set Up Your Checking Account");
 			Page selectAccountsPage = new SelectAccounts();
-			Page withdrawPage = new Withdraw();
-			Page depositPage = new Deposit();
+			Page depositWithdrawalPage = new DepositWithdrawal();
 			Page transferPage = new Transfer();
 			
 			siteMap.put("Welcome",welcomePage);
@@ -73,8 +72,7 @@ public class Controller {
 			siteMap.put("CreateSavings", createSavingsPage);
 			siteMap.put("CreateChecking", createCheckingPage);
 			siteMap.put("SelectAccounts", selectAccountsPage);
-			siteMap.put("Withdraw", withdrawPage);
-			siteMap.put("Deposit", depositPage);
+			siteMap.put("DepositWithdrawal", depositWithdrawalPage);
 			siteMap.put("Transfer", transferPage);
 			
 		}
@@ -107,10 +105,15 @@ public class Controller {
 	
 	public void runApp(Page thisPage) {
 		
+		Log.setLevel(Level.DEBUG);
+		
 		Log.debug("------Running page "+ thisPage.getName()+"-----------");
 		
 		
 		//print this page and give me a queue of actions to do next
+		Log.debug("Current user: "+currentUser);
+		Log.debug("This page: "+thisPage);
+		
 		Queue<Action> actionQueue = thisPage.run(currentUser); 
 		
 		Log.debug("Retrieved "+ actionQueue.size() + " action(s)"); //TEMP
@@ -138,7 +141,7 @@ public class Controller {
 					runApp(nextPage); //run the new page
 				}
 				catch(Exception e) {
-					Log.fatal("Button points to target " + target + "which does not exist");
+					Log.fatal("Button points to target " + target + " which does not exist");
 					//TODO something went wrong
 				}
 				break;

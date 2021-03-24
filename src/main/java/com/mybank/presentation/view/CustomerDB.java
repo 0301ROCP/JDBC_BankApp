@@ -18,7 +18,7 @@ import com.mybank.service.account_mgt.AcctMgrImpl;
 
 public class CustomerDB extends Page{
 	
-	final static Logger Log = Logger.getLogger(FormBlock.class);
+	final static Logger Log = Logger.getLogger(CustomerDB.class);
 	
 	//---------CONSTRUCTOR---------
 	
@@ -30,13 +30,8 @@ public class CustomerDB extends Page{
 		
 		this.interactionBlock = new MenuBlock();
 		
-		((MenuBlock) this.interactionBlock).addButton("W", "Withdraw", Button.makeActionQueue(
-				new Navigate("Withdraw"),
-				new Navigate("CustomerDB")
-				));
-		
-		((MenuBlock) this.interactionBlock).addButton("D", "Deposit", Button.makeActionQueue(
-				new Navigate("Deposit"),
+		((MenuBlock) this.interactionBlock).addButton("D", "Deposit/Withdraw", Button.makeActionQueue(
+				new Navigate("DepositWithdrawal"),
 				new Navigate("CustomerDB")
 				));
 		
@@ -61,7 +56,7 @@ public class CustomerDB extends Page{
 	
 	public void print(User currentUser) { 
 		
-		//Log.setLevel(Level.DEBUG);
+		Log.setLevel(Level.DEBUG);
 		
 		//Header:
 		System.out.println("Welcome Back " + currentUser.getFirstName() + "!");
@@ -91,7 +86,7 @@ public class CustomerDB extends Page{
 	}
 	
 	@Override
-	public Queue<Action> run(User currentUser) { //WORKING
+	public Queue<Action> run(User currentUser) { 
 		Log.debug("CustomerDB run()");
 		
 		print(currentUser); //print this page's header and action block

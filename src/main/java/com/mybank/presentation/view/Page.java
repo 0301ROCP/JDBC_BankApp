@@ -8,9 +8,12 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
-import com.mybank.presentation.controller.Controller;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.models.InteractionBlock;
+import com.mybank.repository.accountdao.AccountDaoImpl;
+import com.mybank.repository.userdao.UserDaoImpl;
+import com.mybank.service.access_mgt.AccessMgrImpl;
+import com.mybank.service.account_mgt.AcctMgrImpl;
 
 
 
@@ -24,7 +27,9 @@ public class Page {
 //	Menu menu;
 //	String instructions;
 	
-	protected Scanner sc = new Scanner(System.in);
+	protected static Scanner sc = new Scanner(System.in);
+	protected static AcctMgrImpl accountManager = new AcctMgrImpl(new AccountDaoImpl());
+	protected static AccessMgrImpl accessManager = new AccessMgrImpl(new UserDaoImpl());
 	
 	
 	//CONSTRUCTOR:

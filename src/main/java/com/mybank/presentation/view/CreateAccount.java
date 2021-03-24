@@ -3,6 +3,7 @@ package com.mybank.presentation.view;
 import org.apache.log4j.Logger;
 
 import com.mybank.presentation.controller.operations.AddToList;
+import com.mybank.presentation.controller.operations.ValidateMoney;
 import com.mybank.presentation.models.FormBlock;
 import com.mybank.presentation.models.Question;
 import com.mybank.service.account_mgt.AccountManager;
@@ -37,7 +38,7 @@ public class CreateAccount extends Page{
 		((FormBlock) this.interactionBlock).addQuestion(new Question(
 				"How much would you like to deposit into this account?",
 				"The amount must be 0 or more, and follow the format 1234.56",
-				null, //TODO make new validator: validmoney
+				new ValidateMoney(),
 				new AddToList("balance_in_dollars") //add password to form info
 				));
 		
@@ -45,7 +46,7 @@ public class CreateAccount extends Page{
 		((FormBlock) this.interactionBlock).addQuestion(new Question(
 				"What would you like to name this account?",
 				null,
-				null, //new Math(lambda expression), 
+				null, 
 				new AddToList("nickname") //add password to form info
 				));		
 		

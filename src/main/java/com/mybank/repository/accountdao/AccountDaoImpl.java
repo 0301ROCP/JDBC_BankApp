@@ -63,8 +63,46 @@ public class AccountDaoImpl implements AccountDao{
 
 	@Override
 	public Account selectAccountByAccountID(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Account toReturn = new Account();
+		
+		String sqlString = "SELECT * FROM accounts WHERE account_id = ?";	
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(sqlString);
+			
+			ps.setInt(1, id);
+			
+			Log.debug("Prepared Statement: " + ps);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				toReturn = new Account(
+						rs.getInt("account_id"),
+						rs.getString("account_type"),
+						null, //this is the primary User
+						rs.getString("nickname"),
+						rs.getBoolean("joint_account"),
+						null, //list of joint owners
+						rs.getDate("date_created"),
+						rs.getInt("balance_in_cents"),
+						rs.getBoolean("approved"),
+						null, //this is the approvedby User
+						rs.getBoolean("is_open")
+						);
+				Log.debug("Account: "+toReturn);
+			}
+			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to select account");
+			e.printStackTrace(); //TODO take this out eventually
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to select account");
+		}
+		
+		return toReturn;
 	}
 
 	@Override
@@ -75,7 +113,7 @@ public class AccountDaoImpl implements AccountDao{
 	
 	public ArrayList<Account> selectAccountsByUpi(int upi){
 		
-		Log.setLevel(Level.DEBUG);
+		//Log.setLevel(Level.DEBUG);
 		
 		ArrayList<Account> toReturn = new ArrayList<Account>();
 		
@@ -124,9 +162,34 @@ public class AccountDaoImpl implements AccountDao{
 	//-----------------UPDATE METHODS-----------------
 
 	@Override
-	public boolean updateAccountBalance(Account a, int amount) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateAccountBalance(int accountID, int amountCents) {
+
+		boolean success = false;
+		
+		String sqlString = "UPDATE accounts SET balance_in_cents = ? WHERE account_id = ?";	
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(sqlString);
+			
+			ps.setInt(1, amountCents);
+			ps.setInt(2, accountID);
+			
+			Log.debug("Prepared Statement: " + ps);
+			
+			ps.execute();
+			
+			success = true;
+			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to update account balance");
+			e.printStackTrace(); //TODO take this out eventually
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to update account balance");
+		}
+		
+		return success;
 	}
 
 	@Override

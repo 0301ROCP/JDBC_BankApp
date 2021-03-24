@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public abstract class Operation {
 	
-	public enum OperationCategory {VERIFY_EXISTS,CONFIRM,ADD_TO_LIST, VERIFY_MATCH};
+	public enum OperationCategory {VERIFY_EXISTS, CONFIRM, ADD_TO_LIST, VERIFY_MATCH, VALIDATE_MONEY};
 	
 	public OperationCategory category;
 	String userAnswer;
