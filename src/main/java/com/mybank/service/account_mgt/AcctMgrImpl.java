@@ -6,7 +6,9 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.Account;
+import com.mybank.models.Transaction;
 import com.mybank.models.User;
+import com.mybank.repository.TransactionDao;
 import com.mybank.repository.accountdao.AccountDao;
 import com.mybank.repository.accountdao.AccountDaoImpl;
 import com.mybank.repository.userdao.UserDao;
@@ -17,6 +19,7 @@ public class AcctMgrImpl implements AccountManager{
 	final static Logger Log = Logger.getLogger(AccountManager.class);
 	
 	private static AccountDao accountDao = new AccountDaoImpl();
+	private static TransactionDao transactionDao = new TransactionDao();
 
 	
 	//------------CONSTRUCTOR-------------
@@ -119,7 +122,7 @@ public class AcctMgrImpl implements AccountManager{
 	}
 	
 	@Override
-	public boolean addToBalance(Account account, int cents) {
+	public boolean addToBalance(Account account, int cents, User currentUser) {
 		
 		boolean success = false;
 		
@@ -128,6 +131,16 @@ public class AcctMgrImpl implements AccountManager{
 		int newBalance = balanceCents + cents;
 		
 		success = accountDao.updateAccountBalance(account.getAccountID(), newBalance);
+		
+		String type = null;
+		if(cents<0) {
+			type = "withdraw";
+		}
+		else {
+			type = "deposit";
+		}
+		
+		transactionDao.insertTransaction(new Transaction(-1, type, cents, currentUser.getUpi(), thisAccount.getAccountID(), -1, new java.sql.Date(System.currentTimeMillis()) ));
 		
 		return success;
 	}

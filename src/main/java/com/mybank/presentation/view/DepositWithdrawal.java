@@ -166,7 +166,7 @@ public class DepositWithdrawal extends Page{
 				toAdd = toAdd * -1;
 			}
 			
-			boolean success = accountManager.addToBalance(chosenAccount, toAdd);
+			boolean success = accountManager.addToBalance(chosenAccount, toAdd, currentUser);
 			
 			if(success) {
 				System.out.println("Success!");

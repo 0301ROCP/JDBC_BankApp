@@ -41,7 +41,7 @@ public class EmployeeDB extends Page{
 				));
 		
 		((MenuBlock) this.interactionBlock).addButton("L", "Transaction Log", Button.makeActionQueue(
-				new Navigate("TransactionLog"),
+				new Navigate("ViewLogs"),
 				new Navigate("EmployeeDB")
 				));
 		

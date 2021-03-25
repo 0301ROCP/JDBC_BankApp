@@ -38,7 +38,7 @@ create TABLE transfers(
 	transfer_sender int references users (upi),
 	transfer_receiver int references users (upi),
 	amount_in_cents int default 0,
-	accepted boolean default false,
+	accepted varchar(30),
 	memo varchar(30),
 	date_created date,
 	notified_sender boolean default false,
@@ -50,9 +50,13 @@ drop table transfers;
 
 select * from transfers;
 
-alter table transfers add receiver_account int references accounts (account_id);
 
-update accounts set primary_owner = 1 where account_id = 12;
-
-insert into transfers (transfer_sender, transfer_receiver, amount_in_cents, accepted, memo, date_created, notified_sender
+create TABLE transactions(
+	transaction_id serial primary key,
+	transaction_type varchar(30), -- withdraw, deposit, send, receive
+	user_id int references users (upi),
+	account_id int references accounts (account_id),
+	transfer_id int references transfers (transfer_id),
+	transaction_date date
+);
 

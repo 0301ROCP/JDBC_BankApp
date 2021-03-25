@@ -12,6 +12,7 @@ import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.operations.ValidateMoney;
 import com.mybank.presentation.models.InteractionBlock;
+import com.mybank.repository.TransactionDao;
 import com.mybank.repository.accountdao.AccountDaoImpl;
 import com.mybank.repository.transferDao.TransferDaoImpl;
 import com.mybank.repository.userdao.UserDaoImpl;
@@ -32,6 +33,7 @@ public class Page {
 	protected static Scanner sc = new Scanner(System.in);
 	protected static UserDaoImpl userDao = new UserDaoImpl();
 	protected static AccountDaoImpl accountDao = new AccountDaoImpl();
+	protected static TransactionDao logDao = new TransactionDao();
 	protected static TransferDaoImpl transferDao = new TransferDaoImpl();
 	protected static AcctMgrImpl accountManager = new AcctMgrImpl(accountDao);
 	protected static AccessMgrImpl accessManager = new AccessMgrImpl(userDao);

@@ -28,6 +28,7 @@ import com.mybank.presentation.view.TransferApprove;
 import com.mybank.presentation.view.TransferExternal;
 import com.mybank.presentation.view.TransferInternal;
 import com.mybank.presentation.view.ViewAccounts;
+import com.mybank.presentation.view.ViewLogs;
 import com.mybank.presentation.view.Welcome;
 
 
@@ -71,6 +72,7 @@ public class Controller {
 			Page transferExternal = new TransferExternal();
 			Page transferInternal = new TransferInternal();
 			Page approveTransfers = new TransferApprove();
+			Page viewLogs = new ViewLogs();
 			
 			
 			siteMap.put("Welcome",welcomePage);
@@ -94,6 +96,7 @@ public class Controller {
 			siteMap.put("TransferExternal", transferExternal);
 			siteMap.put("TransferInternal", transferInternal);
 			siteMap.put("ApproveTransfers", approveTransfers);
+			siteMap.put("ViewLogs", viewLogs);
 			
 		}
 		catch(Exception e) {

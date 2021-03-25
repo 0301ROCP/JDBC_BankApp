@@ -6,8 +6,10 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.Account;
+import com.mybank.models.Transaction;
 import com.mybank.models.Transfer;
 import com.mybank.models.User;
+import com.mybank.repository.TransactionDao;
 import com.mybank.repository.accountdao.AccountDaoImpl;
 import com.mybank.repository.transferDao.TransferDaoImpl;
 import com.mybank.repository.userdao.UserDaoImpl;
@@ -18,6 +20,7 @@ public class TransferManagerImpl implements TransferManager{
 	private static TransferDaoImpl transferDao = new TransferDaoImpl();
 	private static AccountDaoImpl accountDao = new AccountDaoImpl();
 	private static UserDaoImpl userDao = new UserDaoImpl();
+	private static TransactionDao transactionDao = new TransactionDao();
 	
 	
 	//------------CONSTRUCTORS----------
@@ -61,7 +64,6 @@ public class TransferManagerImpl implements TransferManager{
 		
 		return toReturn;
 	}
-
 
 	@Override
 	public boolean denyTransfer(Transfer transfer) {
@@ -154,6 +156,10 @@ public class TransferManagerImpl implements TransferManager{
 		//update balances
 			success4 = accountDao.updateAccountBalance(receiverAccountID, newReceiverBalanceCents);
 			success5 = accountDao.updateAccountBalance(senderAccountID, newSenderBalanceCents);
+			
+		//update transaction log
+			transactionDao.insertTransaction(new Transaction(-1, "receive", transferCents, transfer.getReceiver().getUpi(), receiverAccountID, transfer.getId(), new java.sql.Date(System.currentTimeMillis()) ));
+			transactionDao.insertTransaction(new Transaction(-1, "send", transferCents, transfer.getSender().getUpi(), senderAccountID, transfer.getId(), new java.sql.Date(System.currentTimeMillis()) ));
 		}
 		
 		return(success1 && success2 && success2b && success3 && success4 && success5);
