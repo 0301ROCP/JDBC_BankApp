@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.mybank.models.Account;
 import com.mybank.models.User;
-import com.mybank.repository.userdao.UserDao;
+import com.mybank.repository.JointDao;
 import com.mybank.repository.userdao.UserDaoImpl;
 import com.mybank.util.ConnectionFactory;
 
@@ -18,6 +18,7 @@ public class AccountDaoImpl implements AccountDao{
 	
 	final static Logger Log = Logger.getLogger(AccountDao.class);
 	private static UserDaoImpl userDao = new UserDaoImpl();
+	private static JointDao jointDao = new JointDao();
 
 
 	//-----------------CREATE METHODS------------
@@ -160,6 +161,10 @@ public class AccountDaoImpl implements AccountDao{
 				toReturn.add(newAccount);
 			}
 			
+			ArrayList<Account> secondary = jointDao.selectAllSecondAccountsForUser(upi);
+			
+			toReturn.addAll(secondary);
+			
 		}catch(SQLException e) {
 			Log.error("SQL Exception: failed to select accounts");
 			e.printStackTrace(); //TODO take this out eventually
@@ -258,9 +263,31 @@ public class AccountDaoImpl implements AccountDao{
 
 	
 	@Override
-	public boolean updateJointOwners(int accountId, User u) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateJointStatus(int accountId, boolean joint) {
+		boolean success = false;
+		
+		String sqlString = "UPDATE accounts SET joint_account = ? WHERE account_id = ?";	
+		
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(sqlString);
+			
+			ps.setBoolean(1,joint);
+			ps.setInt(2, accountId);
+			
+			ps.execute();
+			
+			success = true;
+			
+		}catch(SQLException e) {
+			Log.error("SQL Exception: failed to update account joint status");
+			e.printStackTrace(); //TODO take this out eventually
+		}
+		catch(Exception e) {
+			Log.fatal("Other Exception: failed to update account joint status");
+		}
+		
+		return success;
 	}
 
 	@Override

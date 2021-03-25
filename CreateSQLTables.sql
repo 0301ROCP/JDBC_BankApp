@@ -26,8 +26,6 @@ create TABLE accounts(
 	status varchar(30)
 );
 
---TODO add check balance constraint, figure out foreign keys
-
 drop table accounts;
 
 select * from accounts;
@@ -54,9 +52,19 @@ select * from transfers;
 create TABLE transactions(
 	transaction_id serial primary key,
 	transaction_type varchar(30), -- withdraw, deposit, send, receive
+	amount_cents int,
 	user_id int references users (upi),
 	account_id int references accounts (account_id),
 	transfer_id int references transfers (transfer_id),
 	transaction_date date
 );
 
+drop table transactions;
+
+select * from transactions;
+
+
+create TABLE secondary_users(
+	user_id int references users (upi),
+	account_id int references accounts(account_id)
+);

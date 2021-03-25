@@ -18,9 +18,9 @@ public class MakeTransfer extends Page{
 		
 		this.interactionBlock = new MenuBlock();
 		
-		((MenuBlock) this.interactionBlock).addButton("I", "Internal Transfer (Between My Accounts)", Button.makeActionQueue(
-				new Navigate("TransferInternal")
-				));
+//		((MenuBlock) this.interactionBlock).addButton("I", "Internal Transfer (Between My Accounts)", Button.makeActionQueue(
+//				new Navigate("TransferInternal")
+//				));
 		((MenuBlock) this.interactionBlock).addButton("E", "External Transfer (To/From Someone Else)", Button.makeActionQueue(
 				new Navigate("TransferExternal")
 				));

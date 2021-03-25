@@ -14,6 +14,7 @@ import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.Navigate;
 import com.mybank.presentation.controller.actions.SetUser;
+import com.mybank.presentation.view.AddJointUser;
 import com.mybank.presentation.view.ApproveIndiv;
 import com.mybank.presentation.view.ApproveMain;
 import com.mybank.presentation.view.CreateAccount;
@@ -55,30 +56,7 @@ public class Controller {
 		
 		
 		try {
-			//Page welcomePage = welcome;
-//			Page loginPage = new Login();
-//			Page customerDB = new CustomerDB();
-//			Page employeeDB = new EmployeeDB();
-//			Page logoutPage = new Logout();
-//			Page signupPage = new Signup();
-////			Page guestPage = new Guest();
-//	//		Page blankPage = new Blank();
-//			
-//			Page createSavingsPage = new CreateAccount("CreateSavings","Set Up Your Savings Account");
-//			Page createCheckingPage = new CreateAccount("CreateChecking","Set Up Your Checking Account");
-//			Page selectAccountsPage = new SelectAccounts();
-//			Page depositWithdrawalPage = new DepositWithdrawal();
-//			Page transferPage = new MakeTransfer();
-//			
-//			Page accountApprove = new ApproveMain();
-//			Page approveIndiv = new ApproveIndiv();
-//			Page viewAccounts = new ViewAccounts();
-//			Page transferExternal = new TransferExternal();
-//			Page transferInternal = new TransferInternal();
-//			Page approveTransfers = new TransferApprove();
-//			Page viewLogs = new ViewLogs();
-			
-			
+
 			siteMap.put("Welcome",new Welcome());
 			siteMap.put("Login",new Login());
 			siteMap.put("CustomerDB", new CustomerDB());
@@ -101,6 +79,7 @@ public class Controller {
 			siteMap.put("TransferInternal", new TransferInternal());
 			siteMap.put("ApproveTransfers", new TransferApprove());
 			siteMap.put("ViewLogs", new ViewLogs());
+			siteMap.put("AddJointUser", new AddJointUser());
 			
 		}
 		catch(Exception e) {

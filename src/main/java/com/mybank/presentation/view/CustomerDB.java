@@ -42,6 +42,11 @@ public class CustomerDB extends Page{
 				new Navigate("CustomerDB")
 				));
 		
+		((MenuBlock) this.interactionBlock).addButton("J", "Add Joint User To Existing Account", Button.makeActionQueue(
+				new Navigate("AddJointUser"),
+				new Navigate("CustomerDB")
+				));
+		
 		((MenuBlock) this.interactionBlock).addButton("N", "Open A New Account", Button.makeActionQueue(
 				new Navigate("SelectAccounts") //SelectAccounts already has an action to navigate back to customerDB
 				));
@@ -88,7 +93,16 @@ public class CustomerDB extends Page{
 			if(isOpen) {
 				System.out.print(account.getAccountType() + " Account '" + account.getNickname() + "' (" + status + ")");
 				System.out.print(": ");
-				System.out.println("Current Balance = " + formatMoney.format(balance) + "  ");
+				System.out.print("Current Balance = " + formatMoney.format(balance) + "  ");
+				if(account.isJointAccount()) {
+					System.out.print(" (Joint account with ");
+					ArrayList<User> secondUsers = jointDao.selectAllSecondUsersForAccount(account.getAccountID());
+					for(User u : secondUsers) {
+						System.out.print(u.getUserName() + " ");
+					}
+					System.out.print(")");
+					System.out.println();
+				}
 			}
 		}
 		

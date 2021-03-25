@@ -21,13 +21,14 @@ public interface AccountDao {
 	//UPDATE
 	boolean updateAccountBalance(int accountId, int amountCents);
 	boolean changePrimaryOwner(int accountId, User u);
-	boolean updateJointOwners(int accountId, User u);
 	boolean updateApprovalStatus(int accountID, String status);
 	boolean setOpen(int accountID, boolean open);
 	boolean setApprover(int accountID, int upi);
+	boolean updateJointStatus(int accountId, boolean joint);
 	
 	//DELETE
 	boolean closeAccount(int accountId); //this is NOT true deletion; accounts are never deleted from the database
+
 	
 	
 }
