@@ -28,12 +28,12 @@ public class ApproveMain extends Page{
 	
 	
 	@Override
-	public Queue<Action> run(User currentUser) { //WORKING
+	public ArrayList<Action> run(User currentUser) { //WORKING
 		
 		Log.setLevel(Level.DEBUG);
 		Log.debug("ApproveMain run()");
 		
-		Queue<Action> actionQueue = new LinkedList<Action>();
+		ArrayList<Action> actionQueue = new ArrayList<Action>();
 		ApproveIndiv approvePage = new ApproveIndiv();
 		
 		
@@ -41,7 +41,7 @@ public class ApproveMain extends Page{
 		
 		for(Account thisAccount: pendingAccounts) {
 			
-			Queue<Action> approveQueue = approvePage.run(currentUser, thisAccount);
+			ArrayList<Action> approveQueue = approvePage.run(currentUser, thisAccount);
 			
 			for(Action nextAction: approveQueue) { //there should only be one action in the queue, but leaving this as a queue for future flexibility
 				
@@ -60,7 +60,7 @@ public class ApproveMain extends Page{
 			}
 		}
 		
-		clear(); //clear the console
+		//clear(); //clear the console
 		
 		return actionQueue; //return the target of the button
 	}

@@ -1,12 +1,10 @@
 package com.mybank.presentation.models;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
-import com.mybank.presentation.controller.Controller;
 import com.mybank.presentation.controller.actions.Action;
 
 public class NullBlock extends InteractionBlock {
@@ -23,11 +21,11 @@ public class NullBlock extends InteractionBlock {
 	//--------------METHOD----------
 	
 	@Override
-	public Queue<Action> run(User currentUser) {
+	public ArrayList<Action> run(User currentUser) {
 		
 		//Log.debug("NullBlock run()");
 		
-		Queue<Action> actionQueue = new LinkedList<Action>();
+		ArrayList<Action> actionQueue = new ArrayList<Action>();
 		return actionQueue;
 	}
 

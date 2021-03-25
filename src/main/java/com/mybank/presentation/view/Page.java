@@ -3,9 +3,11 @@ package com.mybank.presentation.view;
 
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Scanner;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
@@ -101,12 +103,14 @@ public class Page {
 	
 	
 	
-	public Queue<Action> run(User currentUser) { //WORKING
+	public ArrayList<Action> run(User currentUser) { //WORKING
+		Log.setLevel(Level.DEBUG);
+		
 		Log.debug("Default Page run()");
 		
 		print(); //print this page's header and action block
 			
-		Queue<Action> actionQueue = interactionBlock.run(currentUser);
+		ArrayList<Action> actionQueue = interactionBlock.run(currentUser);
 
 		clear(); //clear the console
 		

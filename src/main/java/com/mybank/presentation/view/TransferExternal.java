@@ -2,8 +2,6 @@ package com.mybank.presentation.view;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -31,11 +29,11 @@ public class TransferExternal extends Page {
 	//----------METHODS--------	
 	
 	@Override
-	public Queue<Action> run(User currentUser) {
+	public ArrayList<Action> run(User currentUser) {
 		Log.setLevel(Level.DEBUG);
 		
 		Log.debug("TransferExternal run()");
-		Queue<Action> actionQueue = new LinkedList<Action>();
+		ArrayList<Action> actionQueue = new ArrayList<Action>();
 		
 		System.out.println(header);
 		
@@ -249,6 +247,8 @@ public class TransferExternal extends Page {
 				break;
 			}
 		}
+		
+		clear();
 		
 		return actionQueue;
 	}

@@ -31,7 +31,7 @@ public class FormBlock extends InteractionBlock{
 	public FormBlock(String table, String crudAction, boolean returnUser) {
 		this.blockType = BlockType.FORM;
 		this.instructions = "Please enter the following information:";
-		this.actionQueue = new LinkedList<Action>();
+		this.actionQueue = new ArrayList<Action>();
 		this.questions = new ArrayList<Question>();
 		this.table = table;
 		this.crudAction = crudAction;
@@ -56,7 +56,7 @@ public class FormBlock extends InteractionBlock{
 	
 	
 	@Override
-	public Queue<Action> run(User currentUser) {
+	public ArrayList<Action> run(User currentUser) {
 		
 		//Log.setLevel(Level.DEBUG);
 		

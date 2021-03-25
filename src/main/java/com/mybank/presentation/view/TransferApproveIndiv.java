@@ -1,6 +1,6 @@
 package com.mybank.presentation.view;
 
-import java.util.Queue;
+import java.util.ArrayList;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -98,11 +98,11 @@ public class TransferApproveIndiv extends Page{
 		
 	}
 	
-	public Queue<Action> run(User currentUser, Transfer thisTransfer) { 
+	public ArrayList<Action> run(User currentUser, Transfer thisTransfer) { 
 		
 		print(thisTransfer); //print this page's header and action block
 				
-		Queue<Action> actionQueue = interactionBlock.run(currentUser);
+		ArrayList<Action> actionQueue = interactionBlock.run(currentUser);
 
 		clear(); //clear the console
 		

@@ -1,8 +1,8 @@
 package com.mybank.presentation.view;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import com.mybank.models.Transaction;
 import com.mybank.models.User;
@@ -16,8 +16,8 @@ public class ViewLogs extends Page{
 	}
 	
 	@Override
-	public Queue<Action> run (User currentUser) {
-		Queue<Action> toReturn = new LinkedList<Action>();
+	public ArrayList<Action> run (User currentUser) {
+		ArrayList<Action> toReturn = new ArrayList<Action>();
 		
 		List<Transaction> allTransactions = logDao.selectAllTransactions();
 		

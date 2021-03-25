@@ -1,8 +1,7 @@
 package com.mybank.presentation.models;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Queue;
-import java.util.Stack;
 
 import com.mybank.presentation.controller.actions.Action;
 
@@ -10,7 +9,7 @@ public class Button {
 	
 	private String keyStroke;
 	private String name;
-	private Queue<Action> actionQueue;
+	private ArrayList<Action> actionQueue;
 
 	//-----------CONSTRUCTOR-----------
 	
@@ -18,7 +17,7 @@ public class Button {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Button(String keyStroke, String name, Queue<Action> actionQueue){
+	public Button(String keyStroke, String name, ArrayList<Action> actionQueue){
 		this.keyStroke = keyStroke;
 		this.name = name;
 		this.actionQueue = actionQueue;
@@ -36,7 +35,7 @@ public class Button {
 		return name;
 	}
 	
-	public Queue<Action> getActionQueue() {
+	public ArrayList<Action> getActionQueue() {
 		return actionQueue;
 	}
 	
@@ -49,13 +48,13 @@ public class Button {
 	
 	@Override
 	public String toString() {
-		return "Button [keyStroke=" + keyStroke + ", name=" + name + "]";
+		return "Button [keyStroke=" + keyStroke + ", name=" + name + ", actionQueue=" + actionQueue + "]";
 	}
 	
 	//-----------METHODS------------
 	
-	public static Queue<Action> makeActionQueue(Action...a) { //TODO where should this live?
-		Queue<Action> thisQueue = new LinkedList<Action>();
+	public static ArrayList<Action> makeActionQueue(Action...a) { //TODO where should this live?
+		ArrayList<Action> thisQueue = new ArrayList<Action>();
 		
 		for(Action action: a) {
 			thisQueue.add(action);
@@ -63,6 +62,8 @@ public class Button {
 		
 		return thisQueue;
 	}
+	
+
 	
 
 	public void printDashes(String l) { //WORKING

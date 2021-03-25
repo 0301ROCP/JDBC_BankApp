@@ -1,5 +1,6 @@
 package com.mybank.presentation.models;
 
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ public abstract class InteractionBlock {
 	protected enum BlockType {MENU, FORM, NULL};
 	protected BlockType blockType;
 	protected String instructions;
-	protected Queue<Action> actionQueue;
+	protected ArrayList<Action> actionQueue;
 	final protected Scanner sc = new Scanner(System.in);
 	
 	
@@ -28,7 +29,7 @@ public abstract class InteractionBlock {
 	
 	//----------ABSTRACT METHODS-----
 	
-	public abstract Queue<Action> run(User currentUser);
+	public abstract ArrayList<Action> run(User currentUser);
 	
 	
 	//------------METHODS-------------

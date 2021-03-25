@@ -29,9 +29,9 @@ public class DepositWithdrawal extends Page{
 	
 	
 	@Override
-	public Queue<Action> run(User currentUser){
+	public ArrayList<Action> run(User currentUser){
 		
-		Log.setLevel(Level.DEBUG);
+		//Log.setLevel(Level.DEBUG);
 		
 		System.out.println(header);
 		
@@ -178,7 +178,7 @@ public class DepositWithdrawal extends Page{
 
 		}
 		
-		Queue<Action> actionQueue = new LinkedList<Action>(); //may need to add actions for back and create account
+		ArrayList<Action> actionQueue = new ArrayList<Action>(); //may need to add actions for back and create account
 
 		clear(); //clear the console
 		

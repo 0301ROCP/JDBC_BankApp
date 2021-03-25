@@ -1,8 +1,7 @@
 package com.mybank.presentation.view;
 
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -13,7 +12,6 @@ import com.mybank.presentation.controller.operations.AddToList;
 import com.mybank.presentation.controller.operations.Confirm;
 import com.mybank.presentation.controller.operations.VerifyExists;
 import com.mybank.presentation.models.FormBlock;
-import com.mybank.presentation.models.MenuBlock;
 import com.mybank.presentation.models.Question;
 
 
@@ -69,13 +67,13 @@ public class Signup extends Page{
 	//-------METHODS-----------
 	
 	@Override
-	public Queue<Action> run(User currentUser){
+	public ArrayList<Action> run(User currentUser){
 		
 		Log.debug("Signup Page run()");
 		
 		print();		
 			
-		Queue<Action> actionQueue = interactionBlock.run(currentUser);
+		ArrayList<Action> actionQueue = interactionBlock.run(currentUser);
 		
 		actionQueue.add(new Navigate("SelectAccounts"));
 		

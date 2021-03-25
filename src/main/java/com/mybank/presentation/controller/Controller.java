@@ -1,10 +1,13 @@
 package com.mybank.presentation.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
@@ -17,7 +20,6 @@ import com.mybank.presentation.view.CreateAccount;
 import com.mybank.presentation.view.CustomerDB;
 import com.mybank.presentation.view.DepositWithdrawal;
 import com.mybank.presentation.view.EmployeeDB;
-import com.mybank.presentation.view.Guest;
 import com.mybank.presentation.view.Login;
 import com.mybank.presentation.view.Logout;
 import com.mybank.presentation.view.MakeTransfer;
@@ -40,6 +42,8 @@ public class Controller {
 	Stack<Page> history;
 	private User currentUser;
 	
+	//private Welcome welcome;
+	
 	//TODO add hover-over explanations of methods?
 	
 	//-------CONSTRUCTOR--------
@@ -51,52 +55,52 @@ public class Controller {
 		
 		
 		try {
-			Page welcomePage = new Welcome();
-			Page loginPage = new Login();
-			Page customerDB = new CustomerDB();
-			Page employeeDB = new EmployeeDB();
-			Page logoutPage = new Logout();
-			Page signupPage = new Signup();
-			Page guestPage = new Guest();
-	//		Page blankPage = new Blank();
+			//Page welcomePage = welcome;
+//			Page loginPage = new Login();
+//			Page customerDB = new CustomerDB();
+//			Page employeeDB = new EmployeeDB();
+//			Page logoutPage = new Logout();
+//			Page signupPage = new Signup();
+////			Page guestPage = new Guest();
+//	//		Page blankPage = new Blank();
+//			
+//			Page createSavingsPage = new CreateAccount("CreateSavings","Set Up Your Savings Account");
+//			Page createCheckingPage = new CreateAccount("CreateChecking","Set Up Your Checking Account");
+//			Page selectAccountsPage = new SelectAccounts();
+//			Page depositWithdrawalPage = new DepositWithdrawal();
+//			Page transferPage = new MakeTransfer();
+//			
+//			Page accountApprove = new ApproveMain();
+//			Page approveIndiv = new ApproveIndiv();
+//			Page viewAccounts = new ViewAccounts();
+//			Page transferExternal = new TransferExternal();
+//			Page transferInternal = new TransferInternal();
+//			Page approveTransfers = new TransferApprove();
+//			Page viewLogs = new ViewLogs();
 			
-			Page createSavingsPage = new CreateAccount("CreateSavings","Set Up Your Savings Account");
-			Page createCheckingPage = new CreateAccount("CreateChecking","Set Up Your Checking Account");
-			Page selectAccountsPage = new SelectAccounts();
-			Page depositWithdrawalPage = new DepositWithdrawal();
-			Page transferPage = new MakeTransfer();
 			
-			Page accountApprove = new ApproveMain();
-			Page approveIndiv = new ApproveIndiv();
-			Page viewAccounts = new ViewAccounts();
-			Page transferExternal = new TransferExternal();
-			Page transferInternal = new TransferInternal();
-			Page approveTransfers = new TransferApprove();
-			Page viewLogs = new ViewLogs();
-			
-			
-			siteMap.put("Welcome",welcomePage);
-			siteMap.put("Login",loginPage);
-			siteMap.put("CustomerDB", customerDB);
-			siteMap.put("EmployeeDB", employeeDB);
-			siteMap.put("Logout", logoutPage);
-			siteMap.put("Signup", signupPage);
-			siteMap.put("Guest", guestPage);
+			siteMap.put("Welcome",new Welcome());
+			siteMap.put("Login",new Login());
+			siteMap.put("CustomerDB", new CustomerDB());
+			siteMap.put("EmployeeDB", new EmployeeDB());
+			siteMap.put("Logout", new Logout());
+			siteMap.put("Signup", new Signup());
+//			siteMap.put("Guest", new Guest());
 //			siteMap.put("Blank", blankPage);
 			
-			siteMap.put("CreateSavings", createSavingsPage);
-			siteMap.put("CreateChecking", createCheckingPage);
-			siteMap.put("SelectAccounts", selectAccountsPage);
-			siteMap.put("DepositWithdrawal", depositWithdrawalPage);
-			siteMap.put("MakeTransfer", transferPage);
+			siteMap.put("CreateSavings", new CreateAccount("CreateSavings","Set Up Your Savings Account"));
+			siteMap.put("CreateChecking", new CreateAccount("CreateChecking","Set Up Your Checking Account"));
+			siteMap.put("SelectAccounts", new SelectAccounts());
+			siteMap.put("DepositWithdrawal", new DepositWithdrawal());
+			siteMap.put("MakeTransfer", new MakeTransfer());
 			
-			siteMap.put("ApproveMain", accountApprove);
-			siteMap.put("ApproveIndiv", approveIndiv);
-			siteMap.put("ViewAccounts", viewAccounts);
-			siteMap.put("TransferExternal", transferExternal);
-			siteMap.put("TransferInternal", transferInternal);
-			siteMap.put("ApproveTransfers", approveTransfers);
-			siteMap.put("ViewLogs", viewLogs);
+			siteMap.put("ApproveMain", new ApproveMain());
+			siteMap.put("ApproveIndiv", new ApproveIndiv());
+			siteMap.put("ViewAccounts", new ViewAccounts());
+			siteMap.put("TransferExternal", new TransferExternal());
+			siteMap.put("TransferInternal", new TransferInternal());
+			siteMap.put("ApproveTransfers", new TransferApprove());
+			siteMap.put("ViewLogs", new ViewLogs());
 			
 		}
 		catch(Exception e) {
@@ -128,19 +132,24 @@ public class Controller {
 	
 	public void runApp(Page thisPage) {
 		
-		//Log.setLevel(Level.DEBUG);
+		Log.setLevel(Level.DEBUG);
 		
 		Log.debug("------Running page "+ thisPage.getName()+"-----------");
 		
 		
 		//print this page and give me a queue of actions to do next
-		Log.debug("Current user: "+currentUser);
+		//Log.debug("Current user: "+currentUser);
 		//Log.debug("This page: "+thisPage);
 		
 		history.push(thisPage); //add the current page to the history stack
-		Log.debug("Add " + thisPage + " to history stack");
+		//Log.debug("Add " + thisPage + " to history stack");
 		
-		Queue<Action> actionQueue = thisPage.run(currentUser); 
+		ArrayList<Action> actionList = thisPage.run(currentUser); 
+		Queue<Action> actionQueue = new LinkedList<Action>();
+		
+		for(Action action: actionList) {
+			actionQueue.add(action);
+		}
 		
 		Log.debug("Retrieved "+ actionQueue.size() + " action(s)"); //TEMP
 				
@@ -162,6 +171,7 @@ public class Controller {
 				
 				try {
 					nextPage = siteMap.get(target);
+
 					try {
 						runApp(nextPage); //run the new page
 					}

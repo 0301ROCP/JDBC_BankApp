@@ -97,12 +97,12 @@ public class CustomerDB extends Page{
 	}
 	
 	@Override
-	public Queue<Action> run(User currentUser) { 
+	public ArrayList<Action> run(User currentUser) { 
 		Log.debug("CustomerDB run()");
 		
 		print(currentUser); //print this page's header and action block
 				
-		Queue<Action> actionQueue = interactionBlock.run(currentUser);
+		ArrayList<Action> actionQueue = interactionBlock.run(currentUser);
 
 		clear(); //clear the console
 		

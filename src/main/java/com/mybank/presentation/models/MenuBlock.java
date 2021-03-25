@@ -1,14 +1,15 @@
 package com.mybank.presentation.models;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
-import com.mybank.presentation.controller.Controller;
 import com.mybank.presentation.controller.actions.Action;
 
 public class MenuBlock extends InteractionBlock{
@@ -42,7 +43,7 @@ public class MenuBlock extends InteractionBlock{
 	
 	//-------------METHODS------------
 	
-	public void addButton(String keyStroke, String name, Queue<Action> actions) {
+	public void addButton(String keyStroke, String name, ArrayList<Action> actions) {
 		Button thisButton = new Button(keyStroke, name, actions);
 		buttons.put(keyStroke,thisButton);
 	}
@@ -76,11 +77,12 @@ public class MenuBlock extends InteractionBlock{
 	}
 
 	@Override
-	public Queue<Action> run(User currentUser) {
+	public ArrayList<Action> run(User currentUser) {
 		
-		//Log.debug("MenuBlock run()");
+		Log.setLevel(Level.DEBUG);
+		Log.debug("MenuBlock run()");
 		
-		Queue<Action> actionQueue = new LinkedList<Action>();
+		ArrayList<Action> actionQueue = new ArrayList<Action>();
 		
 		
 		boolean validSelection = false;
@@ -90,14 +92,14 @@ public class MenuBlock extends InteractionBlock{
 		while(!validSelection) {
 			selectedKey = sc.nextLine(); //get user input
 			
-			Log.debug("User entered: " + selectedKey);
+			// Log.debug("User entered: " + selectedKey);
 			
 			selectedButton = buttons.get(selectedKey.toUpperCase()); //try to find the selected key in the button list
 			Log.debug("Select button " + selectedButton);
 			
 			if(selectedButton != null) { //if it's a valid selection
 				validSelection = true;
-				Log.debug("Valid selection");
+				//Log.debug("Valid selection");
 			}
 			else {
 				Log.warn("Invalid selection, try again");

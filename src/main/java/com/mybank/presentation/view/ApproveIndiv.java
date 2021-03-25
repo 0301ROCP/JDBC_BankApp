@@ -1,6 +1,6 @@
 package com.mybank.presentation.view;
 
-import java.util.Queue;
+import java.util.ArrayList;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -71,11 +71,11 @@ public class ApproveIndiv extends Page{
 		
 	}
 	
-	public Queue<Action> run(User currentUser, Account thisAccount) { //WORKING
+	public ArrayList<Action> run(User currentUser, Account thisAccount) { //WORKING
 		
 		print(thisAccount); //print this page's header and action block
 				
-		Queue<Action> actionQueue = interactionBlock.run(currentUser);
+		ArrayList<Action> actionQueue = interactionBlock.run(currentUser);
 
 		clear(); //clear the console
 		

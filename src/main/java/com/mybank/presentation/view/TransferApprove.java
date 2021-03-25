@@ -29,11 +29,11 @@ public class TransferApprove extends Page{
 	//----------METHODS---------
 	
 	@Override
-	public Queue<Action> run(User currentUser) { 
+	public ArrayList<Action> run(User currentUser) { 
 		
 		Log.setLevel(Level.DEBUG);
 		
-		Queue<Action> actionQueue = new LinkedList<Action>();
+		ArrayList<Action> actionQueue = new ArrayList<Action>();
 		TransferApproveIndiv approvePage = new TransferApproveIndiv();
 		
 		
@@ -41,7 +41,7 @@ public class TransferApprove extends Page{
 		
 		for(Transfer thisTransfer: pendingTransfers) {
 			
-			Queue<Action> approveQueue = approvePage.run(currentUser, thisTransfer);
+			ArrayList<Action> approveQueue = approvePage.run(currentUser, thisTransfer);
 			
 			for(Action nextAction: approveQueue) { //there should only be one action in the queue, but leaving this as a queue for future flexibility
 				

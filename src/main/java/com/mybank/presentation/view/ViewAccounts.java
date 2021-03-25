@@ -28,7 +28,7 @@ public class ViewAccounts extends Page{
 	
 	//----------METHODS-------------
 	
-	public Queue<Action> run(User currentUser){
+	public ArrayList<Action> run(User currentUser){
 		
 		//Log.setLevel(Level.DEBUG);
 		
@@ -141,7 +141,7 @@ public class ViewAccounts extends Page{
 		}
 		
 		
-		Queue<Action> actionQueue = new LinkedList<Action>();
+		ArrayList<Action> actionQueue = new ArrayList<Action>();
 		
 		clear();
 		

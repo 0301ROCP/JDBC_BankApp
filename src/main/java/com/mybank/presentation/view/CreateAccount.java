@@ -1,7 +1,6 @@
 package com.mybank.presentation.view;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -27,9 +26,9 @@ public class CreateAccount extends Page{
 	//--------METHODS----------
 	
 	@Override
-	public Queue<Action> run(User currentUser){		
+	public ArrayList<Action> run(User currentUser){		
 		
-		Queue<Action> actionQueue = new LinkedList<Action>();
+		ArrayList<Action> actionQueue = new ArrayList<Action>();
 		
 		System.out.println(header);
 		
