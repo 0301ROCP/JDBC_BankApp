@@ -27,9 +27,9 @@ public class Welcome extends Page {
 				new Navigate("Signup")
 				));
 		
-		((MenuBlock) this.interactionBlock).addButton("G", "Continue As Guest", Button.makeActionQueue(
-				new Navigate("Guest")
-				));
+//		((MenuBlock) this.interactionBlock).addButton("G", "Continue As Guest", Button.makeActionQueue(
+//				new Navigate("Guest")
+//				));
 		
 		((MenuBlock) this.interactionBlock).addButton("E", "Employee Portal", Button.makeActionQueue(
 				new Navigate("Login"),
