@@ -48,7 +48,8 @@ public class TransferApproveIndiv extends Page{
 		Log.setLevel(Level.DEBUG);
 		
 		
-		System.out.println("----" + header + "----");
+		System.out.println(header);
+		System.out.println();
 		
 		boolean valid = true;
 		
@@ -73,7 +74,7 @@ public class TransferApproveIndiv extends Page{
 		
 		//Parse amount
 		amountCents = thisTransfer.getAmountCents();
-		amountDollarString = String.valueOf(((double) amountCents)/100);
+		amountDollarString = formatMoney.format(((double) amountCents)/100);
 		
 		//Get date
 		java.sql.Date date = thisTransfer.getDate();

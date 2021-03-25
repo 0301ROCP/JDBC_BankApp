@@ -23,7 +23,7 @@ public class MenuBlock extends InteractionBlock{
 
 	public MenuBlock() {
 		this.blockType = BlockType.MENU;
-		this.instructions = "Type the letter in parentheses that corresponds to your selection, then hit enter!";
+		this.instructions = "Type the letter that corresponds to your selection, then hit enter.";
 		this.buttons = new LinkedHashMap<String,Button>(); 
 	}
 	
@@ -79,7 +79,7 @@ public class MenuBlock extends InteractionBlock{
 	@Override
 	public ArrayList<Action> run(User currentUser) {
 		
-		Log.setLevel(Level.DEBUG);
+		//Log.setLevel(Level.DEBUG);
 		Log.debug("MenuBlock run()");
 		
 		ArrayList<Action> actionQueue = new ArrayList<Action>();

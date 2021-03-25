@@ -28,19 +28,19 @@ public class Login extends Page{
 		super();
 		
 		this.name = "Login";
-		this.header = "Login Page";
+		this.header = "Please Log In";
 		
 		this.interactionBlock = new FormBlock("users","read",true);
 		
 		((FormBlock) this.interactionBlock).addQuestion(new Question(
-				"Please enter your username:",
+				"Enter your username:",
 				"That username is not in our system. Please enter your username:",
 				new VerifyExists("users","username",false), 
 				new AddToList("username") //add password to form info
 				));
 		
 		((FormBlock) this.interactionBlock).addQuestion(new Question(
-				"Please enter your password:",
+				"Enter your password:",
 				"That password is incorrect. Please enter your password:",
 				new VerifyMatch("users","user_password","username"),  //TODO
 				new AddToList("user_password") //add password to form info

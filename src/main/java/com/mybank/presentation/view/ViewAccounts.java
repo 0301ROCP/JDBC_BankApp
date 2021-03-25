@@ -10,6 +10,9 @@ import org.apache.log4j.Logger;
 import com.mybank.models.Account;
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
+import com.mybank.presentation.controller.actions.Back;
+import com.mybank.presentation.models.Button;
+import com.mybank.presentation.models.MenuBlock;
 
 public class ViewAccounts extends Page{
 
@@ -23,6 +26,11 @@ public class ViewAccounts extends Page{
 		this.name = "ViewAccounts";
 		this.header = "View User's Accounts";
 		
+		this.interactionBlock = new MenuBlock();
+		
+		((MenuBlock) this.interactionBlock).addButton("B", "Back", Button.makeActionQueue(
+				new Back()
+				));
 	}
 	
 	
@@ -30,11 +38,12 @@ public class ViewAccounts extends Page{
 	
 	public ArrayList<Action> run(User currentUser){
 		
-		//Log.setLevel(Level.DEBUG);
+		Log.setLevel(Level.DEBUG);
 		
 		//--------Select lookup method
 		
 		System.out.println("Look up user:");
+		System.out.println();
 		System.out.println("(I) By User ID");
 		System.out.println("(U) By Username");
 		
@@ -75,36 +84,32 @@ public class ViewAccounts extends Page{
 		//--------Validate criteria
 		
 		while(!valid) {
+			
 			String userLookup = sc.nextLine();
 			
 			Log.debug("Entered criteria: " + userLookup);
 			
 			switch(choice) {
 			case "I":
-				try {
-					thisUser = accessManager.lookupUser("upi",userLookup);
-					Log.debug("Retrieved user " + thisUser);
-					valid = true;
-				}
-				catch(Exception e) {
-					Log.info("Employee entered invalid username or UPI: " + userLookup);
-				}
+				thisUser = accessManager.lookupUser("upi",userLookup);
+				Log.debug("Retrieved user " + thisUser);
+
 				break;
 				
 			case "U":
-				try {
-					thisUser = accessManager.lookupUser("username",userLookup);
-					Log.debug("Retrieved user " + thisUser);
-					valid = true;
-				}
-				catch(Exception e) {
-					Log.info("Employee entered invalid username or UPI: " + userLookup);
-				}
+				thisUser = accessManager.lookupUser("username",userLookup);
+				Log.debug("Retrieved user " + thisUser);
+
 				break;
 			}
 			
+			if(thisUser != null) {
+				Log.debug("inside if");
+				valid = true;
+			}
+				
 			if(!valid) {
-				switch(choice) {
+				switch(choice.toUpperCase()) {
 				case "I":
 					System.out.println("That User ID is not in our system. Please try again.");
 					break;
@@ -142,6 +147,9 @@ public class ViewAccounts extends Page{
 		
 		
 		ArrayList<Action> actionQueue = new ArrayList<Action>();
+		
+		interactionBlock.print();
+		actionQueue = interactionBlock.run(currentUser);
 		
 		clear();
 		

@@ -36,6 +36,7 @@ public class TransferExternal extends Page {
 		ArrayList<Action> actionQueue = new ArrayList<Action>();
 		
 		System.out.println(header);
+		System.out.println();
 		
 		boolean valid = false;
 		
@@ -43,7 +44,6 @@ public class TransferExternal extends Page {
 		//-----Select my account		
 		
 		Account myAccount = new Account();
-		System.out.println("Which account would you like to transfer money to/from?");
 		
 		//Display accounts		
 		ArrayList<Account> myAccounts = accountManager.getThisUsersAccounts(currentUser); //ask Account Manager for all of this user's accounts
@@ -77,10 +77,11 @@ public class TransferExternal extends Page {
 				
 				accountCount++;
 				accountChoices.put(String.valueOf(accountCount), account); //this is the selection menu
+				String stringBalance = formatMoney.format(balance);
 				
 				System.out.print("("+accountCount+") ");				
 				System.out.print(account.getAccountType() + " Account '" + account.getNickname() + "': ");
-				System.out.print("Current Balance = " + balance + "  ");
+				System.out.print("Current Balance = " + stringBalance + "  ");
 				System.out.println();				
 			}			
 		}
@@ -113,7 +114,7 @@ public class TransferExternal extends Page {
 		
 		//----Get current balance of my account
 		int myBalanceCents = myAccount.getBalanceCents();
-		String myBalanceDollarString = String.valueOf(((double) myBalanceCents)/100);
+		String myBalanceDollarString = formatMoney.format(((double) myBalanceCents)/100);
 			
 		
 		//-------Set primary owner field of my account (null because of the way it was called, but we'll need this field later)
@@ -213,10 +214,10 @@ public class TransferExternal extends Page {
 		System.out.println("Please confirm this transfer:");
 		
 		System.out.println("Transfer from your account '" + myAccount.getNickname() + "' current balance = " + myBalanceDollarString);
-		System.out.println("Transfer to user " + otherUser.getFirstName() + " " + otherUser.getLastName() + " (" + otherUser.getUserName()+")");
+		//System.out.println("Transfer to user " + otherUser.getFirstName() + " " + otherUser.getLastName() + " (" + otherUser.getUserName()+")");
 		System.out.println("Transfer amount: "+amountDollarString); //TODO
 		
-		System.out.println("Confirm! (Y)");
+		System.out.println("Confirm (Y)");
 		System.out.println("Cancel (N)");
 		
 		valid = false;

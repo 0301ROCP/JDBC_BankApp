@@ -1,6 +1,7 @@
 package com.mybank.presentation.view;
 
 import com.mybank.models.User;
+import com.mybank.presentation.controller.actions.Back;
 import com.mybank.presentation.controller.actions.Navigate;
 import com.mybank.presentation.controller.actions.SetUser;
 import com.mybank.presentation.models.Button;
@@ -21,6 +22,10 @@ public class Logout extends Page {
 		((MenuBlock) this.interactionBlock).addButton("Y", "Yes, Log Me Out!", Button.makeActionQueue(
 				new SetUser(new User()),
 				new Navigate("Welcome")
+				));
+		
+		((MenuBlock) this.interactionBlock).addButton("B", "No, Take Me Back", Button.makeActionQueue(
+				new Back()
 				));
 		
 	}

@@ -30,7 +30,7 @@ public class FormBlock extends InteractionBlock{
 	
 	public FormBlock(String table, String crudAction, boolean returnUser) {
 		this.blockType = BlockType.FORM;
-		this.instructions = "Please enter the following information:";
+		this.instructions = "";
 		this.actionQueue = new ArrayList<Action>();
 		this.questions = new ArrayList<Question>();
 		this.table = table;

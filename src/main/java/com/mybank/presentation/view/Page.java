@@ -79,15 +79,20 @@ public class Page {
 	public static void clear() { //WORKING
 		pause();
 		
-		for(int i = 0; i<5; i++) {
+		for(int i = 0; i<15; i++) {
 			System.out.println();
 		}
+		for(int i = 0; i<100; i++) {
+			System.out.print("_");
+		}
+		System.out.println();
+		
 	}
 	
 	public static void pause() { //WORKING
 		long startTime = System.currentTimeMillis();
 		System.out.println("redirecting...");
-        while(startTime >= System.currentTimeMillis() - 500); // do nothing
+        while(startTime >= System.currentTimeMillis() - 1000); // do nothing
        
 	}
 	
@@ -105,7 +110,7 @@ public class Page {
 	
 	
 	public ArrayList<Action> run(User currentUser) { //WORKING
-		Log.setLevel(Level.DEBUG);
+		//Log.setLevel(Level.DEBUG);
 		
 		Log.debug("Default Page run()");
 		

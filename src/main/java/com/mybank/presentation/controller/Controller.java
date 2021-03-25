@@ -111,7 +111,7 @@ public class Controller {
 	
 	public void runApp(Page thisPage) {
 		
-		Log.setLevel(Level.DEBUG);
+		//Log.setLevel(Level.DEBUG);
 		
 		Log.debug("------Running page "+ thisPage.getName()+"-----------");
 		
@@ -170,6 +170,34 @@ public class Controller {
 				currentUser = newUser;
 				Log.debug("Set current user to: "+currentUser);
 				break;
+				
+			case BACK:
+				
+				String backTarget = null;
+				
+				try {
+					history.pop();
+					
+					Page targetPage = history.pop();
+					backTarget = targetPage.getName();
+					
+					nextPage = siteMap.get(backTarget);
+
+					try {
+						runApp(nextPage); //run the new page
+					}
+					catch(Exception e) {
+						Log.error("Failed to run next page " + nextPage);
+					}
+				}
+				catch(Exception e) {
+					Log.error("Button points to target " + backTarget + " which does not exist in siteMap");
+					//TODO something went wrong
+				}
+				
+				break;
+				
+				
 				
 			default:
 				Log.fatal("Switch case: Action " + thisAction.getCategory() + " does not exist");

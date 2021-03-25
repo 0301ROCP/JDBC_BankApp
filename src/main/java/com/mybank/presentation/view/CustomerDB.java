@@ -101,8 +101,9 @@ public class CustomerDB extends Page{
 						System.out.print(u.getUserName() + " ");
 					}
 					System.out.print(")");
-					System.out.println();
+					
 				}
+				System.out.println();
 			}
 		}
 		

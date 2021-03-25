@@ -12,7 +12,10 @@ import com.mybank.models.Account;
 import com.mybank.models.Transfer;
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
+import com.mybank.presentation.controller.actions.Back;
 import com.mybank.presentation.controller.actions.Select;
+import com.mybank.presentation.models.Button;
+import com.mybank.presentation.models.MenuBlock;
 
 public class TransferApprove extends Page{
 
@@ -23,6 +26,12 @@ public class TransferApprove extends Page{
 	public TransferApprove() {
 		this.name = "ApproveTransfers";
 		this.header = "View Your Pending Transfers";
+		
+		this.interactionBlock = new MenuBlock();
+		
+		((MenuBlock) this.interactionBlock).addButton("O", "Okay", Button.makeActionQueue(
+				new Back()
+				));
 	}
 	
 	
@@ -57,6 +66,7 @@ public class TransferApprove extends Page{
 					Account chosenAccount = new Account();
 					
 					System.out.println("Select the number corresponding to the account you'd like to use for this transfer");
+					System.out.println();
 					
 					for(Account account: thisUsersAccounts) { //print accounts and create selection menu
 						Log.debug(account);
@@ -112,19 +122,21 @@ public class TransferApprove extends Page{
 								System.out.println("That's not a valid selection. Please try again.");
 							}
 						}
-					}
 					
-					Log.debug("Chosen account: " + chosenAccount);
 					
-					boolean successfulTransfer = transferManager.acceptTransfer(thisTransfer, chosenAccount); //Service layer, make the transfer!
-					if(successfulTransfer) {
-						System.out.println("Success!");
-					}
-					else {
-						System.out.println("Something went wrong.");
+						Log.debug("Chosen account: " + chosenAccount);
+						
+						boolean successfulTransfer = transferManager.acceptTransfer(thisTransfer, chosenAccount); //Service layer, make the transfer!
+						if(successfulTransfer) {
+							System.out.println("Success!");
+						}
+						else {
+							System.out.println("Something went wrong.");
+						}
 					}
 
 					break;
+					
 				case "Deny":
 					boolean success = transferManager.denyTransfer(thisTransfer);
 					if(success) {
@@ -142,6 +154,9 @@ public class TransferApprove extends Page{
 				}
 			}
 		}
+		
+		interactionBlock.print();
+		actionQueue = interactionBlock.run(currentUser);
 		
 		clear(); //clear the console
 		

@@ -31,6 +31,7 @@ public class CreateAccount extends Page{
 		ArrayList<Action> actionQueue = new ArrayList<Action>();
 		
 		System.out.println(header);
+		System.out.println();
 		
 		String accountType = null;
 		String nickname = null;

@@ -45,12 +45,13 @@ public class ApproveIndiv extends Page{
 		
 		Log.debug("ApproveIndiv print()");
 		
-		System.out.println("----" + header + "----");
+		System.out.println(header);
+		System.out.println();
 
 		
 		//User accountUser = thisAccount.getPrimaryOwner();
 		//String userName = accountUser.getUserName();
-		Double balanceDollars = ((double) thisAccount.getBalanceCents())/100;
+		String balanceDollars = formatMoney.format(((double) thisAccount.getBalanceCents())/100);
 		boolean hasNickname = thisAccount.getNickname()!=null;
 		
 		//System.out.println(thisAccount);

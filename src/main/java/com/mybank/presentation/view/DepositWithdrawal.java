@@ -34,6 +34,7 @@ public class DepositWithdrawal extends Page{
 		//Log.setLevel(Level.DEBUG);
 		
 		System.out.println(header);
+		System.out.println();
 		
 		
 		//Display accounts		
@@ -45,6 +46,8 @@ public class DepositWithdrawal extends Page{
 		HashMap<String, Account> accountChoices = new HashMap<String, Account>();
 		Account chosenAccount = new Account();
 		
+		System.out.println("Select the number corresponding to the account you'd like to deposit to/withdraw from");
+		System.out.println();
 		for(Account account: thisUsersAccounts) { //print accounts and create selection menu
 			Log.debug(account);
 			
@@ -86,7 +89,7 @@ public class DepositWithdrawal extends Page{
 		else {
 			boolean valid = false;
 			while(!valid) {
-				System.out.println("Select the number corresponding to the account you'd like to deposit to/withdraw from");
+				
 				String selection = sc.nextLine();
 				chosenAccount = accountChoices.get(selection); 
 				if(chosenAccount != null) {

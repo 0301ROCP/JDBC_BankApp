@@ -30,6 +30,7 @@ public class AddJointUser extends Page{
 		Account chosenAccount = new Account();
 		
 		System.out.println("Select the number corresponding to the account you'd like to add another user to");
+		System.out.println();
 		
 		for(Account account: thisUsersAccounts) { //print accounts and create selection menu
 			Log.debug(account);
