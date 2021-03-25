@@ -36,7 +36,7 @@ public class EmployeeDB extends Page{
 				));
 		
 		((MenuBlock) this.interactionBlock).addButton("V", "View Customer Profile", Button.makeActionQueue(
-				new Navigate("ViewCustomer"),
+				new Navigate("ViewAccounts"),
 				new Navigate("EmployeeDB")
 				));
 		
@@ -57,31 +57,24 @@ public class EmployeeDB extends Page{
 	
 	//-----------METHODS------------
 	
-		public void print(User currentUser) { 
-			
-			Log.setLevel(Level.DEBUG);
-			
-			//Header:
-			System.out.println("Hello " + currentUser.getFirstName() + "!");
-			System.out.println();
-			
-			//Display pending request number
-			
-			ArrayList<Account> pendingAccounts = accountManager.getPendingAccounts(); //ask Account Manager for all unapproved accounts
-			
-			int numPendingAccounts = pendingAccounts.size();
-			
-			System.out.println("There are " + numPendingAccounts + " accounts awaiting approval.");
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+	public void print(User currentUser) { 
+		
+		//Log.setLevel(Level.DEBUG);
+		
+		//Header:
+		System.out.println("Hello " + currentUser.getFirstName() + "!");
+		System.out.println();
+		
+		//Display pending request number
+		
+		ArrayList<Account> pendingAccounts = accountManager.getPendingAccounts(); //ask Account Manager for all unapproved accounts
+		
+		int numPendingAccounts = pendingAccounts.size();
+		
+		System.out.println("There are " + numPendingAccounts + " accounts awaiting approval.");
+		
+	
+		
 //			
 //			for(Account account: pendingAccounts) { //print accounts
 //				
@@ -96,22 +89,22 @@ public class EmployeeDB extends Page{
 //				System.out.print("Current Balance = " + balance + "  ");
 //				System.out.println();
 //			}
-			
-			System.out.println();
-			interactionBlock.print();
-		}
 		
-		@Override
-		public Queue<Action> run(User currentUser) {  //need this because the print() is different!
-			Log.debug("EmployeeDB run()");
-			
-			print(currentUser); //print this page's header and action block
-					
-			Queue<Action> actionQueue = interactionBlock.run(currentUser);
+		System.out.println();
+		interactionBlock.print();
+	}
+	
+	@Override
+	public Queue<Action> run(User currentUser) {  //need this because the print() is different!
+		Log.debug("EmployeeDB run()");
+		
+		print(currentUser); //print this page's header and action block
+				
+		Queue<Action> actionQueue = interactionBlock.run(currentUser);
 
-			clear(); //clear the console
-			
-			return actionQueue; //return the target of the button
-		}
+		clear(); //clear the console
+		
+		return actionQueue; //return the target of the button
+	}
 	
 }

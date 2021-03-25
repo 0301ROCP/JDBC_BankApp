@@ -25,6 +25,7 @@ import com.mybank.presentation.view.Page;
 import com.mybank.presentation.view.SelectAccounts;
 import com.mybank.presentation.view.Signup;
 import com.mybank.presentation.view.Transfer;
+import com.mybank.presentation.view.ViewAccounts;
 import com.mybank.presentation.view.Welcome;
 
 
@@ -64,6 +65,7 @@ public class Controller {
 			
 			Page accountApprove = new ApproveMain();
 			Page approveIndiv = new ApproveIndiv();
+			Page viewAccounts = new ViewAccounts();
 			
 			
 			siteMap.put("Welcome",welcomePage);
@@ -83,6 +85,7 @@ public class Controller {
 			
 			siteMap.put("ApproveMain", accountApprove);
 			siteMap.put("ApproveIndiv", approveIndiv);
+			siteMap.put("ViewAccounts", viewAccounts);
 			
 		}
 		catch(Exception e) {
@@ -114,7 +117,7 @@ public class Controller {
 	
 	public void runApp(Page thisPage) {
 		
-		Log.setLevel(Level.DEBUG);
+		//Log.setLevel(Level.DEBUG);
 		
 		Log.debug("------Running page "+ thisPage.getName()+"-----------");
 		
@@ -143,18 +146,18 @@ public class Controller {
 			case NAVIGATE:
 				
 				String target = ((Navigate) thisAction).getTarget(); //get the target String of the page we're navigating to
-				
-				
+								
 				Page nextPage = new Page();
 				
 				try {
 					nextPage = siteMap.get(target);
+					runApp(nextPage); //run the new page
 				}
 				catch(Exception e) {
 					Log.fatal("Button points to target " + target + " which does not exist in siteMap");
 					//TODO something went wrong
 				}
-				runApp(nextPage); //run the new page
+				
 				break;
 		
 			case SETUSER:

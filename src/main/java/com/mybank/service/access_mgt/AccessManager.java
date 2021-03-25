@@ -13,5 +13,7 @@ public interface AccessManager {
 	public boolean verifyExists(String value, String column);
 	
 	public User enterForm(HashMap<String, String> formAnswers, String crudAction);
+
+	public User lookupUser(String column, String userLookup);
 	
 }

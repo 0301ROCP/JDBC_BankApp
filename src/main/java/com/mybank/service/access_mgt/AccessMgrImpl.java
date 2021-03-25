@@ -102,7 +102,6 @@ public class AccessMgrImpl implements AccessManager{
 		return exists;
 	}
 
-
 	
 	@Override
 	public User enterForm(HashMap<String, String> formAnswers, String crudAction) {
@@ -165,4 +164,41 @@ public class AccessMgrImpl implements AccessManager{
 		
 	}
 
+	@Override
+	public User lookupUser(String column, String userLookup) {
+		User toReturn = new User();
+		int upi = -1;
+		
+		switch(column) {
+		case "upi":
+			
+			try {
+				upi = Integer.parseInt(userLookup);
+				toReturn = userDao.selectUserByID(upi);
+			}
+			catch(Exception e) {
+				Log.info("Employee looked up invalid UPI " + userLookup);
+			}
+			
+			break;
+		
+		case "username":
+			
+			try {
+				toReturn = userDao.selectUserByUsername(userLookup);
+			}
+			catch(Exception e) {
+				Log.info("Employee looked up invalid username " + userLookup);
+			}
+			
+			break;
+		
+		default:
+			Log.error("Attempting to look up user by unknown attribute " + column);
+		}
+		
+		
+		
+		return toReturn;
+	}
 }

@@ -12,7 +12,7 @@ public interface AccountManager {
 	public void enterForm(HashMap<String, String> formAnswers, String crudAction);
 	public boolean closeAccount();
 	public ArrayList<Account> getThisUsersAccounts(User currentUser);
-	public void addToBalance(Account account, int cents);
+	public boolean addToBalance(Account account, int cents);
 	public ArrayList<Account> getPendingAccounts();
 	public void setAccountApproval(Account account, String status, User approver);
 	public void openAccount(Account account);

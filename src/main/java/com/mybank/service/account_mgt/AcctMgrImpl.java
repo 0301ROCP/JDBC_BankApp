@@ -2,10 +2,7 @@ package com.mybank.service.account_mgt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.Account;
@@ -14,7 +11,6 @@ import com.mybank.repository.accountdao.AccountDao;
 import com.mybank.repository.accountdao.AccountDaoImpl;
 import com.mybank.repository.userdao.UserDao;
 import com.mybank.repository.userdao.UserDaoImpl;
-import com.mybank.service.access_mgt.AccessManager;
 
 public class AcctMgrImpl implements AccountManager{
 	
@@ -123,12 +119,17 @@ public class AcctMgrImpl implements AccountManager{
 	}
 	
 	@Override
-	public void addToBalance(Account account, int cents) {
+	public boolean addToBalance(Account account, int cents) {
+		
+		boolean success = false;
+		
 		Account thisAccount = accountDao.selectAccountByAccountID(account.getAccountID());
 		int balanceCents = thisAccount.getBalanceCents();
 		int newBalance = balanceCents + cents;
 		
-		accountDao.updateAccountBalance(account.getAccountID(), newBalance);
+		success = accountDao.updateAccountBalance(account.getAccountID(), newBalance);
+		
+		return success;
 	}
 	
 	@Override
@@ -154,13 +155,15 @@ public class AcctMgrImpl implements AccountManager{
 		
 	}
 
-
 	
 	@Override
 	public void openAccount(Account account) {
 		accountDao.insertAccount(account);
 		
 	}
+
+
+	
 	
 }
 

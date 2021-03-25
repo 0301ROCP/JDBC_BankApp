@@ -2,6 +2,7 @@ package com.mybank.presentation.view;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import org.apache.log4j.Level;
@@ -10,9 +11,6 @@ import org.apache.log4j.Logger;
 import com.mybank.models.Account;
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
-import com.mybank.presentation.controller.operations.ValidateMoney;
-import com.mybank.repository.accountdao.AccountDaoImpl;
-import com.mybank.service.account_mgt.AcctMgrImpl;
 
 public class DepositWithdrawal extends Page{
 	
@@ -41,6 +39,8 @@ public class DepositWithdrawal extends Page{
 		//Display accounts		
 		ArrayList<Account> thisUsersAccounts = accountManager.getThisUsersAccounts(currentUser); //ask Account Manager for all of this user's accounts
 				
+		Log.debug("# of accounts for this user: " + thisUsersAccounts.size());
+		
 		int accountCount = 0;
 		HashMap<String, Account> accountChoices = new HashMap<String, Account>();
 		Account chosenAccount = new Account();
@@ -52,17 +52,12 @@ public class DepositWithdrawal extends Page{
 			boolean approved = false;
 			
 			try {
-				balance = account.getBalanceCents()/100; //TODO pad 0's
+				balance = ((double) account.getBalanceCents())/100; //TODO pad 0's
 			}
 			catch(Exception e) {
 				Log.error("Something wrong with this account!! It has no balance."); //TODO
 			}
-			
-			String accountStatus = account.getStatus();
-			if(accountStatus == null) { //TODO this isn't great; should set status to pending when account is first applied for, but that's hard to fix with the formBlock
-				accountDao.updateApprovalStatus(account.getAccountID(),"pending");
-			}
-			
+						
 			try {
 				approved = account.getStatus().equals("approved") && account.isOpen(); //account must be approved and open
 			}
@@ -106,44 +101,41 @@ public class DepositWithdrawal extends Page{
 					valid = true;
 				}
 				else {
-					
+					System.out.println("That's not a valid selection. Please try again.");
 				}
 			}
 			
-			ValidateMoney validator = new ValidateMoney();
-			String amount = null;
-			
+			String amount = null;		
 			
 			switch(choice) {
 			case "W":
 				
-				System.out.println("How much would you like to withdraw?");
-				
+				System.out.println("How much would you like to withdraw?");				
 				break;
+				
 			case "D":
 				
 				System.out.println("How much would you like to deposit?");
-
 				break;
 			
 			default:
-				Log.fatal("How did you even get here? That shouldn't be possible.");
+				Log.fatal("How did you even get here? That shouldn't be possible."); //TODO something went wrong
+				break;
 			}
 			
-			
-			
+				
 			boolean validResponse = false;
 			
 			while(!validResponse) {
 			
-				amount = sc.nextLine();
+				amount = sc.nextLine();				
+				moneyValidator.setUserAnswer(amount);
 				
-				validator.setUserAnswer(amount);
-				if(validator.run()) {
+				if(moneyValidator.run()) {
 					
 					if(choice.equals("W")) {
 						
-						if(chosenAccount.getBalanceCents() >= (int) Double.parseDouble(amount)*100) {
+						if(chosenAccount.getBalanceCents() >= (int) (Double.parseDouble(amount)*100)) {
 							validResponse = true;
 						}
 						else {
@@ -160,20 +152,25 @@ public class DepositWithdrawal extends Page{
 				}
 			}
 			
-			int toAdd = (int) Double.parseDouble(amount)*100;
+			int toAdd = (int) (Double.parseDouble(amount)*100);
 			
 			if(choice.equals("W")) {
 				toAdd = toAdd * -1;
 			}
 			
+			boolean success = accountManager.addToBalance(chosenAccount, toAdd);
 			
-			accountManager.addToBalance(chosenAccount, toAdd);
-			
-			System.out.println("Success!");
+			if(success) {
+				System.out.println("Success!");
+			}
+			else {
+				System.out.println("Something went wrong!");
+				Log.error("Failed to update account balance for account " + chosenAccount + " toAdd = " + toAdd);
+			}
 
 		}
 		
-		Queue<Action> actionQueue = null; //may need to add actions for back and create account
+		Queue<Action> actionQueue = new LinkedList<Action>(); //may need to add actions for back and create account
 
 		clear(); //clear the console
 		
