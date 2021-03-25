@@ -30,7 +30,7 @@ public class ViewAccounts extends Page{
 	
 	public Queue<Action> run(User currentUser){
 		
-		Log.setLevel(Level.DEBUG);
+		//Log.setLevel(Level.DEBUG);
 		
 		//--------Select lookup method
 		

@@ -32,5 +32,27 @@ drop table accounts;
 
 select * from accounts;
 
-alter table accounts alter status set not null;
+
+create TABLE transfers(
+	transfer_id serial primary key,
+	transfer_sender int references users (upi),
+	transfer_receiver int references users (upi),
+	amount_in_cents int default 0,
+	accepted boolean default false,
+	memo varchar(30),
+	date_created date,
+	notified_sender boolean default false,
+	sender_account int references accounts (account_id),
+	receiver_account int references accounts (account_id)
+);
+
+drop table transfers;
+
+select * from transfers;
+
+alter table transfers add receiver_account int references accounts (account_id);
+
+update accounts set primary_owner = 1 where account_id = 12;
+
+insert into transfers (transfer_sender, transfer_receiver, amount_in_cents, accepted, memo, date_created, notified_sender
 

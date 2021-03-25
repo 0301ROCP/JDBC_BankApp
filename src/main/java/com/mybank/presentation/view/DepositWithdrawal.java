@@ -48,11 +48,11 @@ public class DepositWithdrawal extends Page{
 		for(Account account: thisUsersAccounts) { //print accounts and create selection menu
 			Log.debug(account);
 			
-			double balance = 0;
+			String balanceDollarString = null;
 			boolean approved = false;
 			
 			try {
-				balance = ((double) account.getBalanceCents())/100; //TODO pad 0's
+				balanceDollarString = formatMoney.format(((double) account.getBalanceCents())/100); //TODO pad 0's
 			}
 			catch(Exception e) {
 				Log.error("Something wrong with this account!! It has no balance."); //TODO
@@ -65,14 +65,14 @@ public class DepositWithdrawal extends Page{
 				Log.error("Something wrong with approval status on this account"); //TODO
 			}
 			
-			if(approved) {
+			if(approved && !(balanceDollarString == null)) {
 				
 				accountCount++;
 				accountChoices.put(String.valueOf(accountCount), account); //this is the selection menu
 				
 				System.out.print("("+accountCount+") ");				
 				System.out.print(account.getAccountType() + " Account '" + account.getNickname() + "': ");
-				System.out.print("Current Balance = " + balance + "  ");
+				System.out.print("Current Balance = " + balanceDollarString + "  ");
 				System.out.println();				
 			}			
 		}
@@ -84,16 +84,24 @@ public class DepositWithdrawal extends Page{
 		}
 		
 		else {
-
-			System.out.println("Select the number corresponding to the account you'd like to deposit to/withdraw from");
-			String selection = sc.nextLine();
-			chosenAccount = accountChoices.get(selection);
+			boolean valid = false;
+			while(!valid) {
+				System.out.println("Select the number corresponding to the account you'd like to deposit to/withdraw from");
+				String selection = sc.nextLine();
+				chosenAccount = accountChoices.get(selection); 
+				if(chosenAccount != null) {
+					valid = true;
+				}
+				else {
+					System.out.println("That's not a valid selection. Please try again.");
+				}
+			}
 			
 			System.out.println("Would you like to make a withdrawal or a deposit?");
 			System.out.println("(W) Withdrawal");
 			System.out.println("(D) Deposit");
 			
-			boolean valid = false;
+			valid = false;
 			String choice = null;
 			while(!valid) {
 				choice = sc.nextLine().toUpperCase();

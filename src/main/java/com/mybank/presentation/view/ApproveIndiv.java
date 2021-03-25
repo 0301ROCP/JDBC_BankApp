@@ -81,12 +81,5 @@ public class ApproveIndiv extends Page{
 		
 		return actionQueue; //return the target of the button
 	}
-//
-//	
-//	@Override
-//	public Queue<Action> run(User currentUser) { //this is just to make sure we don't accidentally use the parent run()
-//		Log.fatal("Entered wrong ApproveIndiv run() method");
-//		return null;
-//		
-//	}
+
 }

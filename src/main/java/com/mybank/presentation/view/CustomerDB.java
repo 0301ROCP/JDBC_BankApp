@@ -3,18 +3,15 @@ package com.mybank.presentation.view;
 import java.util.ArrayList;
 import java.util.Queue;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.Account;
+import com.mybank.models.Transfer;
 import com.mybank.models.User;
 import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.actions.Navigate;
 import com.mybank.presentation.models.Button;
-import com.mybank.presentation.models.FormBlock;
 import com.mybank.presentation.models.MenuBlock;
-import com.mybank.repository.accountdao.AccountDaoImpl;
-import com.mybank.service.account_mgt.AcctMgrImpl;
 
 public class CustomerDB extends Page{
 	
@@ -35,8 +32,13 @@ public class CustomerDB extends Page{
 				new Navigate("CustomerDB")
 				));
 		
-		((MenuBlock) this.interactionBlock).addButton("T", "Transfer", Button.makeActionQueue(
-				new Navigate("Transfer"),
+		((MenuBlock) this.interactionBlock).addButton("T", "Make A New Transfer", Button.makeActionQueue(
+				new Navigate("MakeTransfer"),
+				new Navigate("CustomerDB")
+				));
+		
+		((MenuBlock) this.interactionBlock).addButton("R", "View Pending Transfer Requests", Button.makeActionQueue(
+				new Navigate("ApproveTransfers"),
 				new Navigate("CustomerDB")
 				));
 		
@@ -61,10 +63,21 @@ public class CustomerDB extends Page{
 		//Header:
 		System.out.println("Welcome Back " + currentUser.getFirstName() + "!");
 		System.out.println();
-		System.out.println("Your Accounts:");
+		
+		
+		
+		//Check for pending transfers:
+		
+		ArrayList<Transfer> myTransferReqs = transferManager.getReceivedTransferReqs(currentUser);
+		if(myTransferReqs.size()>0) { //if this user has pending inbound transfers
+			System.out.println("You have new transfer requests to view!");
+			System.out.println();
+		}
+		
 		
 		//Display accounts:
 		
+		System.out.println("Your Accounts:");
 		ArrayList<Account> thisUsersAccounts = accountManager.getThisUsersAccounts(currentUser); //ask Account Manager for all of this user's accounts
 		Log.debug("User's accounts:" + thisUsersAccounts);
 		

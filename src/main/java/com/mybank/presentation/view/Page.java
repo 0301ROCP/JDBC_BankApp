@@ -13,9 +13,11 @@ import com.mybank.presentation.controller.actions.Action;
 import com.mybank.presentation.controller.operations.ValidateMoney;
 import com.mybank.presentation.models.InteractionBlock;
 import com.mybank.repository.accountdao.AccountDaoImpl;
+import com.mybank.repository.transferDao.TransferDaoImpl;
 import com.mybank.repository.userdao.UserDaoImpl;
 import com.mybank.service.access_mgt.AccessMgrImpl;
 import com.mybank.service.account_mgt.AcctMgrImpl;
+import com.mybank.service.transfer_mgt.TransferManagerImpl;
 
 
 
@@ -30,8 +32,10 @@ public class Page {
 	protected static Scanner sc = new Scanner(System.in);
 	protected static UserDaoImpl userDao = new UserDaoImpl();
 	protected static AccountDaoImpl accountDao = new AccountDaoImpl();
+	protected static TransferDaoImpl transferDao = new TransferDaoImpl();
 	protected static AcctMgrImpl accountManager = new AcctMgrImpl(accountDao);
 	protected static AccessMgrImpl accessManager = new AccessMgrImpl(userDao);
+	protected static TransferManagerImpl transferManager = new TransferManagerImpl(transferDao);
 	
 	protected static ValidateMoney moneyValidator = new ValidateMoney();
 	protected static DecimalFormat formatMoney = new DecimalFormat("#.00");

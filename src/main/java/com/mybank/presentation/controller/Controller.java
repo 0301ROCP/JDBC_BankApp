@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Queue;
 import java.util.Stack;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.mybank.models.User;
@@ -21,10 +20,13 @@ import com.mybank.presentation.view.EmployeeDB;
 import com.mybank.presentation.view.Guest;
 import com.mybank.presentation.view.Login;
 import com.mybank.presentation.view.Logout;
+import com.mybank.presentation.view.MakeTransfer;
 import com.mybank.presentation.view.Page;
 import com.mybank.presentation.view.SelectAccounts;
 import com.mybank.presentation.view.Signup;
-import com.mybank.presentation.view.Transfer;
+import com.mybank.presentation.view.TransferApprove;
+import com.mybank.presentation.view.TransferExternal;
+import com.mybank.presentation.view.TransferInternal;
 import com.mybank.presentation.view.ViewAccounts;
 import com.mybank.presentation.view.Welcome;
 
@@ -61,11 +63,14 @@ public class Controller {
 			Page createCheckingPage = new CreateAccount("CreateChecking","Set Up Your Checking Account");
 			Page selectAccountsPage = new SelectAccounts();
 			Page depositWithdrawalPage = new DepositWithdrawal();
-			Page transferPage = new Transfer();
+			Page transferPage = new MakeTransfer();
 			
 			Page accountApprove = new ApproveMain();
 			Page approveIndiv = new ApproveIndiv();
 			Page viewAccounts = new ViewAccounts();
+			Page transferExternal = new TransferExternal();
+			Page transferInternal = new TransferInternal();
+			Page approveTransfers = new TransferApprove();
 			
 			
 			siteMap.put("Welcome",welcomePage);
@@ -81,11 +86,14 @@ public class Controller {
 			siteMap.put("CreateChecking", createCheckingPage);
 			siteMap.put("SelectAccounts", selectAccountsPage);
 			siteMap.put("DepositWithdrawal", depositWithdrawalPage);
-			siteMap.put("Transfer", transferPage);
+			siteMap.put("MakeTransfer", transferPage);
 			
 			siteMap.put("ApproveMain", accountApprove);
 			siteMap.put("ApproveIndiv", approveIndiv);
 			siteMap.put("ViewAccounts", viewAccounts);
+			siteMap.put("TransferExternal", transferExternal);
+			siteMap.put("TransferInternal", transferInternal);
+			siteMap.put("ApproveTransfers", approveTransfers);
 			
 		}
 		catch(Exception e) {
@@ -124,7 +132,7 @@ public class Controller {
 		
 		//print this page and give me a queue of actions to do next
 		Log.debug("Current user: "+currentUser);
-		Log.debug("This page: "+thisPage);
+		//Log.debug("This page: "+thisPage);
 		
 		history.push(thisPage); //add the current page to the history stack
 		Log.debug("Add " + thisPage + " to history stack");
@@ -151,10 +159,15 @@ public class Controller {
 				
 				try {
 					nextPage = siteMap.get(target);
-					runApp(nextPage); //run the new page
+					try {
+						runApp(nextPage); //run the new page
+					}
+					catch(Exception e) {
+						Log.error("Failed to run next page " + nextPage);
+					}
 				}
 				catch(Exception e) {
-					Log.fatal("Button points to target " + target + " which does not exist in siteMap");
+					Log.error("Button points to target " + target + " which does not exist in siteMap");
 					//TODO something went wrong
 				}
 				
